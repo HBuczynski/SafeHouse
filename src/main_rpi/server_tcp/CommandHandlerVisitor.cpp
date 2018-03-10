@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+#include <GPIO.h>
+
 using namespace std;
 using namespace utility;
 using namespace communication;
@@ -17,6 +19,8 @@ CommandHandlerVisitor::CommandHandlerVisitor()
 
 CommandHandlerVisitor::~CommandHandlerVisitor()
 {}
+
+
 
 void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
 {
@@ -34,6 +38,11 @@ void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
     clientUDPManager_->insertNewClient(make_pair((newClient), currentClient_->getID()));*/
 
     cout << "BlindsDOWNOnTimeCommand" << endl;
+
+    GPIO diode;
+    diode.setMode(16, PI_OUTPUT, PI_PUD_OFF);
+    diode.init();
+    diode.pinWrite(1);
 
     response_ = make_unique<DataResponse>("OK");
 }

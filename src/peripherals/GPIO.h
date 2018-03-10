@@ -14,6 +14,7 @@ public:
     virtual ~GPIO() = default;
     virtual bool init() const;
     virtual bool setMode(uint8_t pinNumber_, uint8_t pinMode_, uint8_t pushPullMode_);
+    virtual void pinWrite(int state);
 
 protected:
     //BCM Pin number:

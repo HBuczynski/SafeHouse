@@ -19,3 +19,8 @@ bool GPIO::setMode(uint8_t pinNumber_, uint8_t pinMode_, uint8_t pushPullMode_)
     pinMode = pinMode_;
     pushPullMode = pushPullMode_;
 }
+
+void GPIO::pinWrite(int state)
+{
+    gpioWrite(pinNumber, state);
+};
