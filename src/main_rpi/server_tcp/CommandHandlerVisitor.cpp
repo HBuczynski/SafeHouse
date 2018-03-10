@@ -31,8 +31,11 @@ void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
         logger_.writeLog(LogType::INFORMATION_LOG, message);
     }
 
-    clientUDPManager_->insertNewClient(make_pair((newClient), currentClient_->getID()));
-    response_ = make_unique<DataResponse>("OK");*/
+    clientUDPManager_->insertNewClient(make_pair((newClient), currentClient_->getID()));*/
+
+    cout << "BlindsDOWNOnTimeCommand" << endl;
+
+    response_ = make_unique<DataResponse>("OK");
 }
 
 void CommandHandlerVisitor::visit(BlindsUPOnTimeCommand &command)
@@ -45,36 +48,37 @@ void CommandHandlerVisitor::visit(BlindsUPOnTimeCommand &command)
         logger_.writeLog(LogType::INFORMATION_LOG, message);
     }
 
-    //clientUDPManager_->removeClient(currentClient_->getID());
-    currentClient_->stopListen();
+    cout << "BlindsUPOnTimeCommand" << endl;;
 
     response_ = make_unique<DataResponse>("OK");
 }
 
 void CommandHandlerVisitor::visit(BlindsUPCommand &command)
 {
-    if(logger_.isInformationEnable())
-    {
-        const string message = string("CommandHandler :: Received BlindsUPCommand from ClientID -") +
-                         to_string(currentClient_->getID())
-                         + string("-.");
-        logger_.writeLog(LogType::INFORMATION_LOG, message);
-    }
+    cout << "BlindsUPCommand" << endl;;
+
+    response_ = make_unique<DataResponse>("OK");
 }
 
 void CommandHandlerVisitor::visit(BlindsDOWNCommand &command)
 {
+    cout << "BlindsDOWNCommand" << endl;;
 
+    response_ = make_unique<DataResponse>("OK");
 }
 
 void CommandHandlerVisitor::visit(BlindsStatusCommand &command)
 {
+    cout << "BlindsStatusCommand" << endl;;
 
+    response_ = make_unique<DataResponse>("OK");
 }
 
 void CommandHandlerVisitor::visit(AutomaticBlindsCommand &command)
 {
+    cout << "AutomaticBlindsCommand" << endl;;
 
+    response_ = make_unique<DataResponse>("OK");
 }
 
 unique_ptr<Response> CommandHandlerVisitor::getResponse()
