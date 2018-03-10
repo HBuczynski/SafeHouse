@@ -44,6 +44,7 @@ add_subdirectory("src/main_rpi/communication_manager_rpi"               communic
 add_subdirectory("src/main_client"                                      main_client                     )
 add_subdirectory("src/main_client/client_tcp"                           client_tcp                      )
 add_subdirectory("src/main_client/communication_manager_client"         communication_manager_client    )
+add_subdirectory("src/peripherals"                                      peripherals                     )
 
 ########################################################################################################
 #                                           ADDING DOXYGEN GENERATION                                  #
