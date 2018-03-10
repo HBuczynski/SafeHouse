@@ -39,11 +39,13 @@ void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
 
     cout << "BlindsDOWNOnTimeCommand" << endl;
 
+    gpioInitialise();
+
     GPIO diode;
     diode.setMode(16, PI_OUTPUT, PI_PUD_OFF);
     diode.init();
     diode.pinWrite(1);
-
+    
     response_ = make_unique<DataResponse>("OK");
 }
 
