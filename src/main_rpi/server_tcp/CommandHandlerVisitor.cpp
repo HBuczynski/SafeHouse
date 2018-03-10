@@ -77,6 +77,8 @@ void CommandHandlerVisitor::visit(BlindsDOWNCommand &command)
 
     gpioDelay(5000000);
 
+    diode.pinWrite(0);
+
     response_ = make_unique<DataResponse>("DUPA");
 }
 
