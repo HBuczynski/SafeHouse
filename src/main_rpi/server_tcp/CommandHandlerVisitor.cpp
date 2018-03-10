@@ -39,11 +39,6 @@ void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
 
     cout << "BlindsDOWNOnTimeCommand" << endl;
 
-    GPIO diode;
-    diode.setMode(16, PI_OUTPUT, PI_PUD_OFF);
-    diode.init();
-    diode.pinWrite(1);
-
     response_ = make_unique<DataResponse>("OK");
 }
 
@@ -73,7 +68,18 @@ void CommandHandlerVisitor::visit(BlindsDOWNCommand &command)
 {
     cout << "BlindsDOWNCommand" << endl;;
 
-    response_ = make_unique<DataResponse>("OK");
+    gpioInitialise();
+
+    GPIO diode;
+    diode.setMode(16, PI_OUTPUT, PI_PUD_OFF);
+    diode.init();
+    diode.pinWrite(1);
+
+    gpioDelay(5000000);
+
+    diode.pinWrite(0);
+
+    response_ = make_unique<DataResponse>("DUPA");
 }
 
 void CommandHandlerVisitor::visit(BlindsStatusCommand &command)
