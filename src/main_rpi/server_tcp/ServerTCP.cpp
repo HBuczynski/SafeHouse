@@ -18,9 +18,7 @@ ServerTCP::ServerTCP(uint16_t port,  uint8_t maxClientNumber)
           maxClientNumber_(maxClientNumber),
           runUserActivation_(false),
           logger_(Logger::getInstance())
-{
-    //clientUDPManager_ = make_shared<ClientUDPManager>();
-}
+{}
 
 ServerTCP::~ServerTCP()
 {
@@ -65,7 +63,7 @@ void ServerTCP::activateUsers()
         if(clientList_.size() < maxClientNumber_)
         {
             //Wait on new users.
-            /*auto client = make_unique<ClientThreadTCP>(move(serverSocket.acceptUsers()),clientUDPManager_);
+            auto client = make_unique<ClientThreadTCP>(move(serverSocket.acceptUsers()));
 
             if(logger_.isInformationEnable())
             {
@@ -75,9 +73,9 @@ void ServerTCP::activateUsers()
             client->setID(clientID);
             client->startListen();
 
-            //Assign new client_udp to the vector.
+            //Assign new client_tcp to the vector.
             clientList_.push_back(move(client));
-            ++clientID;*/
+            ++clientID;
         }
     }
 }

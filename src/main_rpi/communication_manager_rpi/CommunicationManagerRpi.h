@@ -10,11 +10,11 @@
 
 namespace communication
 {
-    class CommunicationManagerFeeder
+    class CommunicationManagerRpi
     {
     public:
-        CommunicationManagerFeeder(uint16_t serverPort, uint8_t maxUserNumber);
-        ~CommunicationManagerFeeder();
+        CommunicationManagerRpi(uint16_t serverPort, uint8_t maxUserNumber);
+        ~CommunicationManagerRpi();
 
         void initialize();
 

@@ -21,21 +21,20 @@ namespace communication
         std::string destinationAddressTCP;
     };
 
-    class CommunicationManagerUI
+    class CommunicationManagerClient
     {
     public:
-        CommunicationManagerUI(CommunicationParameters parameters);
-        ~CommunicationManagerUI();
+        CommunicationManagerClient(CommunicationParameters parameters);
+        ~CommunicationManagerClient();
 
-        void initializeServer();
         void initializeClientConnection();
 
+        // Only for testing purposes.
         void sendCommands();
 
     private:
         CommunicationParameters parameters_;
 
-        //std::unique_ptr<ServerUDP> server_;
         std::unique_ptr<ClientTCP> client_;
     };
 }

@@ -1,15 +1,15 @@
-#ifndef AHRS_CALIBRATEMAGNETOMETERBUILDER_H
-#define AHRS_CALIBRATEMAGNETOMETERBUILDER_H
+#ifndef BLINDS_UP_BUILDER_H
+#define BLINDS_UP_BUILDER_H
 
 #include "CommandBuilder.h"
 
 namespace communication
 {
-    class CalibrateMagnetometerBuilder final : public CommandBuilder
+    class BlindsUPBuilder final : public CommandBuilder
     {
     public:
-        CalibrateMagnetometerBuilder();
-        ~CalibrateMagnetometerBuilder();
+        BlindsUPBuilder();
+        ~BlindsUPBuilder();
 
         std::unique_ptr<Command> create(const std::vector<uint8_t> &commandInBytes) override;
 

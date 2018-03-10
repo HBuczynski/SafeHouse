@@ -8,10 +8,9 @@ using namespace std;
 using namespace utility;
 using namespace communication;
 
-ClientThreadTCP::ClientThreadTCP(unique_ptr<SendStreamTCP> socket)//, shared_ptr<ClientUDPManager> clientUDPManager)
+ClientThreadTCP::ClientThreadTCP(unique_ptr<SendStreamTCP> socket)
     : runListenThread_(false),
       socket_(std::move(socket)),
-      //clientUDPManager_(clientUDPManager),
       logger_(Logger::getInstance())
 {
     initializeCommandHandler();
@@ -24,7 +23,6 @@ ClientThreadTCP::~ClientThreadTCP()
 
 void ClientThreadTCP::initializeCommandHandler()
 {
-    //commandHandler_.initializeClientUDPManager(clientUDPManager_);
     commandHandler_.initializeCurrentClient(this);
 }
 

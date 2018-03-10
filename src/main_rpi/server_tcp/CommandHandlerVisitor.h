@@ -17,20 +17,19 @@ namespace communication
         CommandHandlerVisitor();
         ~CommandHandlerVisitor();
 
-        virtual void visit(InitConnectionCommand& command) override;
-        virtual void visit(EndConnectionCommand& command) override;
-        virtual void visit(CallibrateMagnetometerCommand& command) override;
-        virtual void visit(CollectDataCommand& command) override;
-        virtual void visit(SetPlaneMagnetometerCommand& command) override;
+        virtual void visit(BlindsDOWNOnTimeCommand& command) override;
+        virtual void visit(BlindsUPOnTimeCommand& command) override;
+        virtual void visit(BlindsUPCommand& command) override;
+        virtual void visit(BlindsDOWNCommand& command) override;
+        virtual void visit(BlindsStatusCommand& command) override;
+        virtual void visit(AutomaticBlindsCommand& command) override;
 
-        //void initializeClientUDPManager(std::shared_ptr<ClientUDPManager> clientUDPManager);
         void initializeCurrentClient(ClientThreadTCP *client);
 
         std::unique_ptr<Response> getResponse();
 
     private:
         ClientThreadTCP *currentClient_;
-        //std::shared_ptr<ClientUDPManager> clientUDPManager_;
 
         std::unique_ptr<Response> response_;
 

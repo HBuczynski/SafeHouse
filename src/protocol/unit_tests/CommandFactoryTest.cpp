@@ -4,11 +4,11 @@
 #include <boost/test/unit_test.hpp>
 
 #include "../CommandFactory.h"
-#include "../CallibrateMagnetometerCommand.h"
-#include "../CollectDataCommand.h"
-#include "../EndConnectionCommand.h"
-#include "../InitConnectionCommand.h"
-#include "../SetPlaneMagnetometerCommand.h"
+#include "protocol/BlindsUPCommand.h"
+#include "protocol/BlindsDOWNCommand.h"
+#include "protocol/BlindsUPOnTimeCommand.h"
+#include "protocol/BlindsDOWNOnTimeCommand.h"
+#include "protocol/BlindsStatusCommand.h"
 
 using namespace std;
 using namespace communication;
@@ -18,14 +18,9 @@ BOOST_AUTO_TEST_SUITE( factory )
     BOOST_AUTO_TEST_CASE( calibrateMagnetometerBuilder )
     {
         CommandFactory factory;
-        string planeName = "temp";
-        CallibrateMagnetometerCommand command(planeName);
+        BlindsUPCommand command;
 
-        int *a = new int[10];
-        a[0] = 1;
-
-        auto commandFromVec = static_pointer_cast<CallibrateMagnetometerCommand, Command>(factory.createCommand(command.getFrameBytes()));
-        BOOST_CHECK( commandFromVec->getNewPlaneName() == command.getNewPlaneName());
+        auto commandFromVec = static_pointer_cast<BlindsUPCommand, Command>(factory.createCommand(command.getFrameBytes()));
         BOOST_CHECK( commandFromVec->getFrameBytes() == command.getFrameBytes());
         BOOST_CHECK( commandFromVec->getCommandType() == command.getCommandType());
         BOOST_CHECK( 1 == commandFromVec->getSystemVersion());
@@ -36,9 +31,9 @@ BOOST_AUTO_TEST_SUITE( factory )
     BOOST_AUTO_TEST_CASE( collectDataBuilder )
     {
         CommandFactory factory;
-        CollectDataCommand command;
+        BlindsDOWNCommand command;
 
-        auto commandFromVec = static_pointer_cast<CollectDataCommand, Command>(factory.createCommand(command.getFrameBytes()));
+        auto commandFromVec = static_pointer_cast<BlindsDOWNCommand, Command>(factory.createCommand(command.getFrameBytes()));
 
         BOOST_CHECK( commandFromVec->getFrameBytes() == command.getFrameBytes());
         BOOST_CHECK( commandFromVec->getCommandType() == command.getCommandType());
@@ -50,10 +45,12 @@ BOOST_AUTO_TEST_SUITE( factory )
     BOOST_AUTO_TEST_CASE( endConnectionBuilder )
     {
         CommandFactory factory;
-        EndConnectionCommand command;
+        uint32_t epochTime = 3546732;
+        BlindsUPOnTimeCommand command(epochTime);
 
-        auto commandFromVec = static_pointer_cast<EndConnectionCommand, Command>(factory.createCommand(command.getFrameBytes()));
+        auto commandFromVec = static_pointer_cast<BlindsUPOnTimeCommand, Command>(factory.createCommand(command.getFrameBytes()));
 
+        BOOST_CHECK( commandFromVec->getEpochDateAndTime() == command.getEpochDateAndTime());
         BOOST_CHECK( commandFromVec->getFrameBytes() == command.getFrameBytes());
         BOOST_CHECK( commandFromVec->getCommandType() == command.getCommandType());
         BOOST_CHECK( 1 == commandFromVec->getSystemVersion());
@@ -64,14 +61,12 @@ BOOST_AUTO_TEST_SUITE( factory )
     BOOST_AUTO_TEST_CASE( initConnectionBuilder )
     {
         CommandFactory factory;
-        uint16_t port = 5678;
-        string address("127.0.0.1");
-        InitConnectionCommand command(port, address);
+        uint32_t epochTime = 3546732;
+        BlindsDOWNOnTimeCommand command(epochTime);
 
-        auto commandFromVec = static_pointer_cast<InitConnectionCommand, Command>(factory.createCommand(command.getFrameBytes()));
+        auto commandFromVec = static_pointer_cast<BlindsDOWNOnTimeCommand, Command>(factory.createCommand(command.getFrameBytes()));
 
-        BOOST_CHECK( commandFromVec->getPort() == command.getPort());
-        BOOST_CHECK( commandFromVec->getAddress() == command.getAddress());
+        BOOST_CHECK( commandFromVec->getEpochDateAndTime() == command.getEpochDateAndTime());
         BOOST_CHECK( commandFromVec->getFrameBytes() == command.getFrameBytes());
         BOOST_CHECK( commandFromVec->getCommandType() == command.getCommandType());
         BOOST_CHECK( 1 == commandFromVec->getSystemVersion());
@@ -82,12 +77,10 @@ BOOST_AUTO_TEST_SUITE( factory )
     BOOST_AUTO_TEST_CASE( setPlaneMagnetometerBuilder )
     {
         CommandFactory factory;
-        string planeName = "temp";
-        SetPlaneMagnetometerCommand command(planeName);
+        BlindsStatusCommand command;
 
-        auto commandFromVec = static_pointer_cast<SetPlaneMagnetometerCommand, Command>(factory.createCommand(command.getFrameBytes()));
+        auto commandFromVec = static_pointer_cast<BlindsStatusCommand, Command>(factory.createCommand(command.getFrameBytes()));
 
-        BOOST_CHECK( commandFromVec->getPlaneName() == command.getPlaneName());
         BOOST_CHECK( commandFromVec->getFrameBytes() == command.getFrameBytes());
         BOOST_CHECK( commandFromVec->getCommandType() == command.getCommandType());
         BOOST_CHECK( 1 == commandFromVec->getSystemVersion());

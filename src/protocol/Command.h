@@ -9,11 +9,16 @@ namespace communication
 
     enum CommandType : uint8_t
     {
-        INIT_CONNECTION = 10,
-        CALIBRATE_MAGNETOMETER = 20,
-        SET_PLANE_MAGNETOMETER_DATA = 30,
-        COLLECT_DATA = 40,
-        END_CONNECTION = 50
+        BLINDS_UP = 5,
+        BLINDS_DOWN = 10,
+        BLINDS_UP_ON_TIME = 15,
+        BLINDS_DOWN_ON_TIME = 20,
+        BLINDS_STATUS = 25,
+        AUTOMATIC_BLINDS = 30,
+        TEMPERATURE_DEMAND = 35,
+        USER_OUT_OF_HOME = 40,
+        SNAPSHOT = 45
+
     };
 
     class Command : public Frame

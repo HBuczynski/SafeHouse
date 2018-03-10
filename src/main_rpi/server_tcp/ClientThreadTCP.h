@@ -1,5 +1,5 @@
-#ifndef AHRS_BLACK_BOX_CLIENTTHREADTCP_H
-#define AHRS_BLACK_BOX_CLIENTTHREADTCP_H
+#ifndef CLIENTTHREADTCP_H
+#define CLIENTTHREADTCP_H
 
 #include <packet/SendStreamTCP.h>
 #include <protocol/CommandFactory.h>
@@ -15,7 +15,7 @@ namespace communication
     class ClientThreadTCP
     {
     public:
-        ClientThreadTCP(std::unique_ptr<SendStreamTCP> socket);//, std::shared_ptr<ClientUDPManager> clientUDPManager);
+        ClientThreadTCP(std::unique_ptr<SendStreamTCP> socket);
         ~ClientThreadTCP();
 
        void initializeCommandHandler();
@@ -36,7 +36,6 @@ namespace communication
         std::unique_ptr<SendStreamTCP> socket_;
         uint32_t id_;
 
-        //std::shared_ptr<ClientUDPManager> clientUDPManager_;
         CommandFactory commandFactory_;
         CommandHandlerVisitor commandHandler_;
 
@@ -44,4 +43,4 @@ namespace communication
 
     };
 }
-#endif //AHRS_BLACK_BOX_CLIENTTHREADTCP_H
+#endif

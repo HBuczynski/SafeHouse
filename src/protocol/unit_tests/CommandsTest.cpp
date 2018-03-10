@@ -3,88 +3,79 @@
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
 
-#include "../CallibrateMagnetometerCommand.h"
-#include "../CollectDataCommand.h"
-#include "../EndConnectionCommand.h"
-#include "../InitConnectionCommand.h"
-#include "../SetPlaneMagnetometerCommand.h"
-
-#include <string>
+#include "protocol/BlindsUPCommand.h"
+#include "protocol/BlindsDOWNCommand.h"
+#include "protocol/BlindsUPOnTimeCommand.h"
+#include "protocol/BlindsDOWNOnTimeCommand.h"
+#include "protocol/BlindsStatusCommand.h"
 
 using namespace std;
 using namespace communication;
 
 BOOST_AUTO_TEST_SUITE( commands )
 
-    BOOST_AUTO_TEST_CASE( calibrateMagnetometerCommand )
+    BOOST_AUTO_TEST_CASE( blindsUpCommand )
     {
-        string planeName = "temp";
-
-        CallibrateMagnetometerCommand command(planeName);
+        BlindsUPCommand command;
         command.getFrameBytes();
 
-        BOOST_CHECK( planeName == command.getNewPlaneName());
         BOOST_CHECK( FrameType::COMMAND == command.getFrameType());
-        BOOST_CHECK( CommandType::CALIBRATE_MAGNETOMETER == command.getCommandType());
+        BOOST_CHECK( CommandType::BLINDS_UP == command.getCommandType());
         BOOST_CHECK( 1 == command.getSystemVersion());
-        BOOST_CHECK( (planeName.size()+ sizeof(END_STRING_IN_FRAME) + sizeof(CommandType::CALIBRATE_MAGNETOMETER)) == command.getDataSize());
-        BOOST_CHECK( "CallibrateMagnetometerCommand" == command.getName());
+        BOOST_CHECK( sizeof(CommandType::BLINDS_UP) == command.getDataSize());
+        BOOST_CHECK( "BlindsUPCommand" == command.getName());
     }
 
-    BOOST_AUTO_TEST_CASE( collectDataCommand )
+    BOOST_AUTO_TEST_CASE( blindsDownCommand )
     {
-        CollectDataCommand command;
+        BlindsDOWNCommand command;
         command.getFrameBytes();
 
         BOOST_CHECK( FrameType::COMMAND == command.getFrameType());
-        BOOST_CHECK( CommandType::COLLECT_DATA == command.getCommandType());
+        BOOST_CHECK( CommandType::BLINDS_DOWN == command.getCommandType());
         BOOST_CHECK( 1 == command.getSystemVersion());
-        BOOST_CHECK( (sizeof(CommandType::COLLECT_DATA)) == command.getDataSize());
-        BOOST_CHECK( "CollectDataCommand" == command.getName());
+        BOOST_CHECK( (sizeof(CommandType::BLINDS_DOWN)) == command.getDataSize());
+        BOOST_CHECK( "BlindsDOWNCommand" == command.getName());
     }
 
-    BOOST_AUTO_TEST_CASE( endConnectionCommand )
+    BOOST_AUTO_TEST_CASE( blindsUpOnTimeCommand )
     {
-        EndConnectionCommand command;
+        uint32_t epochTime = 3546732;
+        BlindsUPOnTimeCommand command(epochTime);
         command.getFrameBytes();
 
+        BOOST_CHECK( epochTime == command.getEpochDateAndTime());
         BOOST_CHECK( FrameType::COMMAND == command.getFrameType());
-        BOOST_CHECK( CommandType::END_CONNECTION == command.getCommandType());
+        BOOST_CHECK( CommandType::BLINDS_UP_ON_TIME == command.getCommandType());
         BOOST_CHECK( 1 == command.getSystemVersion());
-        BOOST_CHECK( (sizeof(CommandType::END_CONNECTION)) == command.getDataSize());
-        BOOST_CHECK( "EndConnectionCommand" == command.getName());
+        BOOST_CHECK( (sizeof(epochTime)+sizeof(CommandType::BLINDS_UP_ON_TIME)) == command.getDataSize());
+        BOOST_CHECK( "BlindsUPOnTimeCommand" == command.getName());
     }
 
-    BOOST_AUTO_TEST_CASE( initConnectionCommand )
+    BOOST_AUTO_TEST_CASE( blindsDownOnTimeCommand )
     {
-        string address = "127.0.0.1";
-        uint16_t port = 8765;
-
-        InitConnectionCommand command(port, address);
+        uint32_t epochTime = 3546732;
+        BlindsDOWNOnTimeCommand command(epochTime);
         command.getFrameBytes();
 
-        BOOST_CHECK( address == command.getAddress());
-        BOOST_CHECK( port == command.getPort());
+        BOOST_CHECK( epochTime == command.getEpochDateAndTime());
         BOOST_CHECK( FrameType::COMMAND == command.getFrameType());
-        BOOST_CHECK( CommandType::INIT_CONNECTION == command.getCommandType());
+        BOOST_CHECK( CommandType::BLINDS_DOWN_ON_TIME == command.getCommandType());
         BOOST_CHECK( 1 == command.getSystemVersion());
-        BOOST_CHECK( (address.size()+ sizeof(port)+sizeof(END_STRING_IN_FRAME) + sizeof(CommandType::CALIBRATE_MAGNETOMETER)) == command.getDataSize());
-        BOOST_CHECK( "InitConnectionCommand" == command.getName());
+        BOOST_CHECK( (sizeof(epochTime)+ sizeof(CommandType::BLINDS_DOWN_ON_TIME)) == command.getDataSize());
+        BOOST_CHECK( "BlindsDOWNOnTimeCommand" == command.getName());
     }
 
-    BOOST_AUTO_TEST_CASE( setPlaneMagnetometerCommand )
+    BOOST_AUTO_TEST_CASE( blindsStatusCommand )
     {
-        string planeName = "temp";
-
-        SetPlaneMagnetometerCommand command(planeName);
+        BlindsStatusCommand command;
         command.getFrameBytes();
 
-        BOOST_CHECK( planeName == command.getPlaneName());
         BOOST_CHECK( FrameType::COMMAND == command.getFrameType());
-        BOOST_CHECK( CommandType::SET_PLANE_MAGNETOMETER_DATA == command.getCommandType());
+        BOOST_CHECK( CommandType::BLINDS_STATUS == command.getCommandType());
         BOOST_CHECK( 1 == command.getSystemVersion());
-        BOOST_CHECK( (planeName.size()+ sizeof(END_STRING_IN_FRAME) + sizeof(CommandType::SET_PLANE_MAGNETOMETER_DATA)) == command.getDataSize());
-        BOOST_CHECK( "SetPlaneMagnetometerCommand" == command.getName());
+        BOOST_CHECK( sizeof(CommandType::BLINDS_STATUS) == command.getDataSize());
+        BOOST_CHECK( "BlindsStatusCommand" == command.getName());
     }
 
 BOOST_AUTO_TEST_SUITE_END()

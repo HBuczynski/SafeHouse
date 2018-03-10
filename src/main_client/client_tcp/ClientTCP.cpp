@@ -128,10 +128,10 @@ void ClientTCP::executeCommands()
             const auto commandType = command->getFrameBytes()[COMMAND_TYPE_POSITION];
             bool isEndConnectionSent = false;
 
-            if(commandType == END_CONNECTION)
+            /*if(commandType == END_CONNECTION)
             {
                 isEndConnectionSent = true;
-            }
+            }*/
 
             bool isSuccess = false;
             uint8_t commandSendingCounter;
@@ -218,8 +218,3 @@ void ClientTCP::catchExceptions(string exception, bool isEndConnectionSent, uint
         socket_.reset();
     }
 }
-
-
-
-
-

@@ -9,7 +9,8 @@ namespace communication
     {
         OK = 10,
         FAIL = 20,
-        CONNECTION_ENDED = 30
+        CONNECTION_ENDED = 30,
+        CHANGED_MODE = 40
     };
 
     class AckResponse final : public Response

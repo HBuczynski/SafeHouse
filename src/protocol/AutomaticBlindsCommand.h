@@ -1,15 +1,15 @@
-#ifndef AHRS_COLLECTDATACOMMAND_H
-#define AHRS_COLLECTDATACOMMAND_H
+#ifndef SAFEHOUSE_AUTOMATICBLINDSCOMMAND_H
+#define SAFEHOUSE_AUTOMATICBLINDSCOMMAND_H
 
-#include "Command.h"
+#include <Command.h>
 
 namespace communication
 {
-    class CollectDataCommand : public Command
+    class AutomaticBlindsCommand final : public Command
     {
     public:
-        CollectDataCommand();
-        ~CollectDataCommand();
+        AutomaticBlindsCommand();
+        ~AutomaticBlindsCommand();
 
         virtual std::vector<uint8_t > getFrameBytes() override;
         virtual std::string getName() override;
@@ -20,4 +20,4 @@ namespace communication
     };
 }
 
-#endif
+#endif //SAFEHOUSE_AUTOMATICBLINDSCOMMAND_H

@@ -14,7 +14,7 @@ int main(int argc , char *argv[])
 {
     Logger &logger = Logger::getInstance();
 
-    /*InitLogStructure struc;
+    InitLogStructure struc;
     struc.debugLog = true;
     struc.errroLog = true;
     struc.informationLog = true;
@@ -25,7 +25,7 @@ int main(int argc , char *argv[])
     logger.initLogger(struc);
 
 
-    CommunicationParameters paramters;*/
+    //CommunicationParameters paramters;
     /*paramters.sourceAddressUDP = "192.168.0.185";
     paramters.sourcePortUDP = 8000;
     paramters.destinationAddressTCP = "192.168.0.164";
@@ -36,7 +36,7 @@ int main(int argc , char *argv[])
     paramters.destinationAddressTCP = "127.0.0.1";
     paramters.destinationPortTCP = 9000;
 
-    CommunicationManagerUI manager(paramters);
+    CommunicationManagerClient manager(paramters);
     manager.initializeServer();
     manager.initializeClientConnection();
     manager.sendCommands();*/

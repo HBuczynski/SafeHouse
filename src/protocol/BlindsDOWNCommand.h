@@ -1,15 +1,15 @@
-#ifndef AHRS_BLACK_BOX_WAICENDCONNECTIONCOMMAND_H
-#define AHRS_BLACK_BOX_WAICENDCONNECTIONCOMMAND_H
+#ifndef BLINDS_DOWN_COMMAND_H
+#define BLINDS_DOWN_COMMAND_H
 
 #include "Command.h"
 
 namespace communication
 {
-    class EndConnectionCommand final : public Command
+    class BlindsDOWNCommand : public Command
     {
     public:
-        EndConnectionCommand();
-        ~EndConnectionCommand();
+        BlindsDOWNCommand();
+        ~BlindsDOWNCommand();
 
         virtual std::vector<uint8_t > getFrameBytes() override;
         virtual std::string getName() override;
@@ -21,4 +21,3 @@ namespace communication
 }
 
 #endif
-

@@ -36,7 +36,6 @@ namespace communication
         std::atomic<bool> runUserActivation_;
         std::thread activationThread_;
 
-        //std::shared_ptr<ClientUDPManager> clientUDPManager_;
         std::list<std::unique_ptr<ClientThreadTCP> > clientList_;
 
         utility::Logger& logger_;

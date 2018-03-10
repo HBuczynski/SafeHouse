@@ -12,7 +12,7 @@ using namespace communication;
 
 int main(int argc , char *argv[])
 {
-    /*Logger &logger = Logger::getInstance();
+    Logger &logger = Logger::getInstance();
 
     InitLogStructure struc;
     struc.debugLog = true;
@@ -25,8 +25,8 @@ int main(int argc , char *argv[])
 
     logger.initLogger(struc);
 
-    CommunicationManagerFeeder manager(9000,2);
-    manager.initialize();*/
+    CommunicationManagerRpi manager(9000,2);
+    manager.initialize();
 
     while(1)
     {

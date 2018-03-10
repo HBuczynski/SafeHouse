@@ -1,8 +1,8 @@
 #include "CommunicationManagerClient.h"
 
-#include <protocol/InitConnectionCommand.h>
-#include <protocol/CollectDataCommand.h>
-#include <protocol/EndConnectionCommand.h>
+#include <protocol/BlindsDOWNOnTimeCommand.h>
+#include <protocol/BlindsDOWNCommand.h>
+#include <protocol/BlindsUPOnTimeCommand.h>
 #include <iostream>
 
 #include <thread>
@@ -11,39 +11,30 @@
 using namespace std;
 using namespace communication;
 
-CommunicationManagerUI::CommunicationManagerUI(CommunicationParameters parameters)
+CommunicationManagerClient::CommunicationManagerClient(CommunicationParameters parameters)
     :   parameters_(parameters)
 {
-    //server_ = make_unique<ServerUDP>(parameters_.sourcePortUDP);
     client_ = make_unique<ClientTCP>(parameters_.destinationPortTCP, parameters_.destinationAddressTCP);
 }
 
-CommunicationManagerUI::~CommunicationManagerUI()
+CommunicationManagerClient::~CommunicationManagerClient()
 {
 }
 
-void CommunicationManagerUI::initializeServer()
-{
-    //server_->startListening();
-}
-
-void CommunicationManagerUI::initializeClientConnection()
+void CommunicationManagerClient::initializeClientConnection()
 {
     client_->connectToServer();
     client_->startCommandSending();
 }
 
-void CommunicationManagerUI::sendCommands()
+void CommunicationManagerClient::sendCommands()
 {
-    auto command = make_unique<InitConnectionCommand>(parameters_.sourcePortUDP, parameters_.sourceAddressUDP);
-    auto command2 = make_unique<CollectDataCommand>();
-    auto command3 = make_unique<EndConnectionCommand>();
+    auto command2 = make_unique<BlindsDOWNCommand>();;
 
-    client_->sendCommand(move(command));
     std::this_thread::sleep_for(1s);
     client_->sendCommand(move(command2));
     std::this_thread::sleep_for(1s);
-    client_->sendCommand(move(command3));
+
 }
 
 

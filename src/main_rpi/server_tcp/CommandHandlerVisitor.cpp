@@ -18,13 +18,13 @@ CommandHandlerVisitor::CommandHandlerVisitor()
 CommandHandlerVisitor::~CommandHandlerVisitor()
 {}
 
-void CommandHandlerVisitor::visit(InitConnectionCommand &command)
+void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
 {
     /*auto newClient = make_shared<ClientUDP>(command.getPort(), command.getAddress());
 
     if(logger_.isInformationEnable())
     {
-        const string message = string("CommandHandler :: Received InitConnectionCommand from ClientID -") +
+        const string message = string("CommandHandler :: Received BlindsDOWNOnTimeCommand from ClientID -") +
                          to_string(currentClient_->getID())
                          + string("-. Command data: port-") + to_string(command.getPort()) + string("; address-") +
                          command.getAddress();
@@ -35,11 +35,11 @@ void CommandHandlerVisitor::visit(InitConnectionCommand &command)
     response_ = make_unique<DataResponse>("OK");*/
 }
 
-void CommandHandlerVisitor::visit(EndConnectionCommand &command)
+void CommandHandlerVisitor::visit(BlindsUPOnTimeCommand &command)
 {
     if(logger_.isInformationEnable())
     {
-        const string message = string("CommandHandler :: Received EndConnectionCommand from ClientID -") +
+        const string message = string("CommandHandler :: Received BlindsUPOnTimeCommand from ClientID -") +
                          to_string(currentClient_->getID())
                          + string("-.");
         logger_.writeLog(LogType::INFORMATION_LOG, message);
@@ -51,23 +51,28 @@ void CommandHandlerVisitor::visit(EndConnectionCommand &command)
     response_ = make_unique<DataResponse>("OK");
 }
 
-void CommandHandlerVisitor::visit(CallibrateMagnetometerCommand &command)
+void CommandHandlerVisitor::visit(BlindsUPCommand &command)
 {
     if(logger_.isInformationEnable())
     {
-        const string message = string("CommandHandler :: Received CallibrateMagnetometerCommand from ClientID -") +
+        const string message = string("CommandHandler :: Received BlindsUPCommand from ClientID -") +
                          to_string(currentClient_->getID())
                          + string("-.");
         logger_.writeLog(LogType::INFORMATION_LOG, message);
     }
 }
 
-void CommandHandlerVisitor::visit(CollectDataCommand &command)
+void CommandHandlerVisitor::visit(BlindsDOWNCommand &command)
 {
 
 }
 
-void CommandHandlerVisitor::visit(SetPlaneMagnetometerCommand &command)
+void CommandHandlerVisitor::visit(BlindsStatusCommand &command)
+{
+
+}
+
+void CommandHandlerVisitor::visit(AutomaticBlindsCommand &command)
 {
 
 }
@@ -77,12 +82,8 @@ unique_ptr<Response> CommandHandlerVisitor::getResponse()
     return move(response_);
 }
 
-/*void CommandHandlerVisitor::initializeClientUDPManager(shared_ptr<ClientUDPManager> clientUDPManager)
-{
-    clientUDPManager_ = clientUDPManager;
-}*/
-
 void CommandHandlerVisitor::initializeCurrentClient(ClientThreadTCP *client)
 {
     currentClient_ = client;
 }
+
