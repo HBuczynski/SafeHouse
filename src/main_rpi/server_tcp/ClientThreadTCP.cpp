@@ -44,10 +44,8 @@ void ClientThreadTCP::startListen()
 
 void ClientThreadTCP::stopListen()
 {
-    if(socket_.get() != nullptr)
-    {
-        socket_.reset();
-    }
+    socket_->closeSocket();
+
     runListenThread_ = false;
 
     if(listenThread_.joinable())
@@ -90,12 +88,14 @@ void ClientThreadTCP::runListen()
             if(string(e.what()) ==  string("Received exception: Cannot receive packet.") )
             {
                 runListenThread_ = false;
-                socket_.reset();
+                socket_->closeSocket();
             }
 
             // // If socket has been closed or the connection has been lost, the thread has to be closed.
             if(!runListenThread_)
             {
+                runListenThread_ = false;
+
                 if(logger_.isWarningEnable())
                 {
                     const string message = string("ClientThreadTCP :: ClientdID -") + to_string(getID()) +

@@ -25,21 +25,19 @@ int main(int argc , char *argv[])
     logger.initLogger(struc);
 
 
-    //CommunicationParameters paramters;
+    CommunicationParameters paramters;
     /*paramters.sourceAddressUDP = "192.168.0.185";
     paramters.sourcePortUDP = 8000;
     paramters.destinationAddressTCP = "192.168.0.164";
     paramters.destinationPortTCP = 9000;*/
 
-    /*paramters.sourceAddressUDP = "127.0.0.1";
-    paramters.sourcePortUDP = 8000;
-    paramters.destinationAddressTCP = "127.0.0.1";
+
+    paramters.destinationAddressTCP = "192.168.43.82";
     paramters.destinationPortTCP = 9000;
 
     CommunicationManagerClient manager(paramters);
-    manager.initializeServer();
     manager.initializeClientConnection();
-    manager.sendCommands();*/
+    manager.sendCommands();
 
     while(1)
     {

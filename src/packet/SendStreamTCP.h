@@ -22,6 +22,7 @@ namespace communication
         void sendData(std::vector<uint8_t> message);
 
         void connectToServer();
+        void closeSocket();
 
     private:
         void createSocket();

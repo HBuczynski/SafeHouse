@@ -125,7 +125,7 @@ void ClientTCP::executeCommands()
         if(!isCommandQueueEmpty())
         {
             const auto command = getFromCommandQueue();
-            const auto commandType = command->getFrameBytes()[COMMAND_TYPE_POSITION];
+            //const auto commandType = command->getFrameBytes()[COMMAND_TYPE_POSITION];
             bool isEndConnectionSent = false;
 
             /*if(commandType == END_CONNECTION)
