@@ -28,21 +28,21 @@ void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
 
 void CommandHandlerVisitor::visit(BlindsUPOnTimeCommand &command)
 {
-    cout << "BlindsUPOnTimeCommand" << endl;;
+    cout << "BlindsUPOnTimeCommand" << endl;
 
     currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
 
 void CommandHandlerVisitor::visit(BlindsUPCommand &command)
 {
-    cout << "BlindsUPCommand" << endl;;
+    cout << "BlindsUPCommand" << endl;
 
     currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
 
 void CommandHandlerVisitor::visit(BlindsDOWNCommand &command)
 {
-    cout << "BlindsDOWNCommand" << endl;;
+    cout << "BlindsDOWNCommand" << endl;
 
     /*gpioInitialise();
 
@@ -61,14 +61,42 @@ void CommandHandlerVisitor::visit(BlindsDOWNCommand &command)
 
 void CommandHandlerVisitor::visit(BlindsStatusCommand &command)
 {
-    cout << "BlindsStatusCommand" << endl;;
+    cout << "BlindsStatusCommand" << endl;
 
     currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
 
 void CommandHandlerVisitor::visit(AutomaticBlindsCommand &command)
 {
-    cout << "AutomaticBlindsCommand" << endl;;
+    cout << "AutomaticBlindsCommand" << endl;
+
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+}
+
+void CommandHandlerVisitor::visit(TemperatureDemandCommand &command)
+{
+    cout << "TemperatureDemandCommand" << endl;
+
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+}
+
+void CommandHandlerVisitor::visit(UserOutOfHomeCommand &command)
+{
+    cout << "UserOutOfHomeCommand" << endl;
+
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+}
+
+void CommandHandlerVisitor::visit(EndConnectionCommand &command)
+{
+    cout << "EndConnectionCommand" << endl;
+
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+}
+
+void CommandHandlerVisitor::visit(SnapshotCommand &command)
+{
+    cout << "SnapshotCommand" << endl;
 
     currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
@@ -77,4 +105,3 @@ void CommandHandlerVisitor::initializeCurrentClient(ClientThreadTCP *client)
 {
     currentClient_ = client;
 }
-

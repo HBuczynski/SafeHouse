@@ -7,6 +7,10 @@
 #include "BlindsDOWNCommand.h"
 #include "BlindsStatusCommand.h"
 #include "AutomaticBlindsCommand.h"
+#include "TemperatureDemandCommand.h"
+#include "UserOutOfHomeCommand.h"
+#include "EndConnectionCommand.h"
+#include "SnapshotCommand.h"
 
 namespace communication
 {
@@ -22,6 +26,10 @@ namespace communication
         virtual void visit(BlindsDOWNCommand& command) = 0;
         virtual void visit(BlindsStatusCommand& command) = 0;
         virtual void visit(AutomaticBlindsCommand& command) = 0;
+        virtual void visit(TemperatureDemandCommand& command) = 0;
+        virtual void visit(UserOutOfHomeCommand& command) = 0;
+        virtual void visit(EndConnectionCommand& command) = 0;
+        virtual void visit(SnapshotCommand& command) = 0;
     };
 }
 #endif

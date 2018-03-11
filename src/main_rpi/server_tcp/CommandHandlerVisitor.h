@@ -24,6 +24,10 @@ namespace communication
         virtual void visit(BlindsDOWNCommand& command) override;
         virtual void visit(BlindsStatusCommand& command) override;
         virtual void visit(AutomaticBlindsCommand& command) override;
+        virtual void visit(TemperatureDemandCommand& command) override;
+        virtual void visit(UserOutOfHomeCommand& command) override;
+        virtual void visit(EndConnectionCommand& command) override;
+        virtual void visit(SnapshotCommand& command) override;
 
         void initializeCurrentClient(ClientThreadTCP *client);
 

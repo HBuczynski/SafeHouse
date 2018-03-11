@@ -15,9 +15,9 @@ BlindsDOWNOnTimeBuilder::~BlindsDOWNOnTimeBuilder()
 
 std::unique_ptr<Command> BlindsDOWNOnTimeBuilder::create(const std::vector<uint8_t> &commandInBytes)
 {
-    uint16_t epochTime;
+    uint32_t epochTime;
 
-    epochTime = BytesConverter::fromVectorOfUINT8toUINT16(commandInBytes, INIT_EPOCH_TIME_POSITION_IN_FRAME);
+    epochTime = BytesConverter::fromVectorOfUINT8toUINT32(commandInBytes, INIT_EPOCH_TIME_POSITION_IN_FRAME);
 
     auto command = make_unique<BlindsDOWNOnTimeCommand>(epochTime);
 

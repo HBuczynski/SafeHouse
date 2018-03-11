@@ -5,6 +5,10 @@
 #include "BlindsDOWNBuilder.h"
 #include "BlindsUPOnTimeBuilder.h"
 #include "AutomaticBlindsBuilder.h"
+#include "TemperatureDemandBuilder.h"
+#include "UserOutOfHomeBuilder.h"
+#include "EndConnectionBuilder.h"
+#include "SnapshotBuilder.h"
 
 #include <stdexcept>
 
@@ -40,6 +44,18 @@ unique_ptr<Command> CommandFactory::createCommand(const vector<uint8_t> &command
             return move(builder_->create(commandInBytes));
         case CommandType::AUTOMATIC_BLINDS :
             builder_ = make_unique<AutomaticBlindsBuilder>();
+            return move(builder_->create(commandInBytes));
+        case CommandType::TEMPERATURE_DEMAND :
+            builder_ = make_unique<TemperatureDemandBuilder>();
+            return move(builder_->create(commandInBytes));
+        case CommandType::USER_OUT_OF_HOME :
+            builder_ = make_unique<UserOutOfHomeBuilder>();
+            return move(builder_->create(commandInBytes));
+        case CommandType::SNAPSHOT :
+            builder_ = make_unique<SnapshotBuilder>();
+            return move(builder_->create(commandInBytes));
+        case CommandType::END_CONNECTION :
+            builder_ = make_unique<EndConnectionBuilder>();
             return move(builder_->create(commandInBytes));
         default:
             throw invalid_argument("Received command does not register in factory.");
