@@ -2,18 +2,26 @@
 #ifndef SAFEHOUSE_GPIO_H
 #define SAFEHOUSE_GPIO_H
 
-#include "PIGPIO/pigpio.h"
+#include "pigpio.h"
+
+#define INVALID_DEVICE_ID -1
 
 
 class GPIO {
 public:
-    GPIO() = default;
+    GPIO():deviceId(INVALID_DEVICE_ID){};
+    GPIO(uint16_t deviceId_):deviceId(deviceId_){};
     virtual ~GPIO() = default;
+
     virtual bool init() const;
     virtual bool setMode(uint8_t pinNumber_, uint8_t pinMode_, uint8_t pushPullMode_);
+
     virtual void pinWrite(int state);
+    virtual int pinRead(int state);
 
 protected:
+    //Peripheral id:
+    uint16_t deviceId = 0;
     //BCM Pin number:
     uint8_t pinNumber = 1;
     //Pin mode (INPUT, OUTPUT, ALT0-5):

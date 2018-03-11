@@ -5,6 +5,7 @@ project(peripherals)
 
 set(PROJECT_NAME peripherals)
 include_directories("../")
+include_directories("../../3rd_party")
 
 file(GLOB source_list "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 file(GLOB header_list "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
@@ -20,4 +21,4 @@ target_include_directories(
 )
 
 
-target_link_libraries(${PROJECT_NAME} LINK_PUBLIC pigpio)
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC PIGPIO)

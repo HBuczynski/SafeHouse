@@ -1,0 +1,8 @@
+{
+"Peripherals":
+  [
+    {"type":"blinds"}
+    {"type":"temperature_sensor","id":4, "pinNumber":19},
+    {"type":"camera","id":5}
+  ]
+}
