@@ -1,0 +1,11 @@
+
+#ifndef SAFEHOUSE_PERIPHMANAGER_H
+#define SAFEHOUSE_PERIPHMANAGER_H
+
+
+class PeriphManager {
+
+};
+
+
+#endif //SAFEHOUSE_PERIPHMANAGER_H

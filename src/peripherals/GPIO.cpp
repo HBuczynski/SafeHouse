@@ -1,6 +1,3 @@
-//
-// Created by marcin on 10.03.18.
-//
 
 #include "GPIO.h"
 

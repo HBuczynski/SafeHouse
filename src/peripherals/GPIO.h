@@ -1,6 +1,3 @@
-//
-// Created by marcin on 10.03.18.
-//
 
 #ifndef SAFEHOUSE_GPIO_H
 #define SAFEHOUSE_GPIO_H
