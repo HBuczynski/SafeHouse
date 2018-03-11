@@ -45,9 +45,23 @@ void ServerTCP::stopUserActivation()
 
 void ServerTCP::activateUsers()
 {
-    ListenStreamTCP serverSocket(port_);
+    unique_ptr<ListenStreamTCP> serverSocket;
 
-    serverSocket.listenUsers(maxClientNumber_);
+    try
+    {
+        serverSocket = make_unique<ListenStreamTCP>(port_);
+    }
+    catch (exception &e)
+    {
+        if(logger_.isErrorEnable())
+        {
+            const string message =
+                    string("ServerTCP :: ") + string("-. Received exception: ") + e.what();
+            logger_.writeLog(LogType::ERROR_LOG, message);
+        }
+    }
+
+    serverSocket->listenUsers(maxClientNumber_);
     uint32_t clientID = 1;
 
     if(logger_.isInformationEnable())
@@ -63,7 +77,7 @@ void ServerTCP::activateUsers()
         if(clientList_.size() < maxClientNumber_)
         {
             //Wait on new users.
-            auto client = make_unique<ClientThreadTCP>(move(serverSocket.acceptUsers()));
+            auto client = make_unique<ClientThreadTCP>(move(serverSocket->acceptUsers()));
 
             if(logger_.isInformationEnable())
             {
@@ -71,7 +85,7 @@ void ServerTCP::activateUsers()
                 logger_.writeLog(LogType::INFORMATION_LOG, message);
             }
             client->setID(clientID);
-            client->startListen();
+            client->startSendAndListen();
 
             //Assign new client_tcp to the vector.
             clientList_.push_back(move(client));
@@ -88,6 +102,12 @@ void ServerTCP::updateClientList()
     {
         if(!(*iter)->checkListenEnable())
         {
+            if(logger_.isInformationEnable())
+            {
+                const string message = string("ServerTCP :: Server stop listening user ID: ") + to_string((*iter)->getID());
+                logger_.writeLog(LogType::INFORMATION_LOG, message);
+            }
+
             clientList_.erase(iter);
             isSuccess = true;
         }
@@ -98,7 +118,7 @@ void ServerTCP::stopDataListening()
 {
     for(auto iter = clientList_.begin(); iter != clientList_.end(); ++iter)
     {
-        (*iter)->stopListen();
+        (*iter)->stopSendAndListen();
         clientList_.erase(iter);
     }
 }

@@ -14,9 +14,6 @@ namespace communication
 {
     struct CommunicationParameters
     {
-        uint16_t sourcePortUDP;
-        std::string sourceAddressUDP;
-
         uint16_t destinationPortTCP;
         std::string destinationAddressTCP;
     };

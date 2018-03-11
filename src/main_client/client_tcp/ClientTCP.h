@@ -27,22 +27,18 @@ namespace communication
 
         void connectToServer();
 
-        void stopCommandSending();
-        void startCommandSending();
+        void stopCommandListeningAndSending();
+        void startCommandListeningAndSending();
 
         void sendCommand(std::unique_ptr<Command> command);
-        bool isResponseQueueEmpty();
-        std::unique_ptr<Response> getResponse();
-
 
     private:
         bool isCommandQueueEmpty();
         std::unique_ptr<Command> getFromCommandQueue();
 
-        void insertToResponseQueue(std::unique_ptr<Response> command);
-
         void executeCommands();
-        void catchExceptions(std::string exception, bool isEndConnectionSent, uint8_t commandSendingCounter);
+        void executeResponses();
+        void catchExceptions(std::string exception);
 
         uint16_t port_;
         std::string address_;
@@ -52,17 +48,14 @@ namespace communication
         std::atomic<bool> executeCommandsFlag_;
         std::thread executeCommandThread_;
 
+        std::atomic<bool> executeResponsesFlag_;
+        std::thread executeResponsesThread_;
+
         std::mutex commandQueueMutex_;
         std::queue<std::unique_ptr<Command>> commandQueue_;
 
-        std::mutex responseQueueMutex_;
-        std::queue<std::unique_ptr<Response> > responseQueue_;
-
         ResponseHandlerVisitor responseHandler_;
         ResponseFactory responseFactory_;
-
-        const uint8_t COMMAND_TYPE_POSITION = 5;
-        const uint8_t COMMAND_SENDING_REPETITION = 5;
 
         utility::Logger& logger_;
     };

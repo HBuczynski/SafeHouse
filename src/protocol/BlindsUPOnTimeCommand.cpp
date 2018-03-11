@@ -1,7 +1,10 @@
 #include "BlindsUPOnTimeCommand.h"
 #include "CommandVisitor.h"
 
+#include "BytesConverter.h"
+
 using namespace std;
+using namespace utility;
 using namespace communication;
 
 BlindsUPOnTimeCommand::BlindsUPOnTimeCommand(uint32_t epochTime)
@@ -18,6 +21,8 @@ vector<uint8_t> BlindsUPOnTimeCommand::getFrameBytes()
 
     vector<uint8_t > frame = getHeader();
     frame.push_back(static_cast<uint8_t>(commandType_));
+
+    BytesConverter::appendUINT32toVectorOfUINT8(epochTime_, frame);
 
     return frame;
 }

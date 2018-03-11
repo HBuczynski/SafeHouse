@@ -29,6 +29,11 @@ SendStreamTCP::~SendStreamTCP()
     close(sock_);
 }
 
+void SendStreamTCP::closeSocket()
+{
+    close(sock_);
+}
+
 void SendStreamTCP::createSocket()
 {
     sock_ = socket(AF_INET, SOCK_STREAM, 0);

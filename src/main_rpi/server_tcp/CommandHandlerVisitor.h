@@ -6,6 +6,7 @@
 #include <protocol/Response.h>
 
 #include <memory>
+#include <queue>
 
 namespace communication
 {
@@ -23,15 +24,15 @@ namespace communication
         virtual void visit(BlindsDOWNCommand& command) override;
         virtual void visit(BlindsStatusCommand& command) override;
         virtual void visit(AutomaticBlindsCommand& command) override;
+        virtual void visit(TemperatureDemandCommand& command) override;
+        virtual void visit(UserOutOfHomeCommand& command) override;
+        virtual void visit(EndConnectionCommand& command) override;
+        virtual void visit(SnapshotCommand& command) override;
 
         void initializeCurrentClient(ClientThreadTCP *client);
 
-        std::unique_ptr<Response> getResponse();
-
     private:
         ClientThreadTCP *currentClient_;
-
-        std::unique_ptr<Response> response_;
 
         utility::Logger& logger_;
     };

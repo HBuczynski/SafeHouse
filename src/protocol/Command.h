@@ -17,7 +17,8 @@ namespace communication
         AUTOMATIC_BLINDS = 30,
         TEMPERATURE_DEMAND = 35,
         USER_OUT_OF_HOME = 40,
-        SNAPSHOT = 45
+        SNAPSHOT = 45,
+        END_CONNECTION = 50
 
     };
 

@@ -10,6 +10,7 @@ using namespace communication;
 
 ClientThreadTCP::ClientThreadTCP(unique_ptr<SendStreamTCP> socket)
     : runListenThread_(false),
+      runSendThread_(false),
       socket_(std::move(socket)),
       logger_(Logger::getInstance())
 {
@@ -18,7 +19,7 @@ ClientThreadTCP::ClientThreadTCP(unique_ptr<SendStreamTCP> socket)
 
 ClientThreadTCP::~ClientThreadTCP()
 {
-    stopListen();
+    stopSendAndListen();
 }
 
 void ClientThreadTCP::initializeCommandHandler()
@@ -36,23 +37,58 @@ uint32_t ClientThreadTCP::getID() const
     return id_;
 }
 
-void ClientThreadTCP::startListen()
+void ClientThreadTCP::startSendAndListen()
 {
     runListenThread_ = true;
     listenThread_ = thread(&ClientThreadTCP::runListen, this);
+
+    runSendThread_ = true;
+    sendThread_ = thread(&ClientThreadTCP::runSend, this);
 }
 
-void ClientThreadTCP::stopListen()
+void ClientThreadTCP::stopSendAndListen()
 {
-    if(socket_.get() != nullptr)
-    {
-        socket_.reset();
-    }
+    socket_->closeSocket();
+
     runListenThread_ = false;
+    runSendThread_ = false;
 
     if(listenThread_.joinable())
     {
         listenThread_.join();
+    }
+
+    if(sendThread_.joinable())
+    {
+        sendThread_.join();
+    }
+}
+
+void ClientThreadTCP::addResponse(shared_ptr<Response> response)
+{
+    lock_guard<mutex> lock(queueMutex_);
+    responseQueue_.push(move(response));
+}
+
+void ClientThreadTCP::runSend()
+{
+    while(runSendThread_)
+    {
+        try
+        {
+            lock_guard<mutex> lock(queueMutex_);
+            if(!responseQueue_.empty())
+            {
+                shared_ptr<Response> response = responseQueue_.front();
+                responseQueue_.pop();
+
+                socket_->sendData(response->getFrameBytes());
+            }
+        }
+        catch (exception &e)
+        {
+            // To do:
+        }
     }
 }
 
@@ -73,14 +109,14 @@ void ClientThreadTCP::runListen()
 
             const auto command = commandFactory_.createCommand(frame);
             command->accept(commandHandler_);
-
-            const auto response = commandHandler_.getResponse();
-            socket_->sendData(response->getFrameBytes());
         }
         catch (exception &e)
         {
+            runListenThread_ = false;
+            socket_->closeSocket();
+
             // Factory can't create a command
-            if(logger_.isErrorEnable() && runListenThread_)
+            /*if(logger_.isErrorEnable() && runListenThread_)
             {
                 const string message = string("ClientThreadTCP :: ClientdID -") + to_string(getID()) +
                                  string("-. Received exception: ") + e.what();
@@ -90,19 +126,21 @@ void ClientThreadTCP::runListen()
             if(string(e.what()) ==  string("Received exception: Cannot receive packet.") )
             {
                 runListenThread_ = false;
-                socket_.reset();
+                socket_->closeSocket();
             }
 
             // // If socket has been closed or the connection has been lost, the thread has to be closed.
             if(!runListenThread_)
             {
+                runListenThread_ = false;
+
                 if(logger_.isWarningEnable())
                 {
                     const string message = string("ClientThreadTCP :: ClientdID -") + to_string(getID()) +
                                            string("-. Connection was ended.");
                     logger_.writeLog(LogType::WARNING_LOG, message);
                 }
-            }
+            }*/
         }
     }
 }
