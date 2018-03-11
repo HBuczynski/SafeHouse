@@ -109,10 +109,17 @@ void ClientTCP::executeResponses()
 {
     while(executeResponsesFlag_)
     {
-        const auto responseFrame = socket_->receivePacket();
+        try
+        {
+            const auto responseFrame = socket_->receivePacket();
 
-        unique_ptr<Response> response = responseFactory_.createCommand(responseFrame);
-        response->accept(responseHandler_);
+            unique_ptr<Response> response = responseFactory_.createCommand(responseFrame);
+            response->accept(responseHandler_);
+        }
+        catch(exception &e)
+        {
+            cout << "klient nie odebral" << endl;
+        }
     }
 }
 

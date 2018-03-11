@@ -2,6 +2,8 @@
 
 #include <protocol/Command.h>
 #include <protocol/Response.h>
+
+#include <protocol/AckResponse.h>
 #include <packet/ListenStreamTCP.h>
 
 #include <algorithm>
@@ -111,6 +113,14 @@ void ServerTCP::updateClientList()
             clientList_.erase(iter);
             isSuccess = true;
         }
+    }
+}
+
+void ServerTCP::sendBroadcast()
+{
+    for(auto iter = clientList_.begin(); iter != clientList_.end(); ++iter)
+    {
+        (*iter)->addResponse(make_shared<AckResponse>(AckType::CONNECTION_ENDED));
     }
 }
 

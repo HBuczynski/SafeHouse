@@ -89,9 +89,13 @@ void CommandHandlerVisitor::visit(UserOutOfHomeCommand &command)
 
 void CommandHandlerVisitor::visit(EndConnectionCommand &command)
 {
-    cout << "EndConnectionCommand" << endl;
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("ClientThreadTCP :: ClientdID -") + to_string(currentClient_->getID()) + string("- end connection.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
 
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+    currentClient_->stopSendAndListen();
 }
 
 void CommandHandlerVisitor::visit(SnapshotCommand &command)

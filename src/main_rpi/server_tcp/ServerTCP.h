@@ -29,6 +29,7 @@ namespace communication
     private:
         void activateUsers();
         void updateClientList();
+        void sendBroadcast();
 
         uint16_t port_;
         uint8_t maxClientNumber_;
