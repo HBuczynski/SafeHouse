@@ -9,8 +9,11 @@ namespace communication
 
     enum ResponseType : uint8_t
     {
-        DATA = 10,
-        ACK = 20
+        DATA = 5,
+        ACK = 10,
+        BLINDS_STATUS_RSP = 15,
+        MOTOR_STATUS = 20,
+        ERROR = 25
     };
 
     class Response : public Frame

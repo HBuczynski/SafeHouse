@@ -14,6 +14,9 @@ namespace communication
 
         virtual void visit(AckResponse& data) override;
         virtual void visit(DataResponse& data) override;
+        virtual void visit(ErrorResponse& data) override;
+        virtual void visit(MotorStatusResponse& data) override;
+        virtual void visit(BlindsStatusResponse& data) override;
 
     private:
         utility::Logger& logger_;

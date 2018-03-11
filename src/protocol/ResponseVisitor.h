@@ -3,6 +3,9 @@
 
 #include "AckResponse.h"
 #include "DataResponse.h"
+#include "ErrorResponse.h"
+#include "MotorStatusResponse.h"
+#include "BlindsStatusResponse.h"
 
 namespace communication
 {
@@ -14,6 +17,9 @@ namespace communication
 
         virtual void visit(AckResponse& data) = 0;
         virtual void visit(DataResponse& data) = 0;
+        virtual void visit(ErrorResponse& data) = 0;
+        virtual void visit(MotorStatusResponse& data) = 0;
+        virtual void visit(BlindsStatusResponse& data) = 0;
     };
 }
 

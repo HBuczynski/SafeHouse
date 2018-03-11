@@ -2,6 +2,9 @@
 
 #include "DataResponseBuilder.h"
 #include "AckResponseBuilder.h"
+#include "ErrorBuilder.h"
+#include "MotorStatusBuilder.h"
+#include "BlindsStatusResponseBuilder.h"
 
 using namespace std;
 using namespace communication;
@@ -23,6 +26,15 @@ unique_ptr<Response> ResponseFactory::createCommand(const vector<uint8_t> &comma
             return move(builder_->create(commandInBytes));
         case ResponseType::ACK:
             builder_ = make_unique<AckResponseBuilder>();
+            return move(builder_->create(commandInBytes));
+        case ResponseType::ERROR:
+            builder_ = make_unique<ErrorBuilder>();
+            return move(builder_->create(commandInBytes));
+        case ResponseType::MOTOR_STATUS:
+            builder_ = make_unique<MotorStatusBuilder>();
+            return move(builder_->create(commandInBytes));
+        case ResponseType::BLINDS_STATUS_RSP:
+            builder_ = make_unique<BlindsStatusResponseBuilder>();
             return move(builder_->create(commandInBytes));
         default:
             throw invalid_argument("Received command does not register in factory.");

@@ -15,6 +15,5 @@ unique_ptr<Response> AckResponseBuilder::create(const vector<uint8_t> &dataInByt
     const auto ackType = static_cast<AckType>(dataInBytes[INIT_DATA_POSITION]);
 
     auto command = make_unique<AckResponse>(ackType);
-
     return move(command);
 }
