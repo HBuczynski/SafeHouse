@@ -34,3 +34,18 @@ void ResponseHandlerVisitor::visit(DataResponse &data)
         logger_.writeLog(LogType::INFORMATION_LOG, message);
     }
 }
+
+void ResponseHandlerVisitor::visit(ErrorResponse &data)
+{
+    cout << "ErrorResponse" << endl;
+}
+
+void ResponseHandlerVisitor::visit(MotorStatusResponse &data)
+{
+    cout << "MotorStatusResponse" << endl;
+}
+
+void ResponseHandlerVisitor::visit(BlindsStatusResponse &data)
+{
+    cout << "BlindsStatusResponse" << endl;
+}
