@@ -45,6 +45,7 @@ add_subdirectory("src/main_client"                                      main_cli
 add_subdirectory("src/main_client/client_tcp"                           client_tcp                      )
 add_subdirectory("src/main_client/communication_manager_client"         communication_manager_client    )
 add_subdirectory("src/peripherals"                                      peripherals                     )
+add_subdirectory("src/config_reader"                                    config_reader                   )
 
 ########################################################################################################
 #                                           ADDING DOXYGEN GENERATION                                  #
