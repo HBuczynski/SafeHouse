@@ -6,6 +6,7 @@
 #include <protocol/Response.h>
 
 #include <memory>
+#include <queue>
 
 namespace communication
 {
@@ -26,12 +27,8 @@ namespace communication
 
         void initializeCurrentClient(ClientThreadTCP *client);
 
-        std::unique_ptr<Response> getResponse();
-
     private:
         ClientThreadTCP *currentClient_;
-
-        std::unique_ptr<Response> response_;
 
         utility::Logger& logger_;
     };

@@ -32,7 +32,7 @@ int main(int argc , char *argv[])
     paramters.destinationPortTCP = 9000;*/
 
 
-    paramters.destinationAddressTCP = "192.168.43.82";
+    paramters.destinationAddressTCP = "127.0.0.1";
     paramters.destinationPortTCP = 9000;
 
     CommunicationManagerClient manager(paramters);

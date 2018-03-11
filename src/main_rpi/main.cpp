@@ -25,7 +25,7 @@ int main(int argc , char *argv[])
 
     logger.initLogger(struc);
 
-    CommunicationManagerRpi manager(9000,2);
+    CommunicationManagerRpi manager(9000,4);
     manager.initialize();
 
     while(1)

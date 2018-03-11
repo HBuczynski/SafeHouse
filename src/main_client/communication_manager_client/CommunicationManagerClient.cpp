@@ -24,7 +24,7 @@ CommunicationManagerClient::~CommunicationManagerClient()
 void CommunicationManagerClient::initializeClientConnection()
 {
     client_->connectToServer();
-    client_->startCommandSending();
+    client_->startCommandListeningAndSending();
 }
 
 void CommunicationManagerClient::sendCommands()

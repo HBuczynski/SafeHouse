@@ -1,13 +1,11 @@
 #include "CommandHandlerVisitor.h"
 
 #include <protocol/DataResponse.h>
-
-
 #include <main_rpi/server_tcp/ClientThreadTCP.h>
 
 #include <iostream>
 
-#include <GPIO.h>
+//#include <GPIO.h>
 
 using namespace std;
 using namespace utility;
@@ -20,55 +18,33 @@ CommandHandlerVisitor::CommandHandlerVisitor()
 CommandHandlerVisitor::~CommandHandlerVisitor()
 {}
 
-
-
 void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
 {
-    /*auto newClient = make_shared<ClientUDP>(command.getPort(), command.getAddress());
-
-    if(logger_.isInformationEnable())
-    {
-        const string message = string("CommandHandler :: Received BlindsDOWNOnTimeCommand from ClientID -") +
-                         to_string(currentClient_->getID())
-                         + string("-. Command data: port-") + to_string(command.getPort()) + string("; address-") +
-                         command.getAddress();
-        logger_.writeLog(LogType::INFORMATION_LOG, message);
-    }
-
-    clientUDPManager_->insertNewClient(make_pair((newClient), currentClient_->getID()));*/
 
     cout << "BlindsDOWNOnTimeCommand" << endl;
 
-    response_ = make_unique<DataResponse>("OK");
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
 
 void CommandHandlerVisitor::visit(BlindsUPOnTimeCommand &command)
 {
-    if(logger_.isInformationEnable())
-    {
-        const string message = string("CommandHandler :: Received BlindsUPOnTimeCommand from ClientID -") +
-                         to_string(currentClient_->getID())
-                         + string("-.");
-        logger_.writeLog(LogType::INFORMATION_LOG, message);
-    }
-
     cout << "BlindsUPOnTimeCommand" << endl;;
 
-    response_ = make_unique<DataResponse>("OK");
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
 
 void CommandHandlerVisitor::visit(BlindsUPCommand &command)
 {
     cout << "BlindsUPCommand" << endl;;
 
-    response_ = make_unique<DataResponse>("OK");
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
 
 void CommandHandlerVisitor::visit(BlindsDOWNCommand &command)
 {
     cout << "BlindsDOWNCommand" << endl;;
 
-    gpioInitialise();
+    /*gpioInitialise();
 
     GPIO diode;
     diode.setMode(16, PI_OUTPUT, PI_PUD_OFF);
@@ -77,28 +53,24 @@ void CommandHandlerVisitor::visit(BlindsDOWNCommand &command)
 
     gpioDelay(5000000);
 
-    diode.pinWrite(0);
+    diode.pinWrite(0);*/
 
-    response_ = make_unique<DataResponse>("DUPA");
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+    currentClient_->addResponse(make_shared<DataResponse>("Test_ok"));
 }
 
 void CommandHandlerVisitor::visit(BlindsStatusCommand &command)
 {
     cout << "BlindsStatusCommand" << endl;;
 
-    response_ = make_unique<DataResponse>("OK");
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
 
 void CommandHandlerVisitor::visit(AutomaticBlindsCommand &command)
 {
     cout << "AutomaticBlindsCommand" << endl;;
 
-    response_ = make_unique<DataResponse>("OK");
-}
-
-unique_ptr<Response> CommandHandlerVisitor::getResponse()
-{
-    return move(response_);
+    currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
 
 void CommandHandlerVisitor::initializeCurrentClient(ClientThreadTCP *client)
