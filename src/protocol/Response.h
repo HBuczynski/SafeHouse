@@ -13,7 +13,8 @@ namespace communication
         ACK = 10,
         BLINDS_STATUS_RSP = 15,
         MOTOR_STATUS = 20,
-        ERROR = 25
+        ERROR = 25,
+        AUTHENTICATE = 30
     };
 
     class Response : public Frame

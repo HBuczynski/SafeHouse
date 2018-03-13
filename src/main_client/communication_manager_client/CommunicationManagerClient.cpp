@@ -31,7 +31,7 @@ void CommunicationManagerClient::initializeClientConnection()
 
 void CommunicationManagerClient::sendCommands()
 {
-    auto command2 = make_unique<EndConnectionCommand>();
+    auto command2 = make_unique<BlindsDOWNCommand>();
 
     std::this_thread::sleep_for(1s);
     client_->sendCommand(move(command2));

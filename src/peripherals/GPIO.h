@@ -1,4 +1,3 @@
-
 #ifndef SAFEHOUSE_GPIO_H
 #define SAFEHOUSE_GPIO_H
 

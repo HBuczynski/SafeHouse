@@ -5,6 +5,7 @@
 #include "ErrorBuilder.h"
 #include "MotorStatusBuilder.h"
 #include "BlindsStatusResponseBuilder.h"
+#include "AuthenticateBuilder.h"
 
 using namespace std;
 using namespace communication;
@@ -35,6 +36,9 @@ unique_ptr<Response> ResponseFactory::createCommand(const vector<uint8_t> &comma
             return move(builder_->create(commandInBytes));
         case ResponseType::BLINDS_STATUS_RSP:
             builder_ = make_unique<BlindsStatusResponseBuilder>();
+            return move(builder_->create(commandInBytes));
+        case ResponseType::AUTHENTICATE:
+            builder_ = make_unique<AuthenticateBuilder>();
             return move(builder_->create(commandInBytes));
         default:
             throw invalid_argument("Received command does not register in factory.");

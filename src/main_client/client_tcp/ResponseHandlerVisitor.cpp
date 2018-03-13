@@ -49,3 +49,8 @@ void ResponseHandlerVisitor::visit(BlindsStatusResponse &data)
 {
     cout << "BlindsStatusResponse" << endl;
 }
+
+void ResponseHandlerVisitor::visit(AuthenticateResponse& data)
+{
+    cout << "AuthenticateResponse" << endl;
+}
