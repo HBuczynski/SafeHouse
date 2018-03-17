@@ -7,7 +7,12 @@
 #include <Motor.h>
 #include <Switch.h>
 
-#include <BlindsStates.h>
+#include <AbstractState.h>
+#include <ClosedState.h>
+#include <ErrorState.h>
+#include <IdleState.h>
+#include <MovingState.h>
+#include <OpenedState.h>
 
 //Class defining finite state machine for window blinds usage:
 

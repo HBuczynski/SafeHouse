@@ -16,12 +16,13 @@ bool Blinds::init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwi
     topSwitch->setMode(topSwitchPin_, PI_OUTPUT, PI_PUD_OFF);
     bottomSwitch->setMode(bottomSwitchPin_, PI_OUTPUT, PI_PUD_OFF);
 
-    if(motor->init() && topSwitch->registerHandler() && bottomSwitch->registerHandler())
+    if(motor->init())// && topSwitch->registerHandler() && bottomSwitch->registerHandler())
     {
         return true;
     }
     return false;
 }
 
-int Blinds::blindsUpCallback()
+int Blinds::blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata){return 0;};
+int Blinds::blindsDownCallback(int gpio, int level, uint32_t tick, void *userdata){return 0;};
 

@@ -6,7 +6,9 @@
 #define SAFEHOUSE_IDLESTATE_H
 
 
-class IdleState {
+#include "AbstractState.h"
+
+class IdleState: public AbstractState {
 
 };
 
