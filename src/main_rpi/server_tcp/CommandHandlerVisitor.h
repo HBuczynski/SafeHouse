@@ -4,6 +4,7 @@
 #include <logger/Logger.h>
 #include <protocol/CommandVisitor.h>
 #include <protocol/Response.h>
+#include <peripherals/PeriphManager.h>
 
 #include <memory>
 #include <queue>
@@ -35,6 +36,7 @@ namespace communication
         ClientThreadTCP *currentClient_;
 
         utility::Logger& logger_;
+        peripherials::PeriphManager &periphManager_;
     };
 }
 #endif

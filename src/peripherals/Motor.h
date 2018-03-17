@@ -2,7 +2,7 @@
 #ifndef SAFEHOUSE_MOTOR_H
 #define SAFEHOUSE_MOTOR_H
 
-#include <GPIO.h>
+#include "GPIO.h"
 
 #define DEFAULT_PWM_FREQUENCY 500 //in hertz
 

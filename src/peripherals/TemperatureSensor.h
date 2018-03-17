@@ -5,7 +5,7 @@
 #ifndef SAFEHOUSE_TEMPERATURESENSOR_H
 #define SAFEHOUSE_TEMPERATURESENSOR_H
 
-#include <GPIO.h>
+#include "GPIO.h"
 
 class TemperatureSensor: protected GPIO
 {

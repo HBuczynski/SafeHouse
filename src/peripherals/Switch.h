@@ -2,7 +2,7 @@
 #ifndef SAFEHOUSE_SWITCH_H
 #define SAFEHOUSE_SWITCH_H
 
-#include <GPIO.h>
+#include "GPIO.h"
 
 class Switch: public GPIO
 {

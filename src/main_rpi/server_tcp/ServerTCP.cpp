@@ -13,6 +13,7 @@
 
 using namespace std;
 using namespace utility;
+using namespace peripherials;
 using namespace communication;
 
 list<unique_ptr<ClientThreadTCP> > ServerTCP::clientList_;
@@ -22,8 +23,12 @@ mutex ServerTCP::clienListMutex_;
 ServerTCP::ServerTCP(uint16_t port,  uint8_t maxClientNumber)
         : port_(port),
           maxClientNumber_(maxClientNumber),
-          runUserActivation_(false)
-{}
+          runUserActivation_(false),
+          periphManager_(PeriphManager::getInstance())
+{
+    function<void(shared_ptr<communication::Response>)> callback = [](shared_ptr<communication::Response> response){ServerTCP::sendBroadcast(response);};
+    periphManager_.initBroadcastFucntion(callback);
+}
 
 ServerTCP::~ServerTCP()
 {
@@ -162,4 +167,15 @@ uint32_t ServerTCP::clientListSize()
 {
     lock_guard<mutex> lock(clienListMutex_);
     return clientList_.size();
+}
+
+void ServerTCP::sendBroadcast(std::shared_ptr<communication::Response> response)
+{
+    ServerTCP::updateClientList();
+
+    lock_guard<mutex> lock(clienListMutex_);
+    for(auto iter = clientList_.begin(); iter != clientList_.end(); ++iter)
+    {
+        (*iter)->addResponse(response);
+    }
 }

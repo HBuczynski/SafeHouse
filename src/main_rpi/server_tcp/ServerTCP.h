@@ -6,6 +6,8 @@
 
 #include "CommandHandlerVisitor.h"
 #include "ClientThreadTCP.h"
+#include <peripherals/PeriphManager.h>
+#include <protocol/Response.h>
 
 #include <map>
 #include <list>
@@ -33,6 +35,7 @@ namespace communication
         void activateUsers();
         static void updateClientList();
 
+        static void sendBroadcast(std::shared_ptr<communication::Response> response);
         static void sendBroadcast(int);
         static void addClientTCPtoList(std::unique_ptr<ClientThreadTCP> client);
         static uint32_t clientListSize();
@@ -41,6 +44,7 @@ namespace communication
         uint8_t maxClientNumber_;
 
         std::atomic<bool> runUserActivation_;
+        peripherials::PeriphManager &periphManager_;
         std::thread activationThread_;
 
         static std::mutex clienListMutex_;
