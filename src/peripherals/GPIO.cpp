@@ -11,7 +11,7 @@ bool GPIO::init() const
     return false;
 }
 
-bool GPIO::setMode(uint8_t pinNumber_, uint8_t pinMode_, uint8_t pushPullMode_)
+void GPIO::setMode(uint8_t pinNumber_, uint8_t pinMode_, uint8_t pushPullMode_)
 {
     pinNumber = pinNumber_;
     pinMode = pinMode_;

@@ -25,7 +25,7 @@ int Motor::getRange() const
 
 bool Motor::setPWM(unsigned int &pwmValue_)
 {
-    if(pwmValue_ > getRange())
+    if(pwmValue_ > static_cast<unsigned int>(getRange()))
         pwmValue_ = getRange();
     if(!gpioPWM(pinNumber, pwmValue_))
     {
