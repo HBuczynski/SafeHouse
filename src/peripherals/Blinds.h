@@ -14,8 +14,9 @@ using namespace std;
 
 class Blinds {
 public:
-    Blinds() = default;
+    Blinds();
     ~Blinds() = default;
+
 
 
 

@@ -12,6 +12,8 @@ class TemperatureSensor: protected GPIO
 public:
     TemperatureSensor() = default;
     TemperatureSensor(uint16_t deviceId_):GPIO(deviceId_){};
+
+    uint16_t readTemperature() const;
 };
 
 
