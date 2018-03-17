@@ -41,6 +41,7 @@ namespace communication
 
         std::mutex queueMutex_;
         std::queue<std::shared_ptr<communication::Response>> responseQueue_;
+
         std::unique_ptr<SendStreamTCP> socket_;
         uint32_t id_;
 

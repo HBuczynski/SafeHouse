@@ -27,8 +27,15 @@ namespace communication
         void stopDataListening();
 
     private:
+        typedef void (*sighandler_t)(int);
+
+        void initializeTimer();
         void activateUsers();
-        void updateClientList();
+        static void updateClientList();
+
+        static void sendBroadcast(int);
+        static void addClientTCPtoList(std::unique_ptr<ClientThreadTCP> client);
+        static uint32_t clientListSize();
 
         uint16_t port_;
         uint8_t maxClientNumber_;
@@ -36,9 +43,10 @@ namespace communication
         std::atomic<bool> runUserActivation_;
         std::thread activationThread_;
 
-        std::list<std::unique_ptr<ClientThreadTCP> > clientList_;
+        static std::mutex clienListMutex_;
+        static std::list<std::unique_ptr<ClientThreadTCP> > clientList_;
 
-        utility::Logger& logger_;
+        static utility::Logger& logger_;
     };
 }
 #endif

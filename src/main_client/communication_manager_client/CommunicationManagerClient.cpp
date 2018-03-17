@@ -3,6 +3,8 @@
 #include <protocol/BlindsDOWNOnTimeCommand.h>
 #include <protocol/BlindsDOWNCommand.h>
 #include <protocol/BlindsUPOnTimeCommand.h>
+#include <protocol/EndConnectionCommand.h>
+
 #include <iostream>
 
 #include <thread>
@@ -29,7 +31,7 @@ void CommunicationManagerClient::initializeClientConnection()
 
 void CommunicationManagerClient::sendCommands()
 {
-    auto command2 = make_unique<BlindsDOWNCommand>();;
+    auto command2 = make_unique<BlindsDOWNCommand>();
 
     std::this_thread::sleep_for(1s);
     client_->sendCommand(move(command2));

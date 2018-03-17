@@ -1,7 +1,9 @@
 #include "ServerTCP.h"
 
-#include <protocol/Command.h>
-#include <protocol/Response.h>
+#include <signal.h>
+#include <sys/time.h>
+
+#include <protocol/AuthenticateResponse.h>
 #include <packet/ListenStreamTCP.h>
 
 #include <algorithm>
@@ -13,11 +15,14 @@ using namespace std;
 using namespace utility;
 using namespace communication;
 
+list<unique_ptr<ClientThreadTCP> > ServerTCP::clientList_;
+utility::Logger& ServerTCP::logger_ = Logger::getInstance();
+mutex ServerTCP::clienListMutex_;
+
 ServerTCP::ServerTCP(uint16_t port,  uint8_t maxClientNumber)
         : port_(port),
           maxClientNumber_(maxClientNumber),
-          runUserActivation_(false),
-          logger_(Logger::getInstance())
+          runUserActivation_(false)
 {}
 
 ServerTCP::~ServerTCP()
@@ -31,6 +36,17 @@ void ServerTCP::startUserActivation()
     runUserActivation_ = true;
 
     activationThread_ = thread(&ServerTCP::activateUsers, this);
+    initializeTimer();
+}
+
+void ServerTCP::initializeTimer()
+{
+    struct timeval my_value={10,0};
+    struct timeval my_interval={10,0};
+    struct itimerval my_timer={my_interval,my_value};
+
+    setitimer(ITIMER_REAL, &my_timer, 0);
+    signal(SIGALRM, (sighandler_t) sendBroadcast);
 }
 
 void ServerTCP::stopUserActivation()
@@ -74,7 +90,7 @@ void ServerTCP::activateUsers()
     {
         updateClientList();
 
-        if(clientList_.size() < maxClientNumber_)
+        if(clientListSize() < maxClientNumber_)
         {
             //Wait on new users.
             auto client = make_unique<ClientThreadTCP>(move(serverSocket->acceptUsers()));
@@ -88,7 +104,7 @@ void ServerTCP::activateUsers()
             client->startSendAndListen();
 
             //Assign new client_tcp to the vector.
-            clientList_.push_back(move(client));
+            addClientTCPtoList(move(client));
             ++clientID;
         }
     }
@@ -98,6 +114,7 @@ void ServerTCP::updateClientList()
 {
     bool isSuccess = false;
 
+    lock_guard<mutex> lock(clienListMutex_);
     for(auto iter = clientList_.begin(); (iter != clientList_.end()) & !isSuccess; ++iter)
     {
         if(!(*iter)->checkListenEnable())
@@ -114,11 +131,35 @@ void ServerTCP::updateClientList()
     }
 }
 
+void ServerTCP::sendBroadcast(int)
+{
+    ServerTCP::updateClientList();
+
+    lock_guard<mutex> lock(clienListMutex_);
+    for(auto iter = clientList_.begin(); iter != clientList_.end(); ++iter)
+    {
+        (*iter)->addResponse(make_shared<AuthenticateResponse>());
+    }
+}
+
 void ServerTCP::stopDataListening()
 {
+    lock_guard<mutex> lock(clienListMutex_);
     for(auto iter = clientList_.begin(); iter != clientList_.end(); ++iter)
     {
         (*iter)->stopSendAndListen();
         clientList_.erase(iter);
     }
+}
+
+void ServerTCP::addClientTCPtoList(std::unique_ptr<ClientThreadTCP> client)
+{
+    lock_guard<mutex> lock(clienListMutex_);
+    clientList_.push_back(move(client));
+}
+
+uint32_t ServerTCP::clientListSize()
+{
+    lock_guard<mutex> lock(clienListMutex_);
+    return clientList_.size();
 }

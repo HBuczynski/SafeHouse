@@ -3,6 +3,7 @@
 #include <protocol/Command.h>
 
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 using namespace utility;
@@ -79,15 +80,19 @@ void ClientThreadTCP::runSend()
             lock_guard<mutex> lock(queueMutex_);
             if(!responseQueue_.empty())
             {
+                this_thread::sleep_for(std::chrono::milliseconds(20));
                 shared_ptr<Response> response = responseQueue_.front();
                 responseQueue_.pop();
 
+                cout << "Wyslano " << response->getName() << endl;
                 socket_->sendData(response->getFrameBytes());
             }
         }
         catch (exception &e)
         {
             // To do:
+            stopSendAndListen();
+            cout << "Nie mozna wyslac" << endl;
         }
     }
 }
@@ -112,6 +117,8 @@ void ClientThreadTCP::runListen()
         }
         catch (exception &e)
         {
+
+            cout << "zamknieto socket - receive" << endl;
             runListenThread_ = false;
             socket_->closeSocket();
 
