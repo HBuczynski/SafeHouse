@@ -1,7 +1,7 @@
 #ifndef SAFEHOUSE_GPIO_H
 #define SAFEHOUSE_GPIO_H
 
-#include "pigpio.h"
+#include "PIGPIO/pigpio.h"
 
 #define INVALID_DEVICE_ID -1
 
