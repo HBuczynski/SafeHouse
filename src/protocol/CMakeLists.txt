@@ -28,4 +28,3 @@ install(FILES ${header_list} DESTINATION include OPTIONAL)
 if(BUILD_TESTS)
     add_subdirectory(unit_tests)
 endif()
-

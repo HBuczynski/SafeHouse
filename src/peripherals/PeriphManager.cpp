@@ -5,8 +5,8 @@ using namespace std;
 using namespace communication;
 using namespace peripherials;
 
-static PeriphManager *instance_= nullptr;
-static std::mutex periphManagerMutex;
+PeriphManager *PeriphManager::instance_= nullptr;
+std::mutex PeriphManager::periphManagerMutex_;
 
 PeriphManager::PeriphManager()
 {}
