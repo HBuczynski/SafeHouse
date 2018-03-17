@@ -41,16 +41,16 @@ execute_process(WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/3rd_party/PIGPIO/ COMMAND 
 #########################################################################################################
 add_subdirectory("src/time_manager"                                     time_manager                    )
 add_subdirectory("src/logger"                                           logger                          )
-add_subdirectory("src/protocol"                                         protocol                        )
 add_subdirectory("src/utility"                                          utility                         )
 add_subdirectory("src/packet"                                           packet                          )
+add_subdirectory("src/protocol"                                         protocol                        )
+add_subdirectory("src/peripherals"                                      peripherals                     )
 add_subdirectory("src/main_rpi"                                         main_rpi                        )
 add_subdirectory("src/main_rpi/server_tcp"                              server_tcp                      )
 add_subdirectory("src/main_rpi/communication_manager_rpi"               communication_manager_rpi       )
 add_subdirectory("src/main_client"                                      main_client                     )
 add_subdirectory("src/main_client/client_tcp"                           client_tcp                      )
 add_subdirectory("src/main_client/communication_manager_client"         communication_manager_client    )
-add_subdirectory("src/peripherals"                                      peripherals                     )
 add_subdirectory("src/config_reader"                                    config_reader                   )
 
 ########################################################################################################

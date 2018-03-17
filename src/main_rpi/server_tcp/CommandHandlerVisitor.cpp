@@ -9,10 +9,12 @@
 
 using namespace std;
 using namespace utility;
+using namespace peripherials;
 using namespace communication;
 
 CommandHandlerVisitor::CommandHandlerVisitor()
-    : logger_(Logger::getInstance())
+    : logger_(Logger::getInstance()),
+      periphManager_(PeriphManager::getInstance())
 {}
 
 CommandHandlerVisitor::~CommandHandlerVisitor()
@@ -20,71 +22,47 @@ CommandHandlerVisitor::~CommandHandlerVisitor()
 
 void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
 {
-
-    cout << "BlindsDOWNOnTimeCommand" << endl;
-
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+    periphManager_.runBlindsDOWNOnTime(command.getEpochDateAndTime());
 }
 
 void CommandHandlerVisitor::visit(BlindsUPOnTimeCommand &command)
 {
-    cout << "BlindsUPOnTimeCommand" << endl;
-
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+    periphManager_.runBlindsUPOnTime(command.getEpochDateAndTime());
 }
 
 void CommandHandlerVisitor::visit(BlindsUPCommand &command)
 {
-    cout << "BlindsUPCommand" << endl;
-
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+    periphManager_.runBlindsUP();
 }
 
 void CommandHandlerVisitor::visit(BlindsDOWNCommand &command)
 {
-    cout << "BlindsDOWNCommand" << endl;
-
-    /*gpioInitialise();
-
-    GPIO diode;
-    diode.setMode(16, PI_OUTPUT, PI_PUD_OFF);
-    diode.init();
-    diode.pinWrite(1);
-
-    gpioDelay(5000000);
-
-    diode.pinWrite(0);*/
-
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
-    currentClient_->addResponse(make_shared<DataResponse>("Test_ok"));
+    periphManager_.runBlindsDOWN();
 }
 
 void CommandHandlerVisitor::visit(BlindsStatusCommand &command)
 {
-    cout << "BlindsStatusCommand" << endl;
-
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+    periphManager_.runBlindsStatus();
 }
 
 void CommandHandlerVisitor::visit(AutomaticBlindsCommand &command)
 {
-    cout << "AutomaticBlindsCommand" << endl;
-
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+    periphManager_.runAutomaticBlinds();
 }
 
 void CommandHandlerVisitor::visit(TemperatureDemandCommand &command)
 {
-    cout << "TemperatureDemandCommand" << endl;
-
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+    periphManager_.runTemperatureDemand();
 }
 
 void CommandHandlerVisitor::visit(UserOutOfHomeCommand &command)
 {
-    cout << "UserOutOfHomeCommand" << endl;
+    periphManager_.runUserOutOfHome();
+}
 
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
+void CommandHandlerVisitor::visit(SnapshotCommand &command)
+{
+    periphManager_.runSnapshot();
 }
 
 void CommandHandlerVisitor::visit(EndConnectionCommand &command)
@@ -96,13 +74,6 @@ void CommandHandlerVisitor::visit(EndConnectionCommand &command)
     }
 
     currentClient_->stopSendAndListen();
-}
-
-void CommandHandlerVisitor::visit(SnapshotCommand &command)
-{
-    cout << "SnapshotCommand" << endl;
-
-    currentClient_->addResponse(make_shared<DataResponse>("OK"));
 }
 
 void CommandHandlerVisitor::initializeCurrentClient(ClientThreadTCP *client)

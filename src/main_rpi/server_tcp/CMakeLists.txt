@@ -5,6 +5,7 @@ project(server_tcp)
 
 set(PROJECT_NAME server_tcp)
 include_directories("../")
+include_directories("../../../3rd_party/")
 
 file(GLOB source_list "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 file(GLOB header_list "${CMAKE_CURRENT_SOURCE_DIR}/*.h") 
@@ -22,7 +23,8 @@ target_include_directories(
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC logger)
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC packet)
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC protocol)
-#target_link_libraries(${PROJECT_NAME} LINK_PUBLIC peripherals)
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC PIGPIO)
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC peripherals)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib OPTIONAL)
 install(FILES ${header_list} DESTINATION include OPTIONAL)

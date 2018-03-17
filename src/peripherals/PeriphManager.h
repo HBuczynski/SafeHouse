@@ -2,33 +2,54 @@
 #ifndef SAFEHOUSE_PERIPHMANAGER_H
 #define SAFEHOUSE_PERIPHMANAGER_H
 
-#include <GPIO.h>
-#include <Motor.h>
-#include <Switch.h>
-#include <TemperatureSensor.h>
+#include <mutex>
+
+#include "GPIO.h"
+#include "Motor.h"
+#include "Switch.h"
+#include "TemperatureSensor.h"
 #include <config_reader/JSONParser.h>
+#include <protocol/Response.h>
 
 #define CONFIGURATION_FILE "../../config.json"
 
-using namespace std;
-
-
-class PeriphManager
+namespace peripherials
 {
-public:
+    class PeriphManager
+    {
+    public:
+        static PeriphManager &getInstance();
 
-    PeriphManager();
-    ~PeriphManager();
+        void initBroadcastFucntion(std::function<void(std::shared_ptr<communication::Response>)> broadcastFunction);
 
-    void initialize();
+        void runBlindsDOWNOnTime(uint32_t epochTime);
+        void runBlindsUPOnTime(int32_t epochTime);
+        void runBlindsUP();
+        void runBlindsDOWN();
+        void runBlindsStatus();
+        void runAutomaticBlinds();
+        void runTemperatureDemand();
+        void runUserOutOfHome();
+        void runSnapshot();
 
-    void readConfig(string configFile);
+    private:
+        PeriphManager();
+        ~PeriphManager();
 
-private:
+        static void initialize();
+        static void readConfig(const std::string &configFile);
 
-    vector<unique_ptr<GPIO>> connectedDevices;
+        void broadcast(std::shared_ptr<communication::Response> response);
 
-};
+        std::vector <std::unique_ptr<GPIO>> connectedDevices;
+        std::function<void(std::shared_ptr<communication::Response>)> broadcastFunction_;
+        std::mutex commandMutex_;
 
+        static PeriphManager *instance_;
+        static std::mutex periphManagerMutex_;
+
+
+    };
+}
 
 #endif //SAFEHOUSE_PERIPHMANAGER_H

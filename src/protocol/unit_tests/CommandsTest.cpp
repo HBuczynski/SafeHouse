@@ -14,6 +14,8 @@
 #include "protocol/EndConnectionCommand.h"
 #include "protocol/SnapshotCommand.h"
 
+#include <iostream>
+
 using namespace std;
 using namespace communication;
 
@@ -21,6 +23,19 @@ BOOST_AUTO_TEST_SUITE( commands )
 
     BOOST_AUTO_TEST_CASE( blindsUpCommand )
     {
+        BlindsUPCommand *lol = nullptr;
+        lol= new BlindsUPCommand();
+
+        delete lol;
+
+        if(lol == nullptr)
+        {
+            std::cout << "lol" << std::endl;
+        }
+
+        lol->getName();
+
+
         BlindsUPCommand command;
         command.getFrameBytes();
 
