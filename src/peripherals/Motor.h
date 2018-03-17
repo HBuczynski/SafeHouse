@@ -6,11 +6,11 @@
 
 #define DEFAULT_PWM_FREQUENCY 500 //in hertz
 
-class Motor : protected GPIO
+class Motor : public GPIO
 {
 public:
     Motor() = default;
-    Motor(uint16_t deviceId_):GPIO(deviceId_){};
+    Motor(uint8_t deviceId_):GPIO(deviceId_){};
     virtual ~Motor() = default;
 
     virtual bool init() const;

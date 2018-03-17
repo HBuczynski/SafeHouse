@@ -12,12 +12,13 @@
 
 using namespace std;
 
-class Blinds {
+class Blinds: public GPIO
+{
 public:
-    Blinds();
+    Blinds(uint8_t device_id);
     ~Blinds() = default;
 
-
+    bool init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_) const;
 
 
 private:

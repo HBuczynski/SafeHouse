@@ -9,7 +9,7 @@
 class GPIO {
 public:
     GPIO():deviceId(INVALID_DEVICE_ID){};
-    GPIO(uint16_t deviceId_):deviceId(deviceId_){};
+    GPIO(uint8_t deviceId_):deviceId(deviceId_){};
     virtual ~GPIO() = default;
 
     virtual bool init() const;

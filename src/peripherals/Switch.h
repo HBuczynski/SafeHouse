@@ -4,11 +4,11 @@
 
 #include <GPIO.h>
 
-class Switch: protected GPIO
+class Switch: public GPIO
 {
 public:
     Switch() = default;
-    Switch(uint16_t deviceId_):GPIO(deviceId_){};
+    Switch(uint8_t deviceId_):GPIO(deviceId_){};
     virtual ~Switch() = default;
 
     bool registerHandler(gpioISRFuncEx_t fun, const int &edge, const int &timeout = 0, void *intData = nullptr);
