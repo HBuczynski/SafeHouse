@@ -5,7 +5,7 @@ project(server_tcp)
 
 set(PROJECT_NAME server_tcp)
 include_directories("../")
-include_directories("../../../3rd_party/")
+include_directories("../../../3rd_party/PIGPIO")
 
 file(GLOB source_list "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 file(GLOB header_list "${CMAKE_CURRENT_SOURCE_DIR}/*.h") 
