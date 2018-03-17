@@ -1,6 +1,9 @@
 #Ignore target files:
 target/*
 
+#3rd_party
+3rd_party/PIGPIO/*
+
 # Compiled Object files
 *.slo
 *.lo
