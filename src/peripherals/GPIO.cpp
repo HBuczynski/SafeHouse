@@ -1,6 +1,9 @@
-
 #include "GPIO.h"
 
+GPIO::GPIO(uint8_t deviceId_, GPIOType type_)
+    : deviceId(deviceId_),
+      deviceType(type_)
+{ }
 
 bool GPIO::init() const
 {
@@ -26,4 +29,4 @@ int GPIO::pinRead(int state)
 void GPIO::pinWrite(int state)
 {
     gpioWrite(pinNumber, state);
-};
+}

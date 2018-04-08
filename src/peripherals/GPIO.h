@@ -5,11 +5,20 @@
 
 #define INVALID_DEVICE_ID -1
 
+enum GPIOType : uint8_t
+{
+    MOTOR,
+    UPPER_SWITCH,
+    DOWN_SWITCH,
+    TEMPERATURE_SENSOR,
+    CAMERA,
+    MOTION_SENSOR
+};
 
 class GPIO {
 public:
     GPIO():deviceId(INVALID_DEVICE_ID){};
-    GPIO(uint8_t deviceId_):deviceId(deviceId_){};
+    GPIO(uint8_t deviceId_, GPIOType type_);
     virtual ~GPIO() = default;
 
     virtual bool init() const;
@@ -21,6 +30,7 @@ public:
 protected:
     //Peripheral id:
     uint16_t deviceId = 0;
+    GPIOType deviceType;
     //BCM Pin number:
     uint8_t pinNumber = 1;
     //Pin mode (INPUT, OUTPUT, ALT0-5):
