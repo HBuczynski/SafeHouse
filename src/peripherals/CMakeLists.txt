@@ -25,6 +25,7 @@ file(GLOB pigpio_header_list "../../3rd_party/PIGPIO/*.h")
 
 add_library(PIGPIO STATIC ${pigpio_source_list} ${pigpio_header_list})
 
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC config_reader)
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC protocol)
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC PIGPIO)
 

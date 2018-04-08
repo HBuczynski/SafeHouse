@@ -7,7 +7,6 @@
 class Switch: public GPIO
 {
 public:
-    Switch() = default;
     Switch(uint8_t deviceId_, GPIOType type_):GPIO(deviceId_, type_){};
     virtual ~Switch() = default;
 
