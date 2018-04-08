@@ -16,11 +16,12 @@
 
 //Class defining finite state machine for window blinds usage:
 
-class AbstractState;
 
 class Blinds
 {
 public:
+
+    friend class AbstractState;
 
     Blinds(uint8_t blindsId_);
     virtual ~Blinds() = default;

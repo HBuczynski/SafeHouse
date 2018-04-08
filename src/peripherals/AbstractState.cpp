@@ -3,3 +3,9 @@
 //
 
 #include "AbstractState.h"
+
+
+void AbstractState::setState(Blinds& blinds, AbstractState* state)
+{
+    blinds.actualState.reset(state);
+}
