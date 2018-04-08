@@ -9,7 +9,6 @@
 class Motor : public GPIO
 {
 public:
-    Motor() = default;
     Motor(uint8_t deviceId_):GPIO(deviceId_, GPIOType::MOTOR){};
     virtual ~Motor() = default;
 

@@ -11,6 +11,7 @@ BOOST_AUTO_TEST_CASE( test_int )
         {
 
                 peripherials::PeriphManager::getInstance();
+                
 
                 BOOST_CHECK( 21 == 21);
         }

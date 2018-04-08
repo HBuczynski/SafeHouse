@@ -7,6 +7,7 @@
 #include "GPIO.h"
 #include "Motor.h"
 #include "Switch.h"
+#include "Blinds.h"
 #include "TemperatureSensor.h"
 #include <config_reader/JSONParser.h>
 #include <protocol/Response.h>
@@ -41,7 +42,8 @@ namespace peripherials
 
         void broadcast(std::shared_ptr<communication::Response> response);
 
-        std::vector <std::unique_ptr<GPIO>> connectedDevices;
+        static std::vector <std::unique_ptr<GPIO>> connectedDevices;
+        static std::vector <std::unique_ptr<Blinds> > connectedBlinds;
         std::function<void(std::shared_ptr<communication::Response>)> broadcastFunction_;
         std::mutex commandMutex_;
 

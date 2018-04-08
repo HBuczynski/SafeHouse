@@ -7,7 +7,7 @@
 
 #include "GPIO.h"
 
-class TemperatureSensor: protected GPIO
+class TemperatureSensor: public GPIO
 {
 public:
     TemperatureSensor() = default;

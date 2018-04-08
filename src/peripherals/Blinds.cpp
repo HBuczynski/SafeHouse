@@ -1,13 +1,12 @@
-
 #include "Blinds.h"
 
 
 Blinds::Blinds(uint8_t blindsId_)
     : blindsId(blindsId_)
 {
-    motor = std::make_unique<Motor>();
-    topSwitch = std::make_unique<Switch>();
-    bottomSwitch = std::make_unique<Switch>();
+    motor = std::make_unique<Motor>(blindsId_);
+    topSwitch = std::make_unique<Switch>(blindsId_, GPIOType::UPPER_SWITCH);
+    bottomSwitch = std::make_unique<Switch>(blindsId_, GPIOType::DOWN_SWITCH);
     actualState = std::make_unique<IdleState>();
 }
 
