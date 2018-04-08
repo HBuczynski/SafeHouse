@@ -1,8 +1,9 @@
 {
 "Peripherals":
   [
-    {"type":"blinds", "id":3},
-    {"type":"temperature_sensor","id":4, "pinNumber":19},
-    {"type":"camera","id":5}
+    { "name": "Blinds_1", "id":3, "motorPin": 5, "upperSwitchPin": 6, "lowerSwitchPin": 7},
+    { "name": "temperature_sensor","id":4, "pinNumber":19},
+    { "name": "camera","id":5},
+    { "name": "motion_sensor", "id":6, "pinNumber": 20}
   ]
 }
