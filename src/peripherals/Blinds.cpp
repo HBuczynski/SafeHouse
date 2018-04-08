@@ -2,7 +2,8 @@
 #include "Blinds.h"
 
 
-Blinds::Blinds(uint8_t deviceId_): GPIO(deviceId_)
+Blinds::Blinds(uint8_t blindsId_)
+    : blindsId(blindsId_)
 {
     motor = std::make_unique<Motor>();
     topSwitch = std::make_unique<Switch>();

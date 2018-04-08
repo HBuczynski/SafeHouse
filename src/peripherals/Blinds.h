@@ -18,11 +18,11 @@
 
 class AbstractState;
 
-class Blinds: public GPIO
+class Blinds
 {
 public:
 
-    Blinds(uint8_t device_id);
+    Blinds(uint8_t blindsId_);
     virtual ~Blinds() = default;
 
     bool init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_) const;
@@ -32,6 +32,8 @@ public:
     int blindsDownCallback(int gpio, int level, uint32_t tick, void *userdata);
 
 private:
+    uint8_t blindsId;
+
     std::unique_ptr<Motor> motor = nullptr;
     std::unique_ptr<Switch> topSwitch = nullptr;
     std::unique_ptr<Switch> bottomSwitch = nullptr;
