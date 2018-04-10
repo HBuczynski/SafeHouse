@@ -35,7 +35,7 @@ public:
 
     uint8_t blindsId;
     unsigned int pwmValue;
-    
+
     std::unique_ptr<Motor> motor = nullptr;
     std::unique_ptr<Switch> topSwitch = nullptr;
     std::unique_ptr<Switch> bottomSwitch = nullptr;
