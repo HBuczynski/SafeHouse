@@ -6,8 +6,18 @@
 #define SAFEHOUSE_OPENEDSTATE_H
 
 
-class OpenedState {
+#include "AbstractState.h"
 
+class OpenedState: public AbstractState
+{
+public:
+    virtual ~OpenedState(){};
+
+    virtual void blindsUp(Blinds& blinds);
+    virtual void blindsDown(Blinds& blinds);
+
+    virtual void blindsUpSwitch(Blinds& blinds);
+    virtual void blindsDownSwitch(Blinds& blinds);
 };
 
 

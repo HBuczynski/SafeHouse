@@ -1,4 +1,10 @@
 #include "Blinds.h"
+#include "AbstractState.h"
+#include "ClosedState.h"
+#include "ErrorState.h"
+#include "IdleState.h"
+#include "MovingState.h"
+#include "OpenedState.h"
 
 
 Blinds::Blinds(uint8_t blindsId_)
@@ -10,19 +16,80 @@ Blinds::Blinds(uint8_t blindsId_)
     actualState = std::make_unique<IdleState>();
 }
 
-bool Blinds::init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_) const
+Blinds::~Blinds()
+{
+
+}
+
+bool Blinds::init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_)
 {
     motor->setMode(motorPin_, PI_OUTPUT, PI_PUD_OFF);
     topSwitch->setMode(topSwitchPin_, PI_OUTPUT, PI_PUD_OFF);
     bottomSwitch->setMode(bottomSwitchPin_, PI_OUTPUT, PI_PUD_OFF);
 
-    if(motor->init())// && topSwitch->registerHandler() && bottomSwitch->registerHandler())
+    if(topSwitch->pinRead() && bottomSwitch->pinRead())
+    {
+        actualState.reset(new ErrorState());
+    }
+    else if(topSwitch->pinRead())
+    {
+        actualState.reset(new OpenedState());
+    }
+    else if(bottomSwitch->pinRead())
+    {
+        actualState.reset(new ClosedState());
+    }
+    else
+    {
+        actualState.reset(new IdleState());
+    }
+
+
+    if(motor->init() && topSwitch->registerHandler(blindsUpCallback, EITHER_EDGE, 0, static_cast<void*>(actualState.get()))
+                         && bottomSwitch->registerHandler(blindsDownCallback, EITHER_EDGE, 0, static_cast<void*>(actualState.get())))
     {
         return true;
     }
     return false;
 }
 
-int Blinds::blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata){return 0;};
-int Blinds::blindsDownCallback(int gpio, int level, uint32_t tick, void *userdata){return 0;};
+void Blinds::setPWMValue(unsigned int pwmValue_)
+{
+    pwmValue = pwmValue_;
+}
+
+unsigned int Blinds::getPWMValue() const
+{
+    return pwmValue;
+}
+
+
+void Blinds::moveBlindsDown()
+{
+    motor->setPWM(pwmValue);
+    //TODO: setting direction (two pins)
+}
+
+void Blinds::moveBlindsUp()
+{
+    motor->setPWM(pwmValue);
+    //TODO: setting direction (two pins)
+}
+
+void Blinds::blindsStop()
+{
+    motor->setPWM(0);
+}
+
+void Blinds::blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata)
+{
+    Blinds* blinds = static_cast<Blinds*>(userdata);
+    blinds->actualState->blindsUpSwitch(*blinds);
+}
+
+void Blinds::blindsDownCallback(int gpio, int level, uint32_t tick, void *userdata)
+{
+    Blinds* blinds = static_cast<Blinds*>(userdata);
+    blinds->actualState->blindsDownSwitch(*blinds);
+}
 

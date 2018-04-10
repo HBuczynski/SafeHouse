@@ -8,7 +8,16 @@
 
 #include "AbstractState.h"
 
-class IdleState: public AbstractState {
+class IdleState: public AbstractState
+{
+public:
+    virtual ~IdleState(){};
+
+    virtual void blindsUp(Blinds& blinds);
+    virtual void blindsDown(Blinds& blinds);
+
+    virtual void blindsUpSwitch(Blinds& blinds);
+    virtual void blindsDownSwitch(Blinds& blinds);
 
 };
 

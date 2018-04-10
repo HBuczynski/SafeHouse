@@ -5,16 +5,22 @@
 #ifndef SAFEHOUSE_CLOSEDSTATE_H
 #define SAFEHOUSE_CLOSEDSTATE_H
 
-
 #include "AbstractState.h"
+
+//Class defining behaviour of blinds while closed (lower button ON, upper OFF, motor stopped)
+
+class AbstractState;
 
 class ClosedState: public AbstractState
 {
 public:
-    virtual ~ClosedState() = default;
+    virtual ~ClosedState(){};
 
     virtual void blindsUp(Blinds& blinds);
     virtual void blindsDown(Blinds& blinds);
+
+    virtual void blindsUpSwitch(Blinds& blinds);
+    virtual void blindsDownSwitch(Blinds& blinds);
 };
 
 

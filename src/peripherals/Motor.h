@@ -6,6 +6,8 @@
 
 #define DEFAULT_PWM_FREQUENCY 500 //in hertz
 
+class Blinds;
+
 class Motor : public GPIO
 {
 public:
@@ -14,13 +16,13 @@ public:
 
     virtual bool init() const;
 
-    bool setPWM(unsigned int &pwmValue_);
+    bool setPWM(unsigned int pwmValue_);
     int getPWM() const;
 
     bool setRange(const int &pwmUpperRange_) const;
     int getRange() const;
 
-    bool setPWMFrequency(const int &frequency);
+    bool setPWMFrequency(const int frequency);
 
 private:
     int pwmFrequency = DEFAULT_PWM_FREQUENCY;

@@ -23,7 +23,7 @@ int Motor::getRange() const
     return gpioGetPWMrange(pinNumber);
 }
 
-bool Motor::setPWM(unsigned int &pwmValue_)
+bool Motor::setPWM(unsigned int pwmValue_)
 {
     if(pwmValue_ > static_cast<unsigned int>(getRange()))
         pwmValue_ = getRange();
@@ -34,7 +34,7 @@ bool Motor::setPWM(unsigned int &pwmValue_)
     return false;
 }
 
-bool Motor::setPWMFrequency(const int &frequency)
+bool Motor::setPWMFrequency(const int frequency)
 {
     if(!gpioSetPWMfrequency(pinNumber,frequency))
     {

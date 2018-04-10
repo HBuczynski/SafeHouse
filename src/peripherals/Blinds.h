@@ -4,37 +4,38 @@
 
 #include <memory>
 
-#include <Motor.h>
-#include <Switch.h>
+#include "Motor.h"
+#include "Switch.h"
 
-#include <AbstractState.h>
-#include <ClosedState.h>
-#include <ErrorState.h>
-#include <IdleState.h>
-#include <MovingState.h>
-#include <OpenedState.h>
 
 //Class defining finite state machine for window blinds usage:
 
+class AbstractState;
 
 class Blinds
 {
 public:
 
-    friend class AbstractState;
 
     Blinds(uint8_t blindsId_);
-    virtual ~Blinds() = default;
+   ~Blinds();
 
-    bool init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_) const;
+    bool init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_);
+
+    void setPWMValue(unsigned int pwmValue_);
+    unsigned int  getPWMValue() const;
 
 
-    int blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata);
-    int blindsDownCallback(int gpio, int level, uint32_t tick, void *userdata);
+    void moveBlindsUp();
+    void moveBlindsDown();
+    void blindsStop();
 
-private:
+    static void blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata);
+    static void blindsDownCallback(int gpio, int level, uint32_t tick, void *userdata);
+
     uint8_t blindsId;
-
+    unsigned int pwmValue;
+    
     std::unique_ptr<Motor> motor = nullptr;
     std::unique_ptr<Switch> topSwitch = nullptr;
     std::unique_ptr<Switch> bottomSwitch = nullptr;

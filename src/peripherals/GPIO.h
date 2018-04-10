@@ -25,7 +25,7 @@ public:
     virtual void setMode(uint8_t pinNumber_, uint8_t pinMode_, uint8_t pushPullMode_);
 
     virtual void pinWrite(int state);
-    virtual int pinRead(int state);
+    virtual int pinRead() const;
 
 protected:
     //Peripheral id:

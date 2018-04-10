@@ -6,7 +6,20 @@
 #define SAFEHOUSE_ERRORSTATE_H
 
 
-class ErrorState {
+#include "AbstractState.h"
+
+class ErrorState: public AbstractState
+{
+public:
+    virtual ~ErrorState(){};
+
+    virtual void blindsUp(Blinds& blinds);
+    virtual void blindsDown(Blinds& blinds);
+
+    virtual void blindsUpSwitch(Blinds& blinds);
+    virtual void blindsDownSwitch(Blinds& blinds);
+
+    bool isError(const Blinds& blinds) const;
 
 };
 

@@ -7,15 +7,19 @@
 
 #include "Blinds.h"
 
-
 class AbstractState {
 public:
-    virtual ~AbstractState() = default;
-    virtual void blindsUp(Blinds& blinds) = 0;
-    virtual void blindsDown(Blinds& blinds) = 0;
+    AbstractState() {};
+    virtual ~AbstractState() {};
+
+    virtual void blindsUp(Blinds & blinds) = 0;
+    virtual void blindsDown(Blinds & blinds) = 0;
+
+    virtual void blindsUpSwitch(Blinds & blinds) = 0;
+    virtual void blindsDownSwitch(Blinds & blinds) = 0;
 
 protected:
-    virtual void setState(Blinds& blinds, AbstractState* state);
+    void setState(Blinds & blinds, AbstractState* state);
 };
 
 

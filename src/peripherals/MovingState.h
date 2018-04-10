@@ -6,7 +6,18 @@
 #define SAFEHOUSE_MOVINGSTATE_H
 
 
-class MovingState {
+#include "AbstractState.h"
+
+class MovingState: public AbstractState
+{
+public:
+    virtual ~MovingState(){};
+
+    virtual void blindsUp(Blinds& blinds);
+    virtual void blindsDown(Blinds& blinds);
+
+    virtual void blindsUpSwitch(Blinds& blinds);
+    virtual void blindsDownSwitch(Blinds& blinds);
 
 };
 

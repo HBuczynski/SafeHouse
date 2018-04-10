@@ -21,7 +21,7 @@ void GPIO::setMode(uint8_t pinNumber_, uint8_t pinMode_, uint8_t pushPullMode_)
     pushPullMode = pushPullMode_;
 }
 
-int GPIO::pinRead(int state)
+int GPIO::pinRead() const
 {
     return gpioRead(pinNumber);
 }
