@@ -53,7 +53,7 @@ void PeriphManager::readConfig(const std::string &configFile)
     JSONParser parser(configFile);
 
     // Create blinds based on data from file.
-    for(uint8_t i=1; i<=3; ++i)
+    for(uint8_t i=1; i<=1; ++i)
     {
         stringstream ss;
 
