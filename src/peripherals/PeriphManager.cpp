@@ -55,9 +55,6 @@ void PeriphManager::readConfig(const std::string &configFile)
     for(uint8_t i=1; i<=3; ++i)
     {
         stringstream ss;
-        ss << "Blinds_" << static_cast<int>(i);
-
-        cout << ss.str() << endl;
 
         vector<string> blindElements;
         blindElements.push_back("Peripherals");
@@ -173,6 +170,7 @@ void PeriphManager::runBlindsUP()
 void PeriphManager::runBlindsDOWN()
 {
     lock_guard<mutex> lock(commandMutex_);
+
 
 }
 

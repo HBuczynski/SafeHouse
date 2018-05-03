@@ -15,8 +15,6 @@ class AbstractState;
 class Blinds
 {
 public:
-
-
     Blinds(uint8_t blindsId_);
    ~Blinds();
 
