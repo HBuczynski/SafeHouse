@@ -115,10 +115,18 @@ void ClientTCP::executeResponses()
 
             unique_ptr<Response> response = responseFactory_.createCommand(responseFrame);
             response->accept(responseHandler_);
+
+            if(logger_.isInformationEnable())
+            {
+                const string message = string("ClientTCP :: Client data: ") + address_ + string(" and port: ") +
+                                       to_string(port_) + string(". Received response: ") +
+                                       response->getName();
+                logger_.writeLog(LogType::INFORMATION_LOG, message);
+            }
         }
         catch(exception &e)
         {
-            cout << "klient nie odebral" << endl;
+            catchExceptions(e.what());
         }
     }
 }
@@ -138,8 +146,7 @@ void ClientTCP::executeCommands()
                 if(logger_.isInformationEnable())
                 {
                     const string message = string("ClientTCP :: Client data: ") + address_ + string(" and port: ") +
-                                           to_string(port_) + string(". Send command: ") +
-                                           command->getName();
+                                           to_string(port_) + string(". Send command: ") + command->getName();
                     logger_.writeLog(LogType::INFORMATION_LOG, message);
                 }
             }
@@ -153,5 +160,10 @@ void ClientTCP::executeCommands()
 
 void ClientTCP::catchExceptions(string exception)
 {
-
+    if(logger_.isErrorEnable())
+    {
+        const string message = string("ClientTCP :: Client data: ") + address_ + string(" and port: ") +
+                               to_string(port_) + string("Exception: ") + exception;
+                logger_.writeLog(LogType::ERROR_LOG, message);
+    }
 }

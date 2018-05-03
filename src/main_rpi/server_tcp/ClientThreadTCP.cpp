@@ -84,7 +84,12 @@ void ClientThreadTCP::runSend()
                 shared_ptr<Response> response = responseQueue_.front();
                 responseQueue_.pop();
 
-                cout << "Wyslano " << response->getName() << endl;
+                if(logger_.isInformationEnable())
+                {
+                    const string message = string("ClientThreadTCP :: Client data: ") + to_string(id_) +
+                                            string(". Send response: ") + response->getName();
+                    logger_.writeLog(LogType::INFORMATION_LOG, message);
+                }
                 socket_->sendData(response->getFrameBytes());
             }
         }
@@ -92,7 +97,12 @@ void ClientThreadTCP::runSend()
         {
             // To do:
             stopSendAndListen();
-            cout << "Nie mozna wyslac" << endl;
+            if(logger_.isErrorEnable())
+            {
+                const string message = string("ClientThreadTCP :: Client data: ") + to_string(id_) +
+                                       string(". Send response fail");
+                logger_.writeLog(LogType::ERROR_LOG, message);
+            }
         }
     }
 }
@@ -105,7 +115,6 @@ void ClientThreadTCP::runListen()
         logger_.writeLog(LogType::INFORMATION_LOG, message);
     }
 
-    // to do: zamkniecie gdy nie otrzymamy pakietu
     while(runListenThread_)
     {
         try
@@ -118,7 +127,11 @@ void ClientThreadTCP::runListen()
         catch (exception &e)
         {
 
-            cout << "zamknieto socket - receive" << endl;
+            if(logger_.isInformationEnable())
+            {
+                const string message = string("ClientThreadTCP :: ClientdID -") + to_string(getID()) + string("- zamknięto socket.");
+                logger_.writeLog(LogType::INFORMATION_LOG, message);
+            }
             runListenThread_ = false;
             socket_->closeSocket();
 

@@ -37,20 +37,36 @@ void ResponseHandlerVisitor::visit(DataResponse &data)
 
 void ResponseHandlerVisitor::visit(ErrorResponse &data)
 {
-    cout << "ErrorResponse" << endl;
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("ResponseHandlerVisitor :: Received DataResponse, data: ") + to_string(data.getErrorType());
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
 }
 
 void ResponseHandlerVisitor::visit(MotorStatusResponse &data)
 {
-    cout << "MotorStatusResponse" << endl;
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("ResponseHandlerVisitor :: Received DataResponse, data: ") + to_string(data.getMotorStatus());
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
 }
 
 void ResponseHandlerVisitor::visit(BlindsStatusResponse &data)
 {
-    cout << "BlindsStatusResponse" << endl;
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("ResponseHandlerVisitor :: Received DataResponse, data: ") + to_string(data.getBlindsStatus());
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
 }
 
 void ResponseHandlerVisitor::visit(AuthenticateResponse& data)
 {
-    cout << "AuthenticateResponse" << endl;
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("ResponseHandlerVisitor :: Received Authentication message.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
 }
