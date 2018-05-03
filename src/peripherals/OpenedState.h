@@ -18,6 +18,8 @@ public:
 
     virtual void blindsUpSwitch(Blinds& blinds);
     virtual void blindsDownSwitch(Blinds& blinds);
+
+    const std::string stateName = "Opened state";
 };
 
 

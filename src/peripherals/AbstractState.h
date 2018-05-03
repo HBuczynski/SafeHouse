@@ -18,6 +18,8 @@ public:
     virtual void blindsUpSwitch(Blinds & blinds) = 0;
     virtual void blindsDownSwitch(Blinds & blinds) = 0;
 
+    const std::string stateName = "Abstract state";
+
 protected:
     void setState(Blinds & blinds, AbstractState* state);
 };

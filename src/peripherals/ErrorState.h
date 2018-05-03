@@ -21,6 +21,7 @@ public:
 
     bool isError(const Blinds& blinds) const;
 
+    const std::string stateName = "Error state";
 };
 
 

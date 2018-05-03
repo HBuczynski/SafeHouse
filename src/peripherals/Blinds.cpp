@@ -8,7 +8,7 @@
 
 
 Blinds::Blinds(uint8_t blindsId_)
-    : blindsId(blindsId_)
+    : blindsId(blindsId_), logger(utility::Logger::getInstance())
 {
     motor = std::make_unique<Motor>(blindsId_);
     topSwitch = std::make_unique<Switch>(blindsId_, GPIOType::UPPER_SWITCH);

@@ -2,6 +2,7 @@
 #define SAFEHOUSE_GPIO_H
 
 #include <../../3rd_party/PIGPIO/pigpio.h>
+#include <logger/Logger.h>
 
 #define INVALID_DEVICE_ID -1
 
@@ -17,7 +18,7 @@ enum GPIOType : uint8_t
 
 class GPIO {
 public:
-    GPIO():deviceId(INVALID_DEVICE_ID){};
+    GPIO():deviceId(INVALID_DEVICE_ID) {};
     GPIO(uint8_t deviceId_, GPIOType type_);
     virtual ~GPIO() = default;
 
@@ -39,7 +40,6 @@ protected:
     uint8_t pinMode = PI_OUTPUT;
     //Push-pull mode (OFF, PULL-UP, PULL-DOWN):
     uint8_t pushPullMode = PI_PUD_OFF;
-
 };
 
 

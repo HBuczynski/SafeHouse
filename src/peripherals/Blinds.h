@@ -40,6 +40,7 @@ public:
     std::unique_ptr<Switch> topSwitch = nullptr;
     std::unique_ptr<Switch> bottomSwitch = nullptr;
     std::unique_ptr<AbstractState> actualState;
+    utility::Logger& logger;
 };
 
 

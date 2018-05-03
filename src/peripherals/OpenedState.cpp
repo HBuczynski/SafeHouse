@@ -22,7 +22,7 @@ void OpenedState::blindsUp(Blinds &blinds)
 
 void OpenedState::blindsUpSwitch(Blinds &blinds)
 {
-    if(blinds.bottomSwitch->pinRead())
+    if(!blinds.bottomSwitch->pinRead())
     {
         blinds.blindsStop();
         setState(blinds, new ErrorState());
