@@ -12,7 +12,7 @@ class IdleState: public AbstractState
 {
 public:
     IdleState():AbstractState(){
-        stateName = "ClosedState";
+        stateName = "IdleState";
     };
     virtual ~IdleState(){};
 
