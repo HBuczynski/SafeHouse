@@ -7,7 +7,7 @@ GPIO::GPIO(uint8_t deviceId_, GPIOType type_)
 
 bool GPIO::init() const
 {
-    if(!gpioSetMode(pinNumber, pinMode))
+    if(!gpioSetMode(pinNumber, pinMode) && !gpioSetPullUpDown(pinNumber, pushPullMode))
     {
         return true;
     }

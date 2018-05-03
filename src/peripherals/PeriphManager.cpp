@@ -17,10 +17,14 @@ vector <unique_ptr<Blinds> > PeriphManager::connectedBlinds;
 
 
 PeriphManager::PeriphManager()
-{}
+{
+    gpioInitialise();
+}
 
 PeriphManager::~PeriphManager()
-{}
+{
+    gpioTerminate();
+}
 
 PeriphManager &PeriphManager::getInstance()
 {
@@ -104,6 +108,7 @@ void PeriphManager::readConfig(const std::string &configFile)
     auto temperatureSensor = make_unique<TemperatureSensor>(temperatureID);
     //TO DO - the rest elements
     temperatureSensor->setMode(temperaturePin, 0, 0);
+    temperatureSensor->init();
     connectedDevices.push_back(move(temperatureSensor));
 
 
@@ -136,7 +141,8 @@ void PeriphManager::readConfig(const std::string &configFile)
     motionElements.pop_back();
 
     auto motionSensor = make_unique<MotionSensor>(motionID);
-    motionSensor->setMode(motionPin, 0, 0); // To do: set values.
+    motionSensor->setMode(motionPin, PI_INPUT, PI_PUD_OFF);
+    motionSensor->init();
     connectedDevices.push_back(move(motionSensor));
 }
 
@@ -160,6 +166,7 @@ void PeriphManager::runBlindsUPOnTime(int32_t epochTime)
 void PeriphManager::runBlindsUP()
 {
     lock_guard<mutex> lock(commandMutex_);
+
 
 }
 

@@ -1,33 +1,33 @@
 {
 "Peripherals": {
     "Blinds_1": {
-      "id": 3,
-      "motorPin": 5,
-      "upperSwitchPin": 6,
-      "lowerSwitchPin": 7
+      "id": 1,
+      "motorPin": 18,
+      "upperSwitchPin": 17,
+      "lowerSwitchPin": 27
     },
     "Blinds_2": {
-      "id": 3,
-      "motorPin": 5,
-      "upperSwitchPin": 6,
-      "lowerSwitchPin": 7
+      "id": 2,
+      "motorPin": 13,
+      "upperSwitchPin": 16,
+      "lowerSwitchPin": 26
     },
     "Blinds_3": {
       "id": 3,
-      "motorPin": 5,
-      "upperSwitchPin": 6,
-      "lowerSwitchPin": 7
+      "motorPin": 12,
+      "upperSwitchPin": 5,
+      "lowerSwitchPin": 6
     },
     "Temperature_sensor": {
       "id": 4,
-      "pinNumber": 19
+      "pinNumber": 23
     },
     "Camera" : {
     "id": 5
     },
     "Motion_sensor" : {
       "id": 6,
-      "pinNumber": 20
+      "pinNumber": 24
     }
   }
 }
