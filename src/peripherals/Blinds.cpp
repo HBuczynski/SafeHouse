@@ -40,12 +40,12 @@ bool Blinds::init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwi
     bottom = bottomSwitch->pinRead();
     if(logger.isInformationEnable())
     {
-        const std::string message = std::string("State up: " + top);
+        const std::string message = std::string("State up: " + std::to_string(top));
         logger.writeLog(utility::LogType::INFORMATION_LOG, message);
     }
     if(logger.isInformationEnable())
     {
-        const std::string message = std::string("State down: " + bottom);
+        const std::string message = std::string("State down: " + std::to_string(bottom));
         logger.writeLog(utility::LogType::INFORMATION_LOG, message);
     }
     if(((!topSwitch->pinRead()) && (!bottomSwitch->pinRead())))
