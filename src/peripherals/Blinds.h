@@ -6,6 +6,7 @@
 
 #include "Motor.h"
 #include "Switch.h"
+#include "AbstractState.h"
 
 
 //Class defining finite state machine for window blinds usage:

@@ -8,7 +8,7 @@
 
 enum GPIOType : uint8_t
 {
-    MOTOR,
+    MOTOR = 0,
     UPPER_SWITCH,
     DOWN_SWITCH,
     TEMPERATURE_SENSOR,

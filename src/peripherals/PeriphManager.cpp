@@ -1,6 +1,7 @@
 #include "PeriphManager.h"
 #include "MotionSensor.h"
 #include "Camera.h"
+#include "protocol/BlindsStatusResponse.h"
 #include <protocol/DataResponse.h>
 #include <config_reader/JSONParser.h>
 
@@ -80,10 +81,10 @@ void PeriphManager::readConfig(const std::string &configFile)
         parser.getUINT16t(blindElements, lowerSwitchPin);
         blindElements.pop_back();
 
-        auto blind = make_unique<Blinds>(id);
-        blind->init(motorPin, upperSwitchPin, lowerSwitchPin);
+        auto blinds = make_unique<Blinds>(id);
+        blinds->init(motorPin, upperSwitchPin, lowerSwitchPin);
 
-        connectedBlinds.push_back(move(blind));
+        connectedBlinds.push_back(move(blinds));
     }
 
 
@@ -151,7 +152,6 @@ void PeriphManager::initBroadcastFucntion(function<void(shared_ptr<Response>)> b
 void PeriphManager::runBlindsDOWNOnTime(uint32_t epochTime)
 {
     lock_guard<mutex> lock(commandMutex_);
-
 }
 
 void PeriphManager::runBlindsUPOnTime(int32_t epochTime)
@@ -163,26 +163,36 @@ void PeriphManager::runBlindsUPOnTime(int32_t epochTime)
 void PeriphManager::runBlindsUP()
 {
     lock_guard<mutex> lock(commandMutex_);
-
-
+    for(unsigned int i = 0; i < connectedBlinds.size(); ++i)
+    {
+        connectedBlinds[i]->actualState->blindsUp(*connectedBlinds[i].get());
+    }
 }
 
 void PeriphManager::runBlindsDOWN()
 {
     lock_guard<mutex> lock(commandMutex_);
-
+    for(unsigned int i = 0; i < connectedBlinds.size(); ++i)
+    {
+        connectedBlinds[i]->actualState->blindsDown(*connectedBlinds[i].get());
+    }
 
 }
 
 void PeriphManager::runBlindsStatus()
 {
     lock_guard<mutex> lock(commandMutex_);
-
+    for(unsigned int i = 0; i < connectedBlinds.size(); ++i)
+    {   //TODO: Make BlindStatus and mode enum in common directory, differentiate blinds by IDs:
+        const auto blindStatusResponse = std::make_shared<BlindsStatusResponse>(UP, MANUAL);
+        broadcast(blindStatusResponse);
+    }
 }
 
 void PeriphManager::runAutomaticBlinds()
 {
     lock_guard<mutex> lock(commandMutex_);
+
 
 }
 
