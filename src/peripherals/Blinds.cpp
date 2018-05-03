@@ -30,7 +30,7 @@ bool Blinds::init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwi
     }
     motor->setMode(motorPin_, PI_OUTPUT, PI_PUD_OFF);
     topSwitch->setMode(topSwitchPin_, PI_INPUT, PI_PUD_UP);
-    bottomSwitch->setMode(bottomSwitchPin_, PI_OUTPUT, PI_PUD_UP);
+    bottomSwitch->setMode(bottomSwitchPin_, PI_INPUT, PI_PUD_UP);
 
     motor->init();
     topSwitch->init();
