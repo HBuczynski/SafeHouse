@@ -14,6 +14,9 @@ class AbstractState;
 class ClosedState: public AbstractState
 {
 public:
+    ClosedState():AbstractState(){
+        stateName = "ClosedState";
+    };
     virtual ~ClosedState(){};
 
     virtual void blindsUp(Blinds& blinds);
@@ -21,8 +24,6 @@ public:
 
     virtual void blindsUpSwitch(Blinds& blinds);
     virtual void blindsDownSwitch(Blinds& blinds);
-
-    const std::string stateName = "Closed state";
 };
 
 

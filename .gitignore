@@ -38,6 +38,7 @@ target/*
 .project
 .gitignore.save
 .idea
+cmake-build-debug
 
 CMakeDoxyfile.in
 CMakeDoxygenDefaults.cmake

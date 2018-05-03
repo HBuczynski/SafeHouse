@@ -11,6 +11,9 @@
 class ErrorState: public AbstractState
 {
 public:
+    ErrorState():AbstractState(){
+        stateName = "ErrorState";
+    };
     virtual ~ErrorState(){};
 
     virtual void blindsUp(Blinds& blinds);
@@ -20,8 +23,6 @@ public:
     virtual void blindsDownSwitch(Blinds& blinds);
 
     bool isError(const Blinds& blinds) const;
-
-    const std::string stateName = "Error state";
 };
 
 
