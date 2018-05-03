@@ -86,7 +86,7 @@ void ClientThreadTCP::runSend()
 
                 if(logger_.isInformationEnable())
                 {
-                    const string message = string("ClientThreadTCP :: Client data: ") + to_string(id_) +
+                    const string message = string("ClientThreadTCP :: ClientID - ") + to_string(id_) +
                                             string(". Send response: ") + response->getName();
                     logger_.writeLog(LogType::INFORMATION_LOG, message);
                 }
@@ -99,7 +99,7 @@ void ClientThreadTCP::runSend()
             stopSendAndListen();
             if(logger_.isErrorEnable())
             {
-                const string message = string("ClientThreadTCP :: Client data: ") + to_string(id_) +
+                const string message = string("ClientThreadTCP :: ClientID - ") + to_string(id_) +
                                        string(". Send response fail");
                 logger_.writeLog(LogType::ERROR_LOG, message);
             }
@@ -129,7 +129,7 @@ void ClientThreadTCP::runListen()
 
             if(logger_.isInformationEnable())
             {
-                const string message = string("ClientThreadTCP :: ClientdID -") + to_string(getID()) + string("- zamknięto socket.");
+                const string message = string("ClientThreadTCP :: ClientdID -") + to_string(getID()) + string("- socket was closed.");
                 logger_.writeLog(LogType::INFORMATION_LOG, message);
             }
             runListenThread_ = false;
