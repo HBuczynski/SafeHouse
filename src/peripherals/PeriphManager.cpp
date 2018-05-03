@@ -161,11 +161,13 @@ void PeriphManager::runBlindsUP()
 {
     lock_guard<mutex> lock(commandMutex_);
 
+
 }
 
 void PeriphManager::runBlindsDOWN()
 {
     lock_guard<mutex> lock(commandMutex_);
+
 
 }
 
