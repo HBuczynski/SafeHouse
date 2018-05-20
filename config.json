@@ -3,18 +3,27 @@
     "Blinds_1": {
       "id": 1,
       "motorPin": 18,
+      "motorPinPWMLeft": 0,
+      "motorPinPWMRight": 0,
+      "motorPinPWMEnable": 0,
       "upperSwitchPin": 17,
       "lowerSwitchPin": 27
     },
     "Blinds_2": {
       "id": 2,
       "motorPin": 13,
+      "motorPinPWMLeft": 0,
+      "motorPinPWMRight": 0,
+      "motorPinPWMEnable": 0,
       "upperSwitchPin": 16,
       "lowerSwitchPin": 26
     },
     "Blinds_3": {
       "id": 3,
       "motorPin": 12,
+      "motorPinPWMLeft": 0,
+      "motorPinPWMRight": 0,
+      "motorPinPWMEnable": 0,
       "upperSwitchPin": 5,
       "lowerSwitchPin": 6
     },

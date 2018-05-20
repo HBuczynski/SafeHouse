@@ -57,6 +57,8 @@ void PeriphManager::readConfig(const std::string &configFile)
     {
         stringstream ss;
 
+        ss << "Blinds_" << to_string(i);
+
         vector<string> blindElements;
         blindElements.push_back("Peripherals");
         blindElements.push_back(ss.str());
@@ -71,6 +73,21 @@ void PeriphManager::readConfig(const std::string &configFile)
         parser.getUINT16t(blindElements, motorPin);
         blindElements.pop_back();
 
+        uint16_t motorPinPWMLeft;
+        blindElements.push_back("motorPinPWMLeft");
+        parser.getUINT16t(blindElements, motorPinPWMLeft);
+        blindElements.pop_back();
+
+        uint16_t motorPinPWMRight;
+        blindElements.push_back("motorPinPWMRight");
+        parser.getUINT16t(blindElements, motorPinPWMRight);
+        blindElements.pop_back();
+
+        uint16_t motorPinPWMEnable;
+        blindElements.push_back("motorPinPWMEnable");
+        parser.getUINT16t(blindElements, motorPinPWMEnable);
+        blindElements.pop_back();
+
         uint16_t upperSwitchPin;
         blindElements.push_back("upperSwitchPin");
         parser.getUINT16t(blindElements, upperSwitchPin);
@@ -82,7 +99,7 @@ void PeriphManager::readConfig(const std::string &configFile)
         blindElements.pop_back();
 
         auto blinds = make_unique<Blinds>(id);
-        blinds->init(motorPin, upperSwitchPin, lowerSwitchPin);
+        blinds->init(motorPin, motorPinPWMLeft, motorPinPWMRight, motorPinPWMEnable, upperSwitchPin, lowerSwitchPin);
 
         connectedBlinds.push_back(move(blinds));
     }

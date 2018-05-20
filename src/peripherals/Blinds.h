@@ -19,7 +19,7 @@ public:
     Blinds(uint8_t blindsId_);
    ~Blinds();
 
-    bool init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_);
+    bool init(uint16_t motorPin_, uint16_t motorPWMLeft_, uint16_t motorPWMRight_, uint16_t motorPWMEnable_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_);
 
     void setPWMValue(unsigned int pwmValue_);
     unsigned int  getPWMValue() const;
