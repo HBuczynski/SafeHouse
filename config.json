@@ -3,9 +3,9 @@
     "Blinds_1": {
       "id": 1,
       "motorPin": 18,
-      "motorPinPWMLeft": 0,
-      "motorPinPWMRight": 0,
-      "motorPinPWMEnable": 0,
+      "motorPinPWMLeft": 16,
+      "motorPinPWMRight": 20,
+      "motorPinPWMEnable": 21,
       "upperSwitchPin": 17,
       "lowerSwitchPin": 27
     },
