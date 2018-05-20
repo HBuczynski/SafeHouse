@@ -11,7 +11,7 @@
 
 void IdleState::blindsDown(Blinds &blinds)
 {
-    if(!(blinds.topSwitch->pinRead() && blinds.bottomSwitch->pinRead()))
+    if((blinds.topSwitch->pinRead() && blinds.bottomSwitch->pinRead()))
     {
         blinds.moveBlindsDown();
         setState(blinds, new MovingState());
@@ -24,13 +24,20 @@ void IdleState::blindsDown(Blinds &blinds)
 
 void IdleState::blindsUp(Blinds &blinds)
 {
-    blinds.moveBlindsUp();
-    setState(blinds, new MovingState());
+    if((blinds.topSwitch->pinRead() && blinds.bottomSwitch->pinRead()))
+    {
+        blinds.moveBlindsUp();
+        setState(blinds, new MovingState());
+    }
+    else
+    {
+        setState(blinds, new ErrorState());
+    }
 }
 
 void IdleState::blindsUpSwitch(Blinds &blinds)
 {
-    if(!blinds.topSwitch->pinRead() || !blinds.bottomSwitch->pinRead())
+    if(blinds.topSwitch->pinRead() || blinds.bottomSwitch->pinRead())
     {
         setState(blinds, new ErrorState());
     }

@@ -114,12 +114,16 @@ void Blinds::blindsStop()
 void Blinds::blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata)
 {
     Blinds* blinds = static_cast<Blinds*>(userdata);
+        const std::string message = std::string("Blinds up callback invoked");
+        utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
     blinds->actualState->blindsUpSwitch(*blinds);
 }
 
 void Blinds::blindsDownCallback(int gpio, int level, uint32_t tick, void *userdata)
 {
     Blinds* blinds = static_cast<Blinds*>(userdata);
+        const std::string message = std::string("Blinds down callback invoked");
+        utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
     blinds->actualState->blindsDownSwitch(*blinds);
 }
 
