@@ -75,6 +75,8 @@ bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft_, uint16_t mot
     if(motor->init() && topSwitch->registerHandler(blindsUpCallback, EITHER_EDGE, 0, static_cast<void*>(actualState.get()))
                          && bottomSwitch->registerHandler(blindsDownCallback, EITHER_EDGE, 0, static_cast<void*>(actualState.get())))
     {
+        const std::string message = std::string("Callbacks registered.");
+        logger.getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
         return true;
     }
     return false;
