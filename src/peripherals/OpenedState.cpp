@@ -17,12 +17,16 @@ void OpenedState::blindsDown(Blinds &blinds)
 
 void OpenedState::blindsUp(Blinds &blinds)
 {
-    std::cout << "Blinds already up!";
+    if(blinds.logger.isInformationEnable())
+    {
+        const std::string message = std::string("Blinds already up.");
+        blinds.logger.writeLog(utility::LogType::INFORMATION_LOG, message);
+    }
 }
 
 void OpenedState::blindsUpSwitch(Blinds &blinds)
 {
-    if(!blinds.bottomSwitch->pinRead())
+    if(blinds.topSwitch->pinRead())
     {
         blinds.blindsStop();
         setState(blinds, new ErrorState());
@@ -31,7 +35,7 @@ void OpenedState::blindsUpSwitch(Blinds &blinds)
 
 void OpenedState::blindsDownSwitch(Blinds &blinds)
 {
-    if(!blinds.topSwitch->pinRead())
+    if(!blinds.bottomSwitch->pinRead())
     {
         blinds.blindsStop();
         setState(blinds, new ErrorState());

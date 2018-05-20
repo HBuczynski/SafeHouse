@@ -4,7 +4,7 @@
 
 bool Motor::init() const
 {
-    if(!gpioSetPWMfrequency(pinNumber,pwmFrequency))
+    if(!gpioSetPWMfrequency(PWMLeftPin,pwmFrequency) && !gpioSetPWMfrequency(PWMRightPin,pwmFrequency))
     {
         return true;
     }
@@ -13,17 +13,17 @@ bool Motor::init() const
 
 bool Motor::setRange(const int &pwmUpperRange_) const
 {
-    if(!gpioSetPWMrange(pinNumber, pwmUpperRange_))
+    if(!gpioSetPWMrange(PWMLeftPin, pwmUpperRange_) && !gpioSetPWMrange(PWMRightPin, pwmUpperRange_))
         return true;
     return false;
 }
 
 int Motor::getRange() const
 {
-    return gpioGetPWMrange(pinNumber);
+    return gpioGetPWMrange(PWMLeftPin);
 }
 
-bool Motor::setPWM(unsigned int pwmValue_)
+bool Motor::setPWM(unsigned int pwmValue_, uint8_t pinNumber)
 {
     if(pwmValue_ > static_cast<unsigned int>(getRange()))
         pwmValue_ = getRange();
@@ -34,7 +34,30 @@ bool Motor::setPWM(unsigned int pwmValue_)
     return false;
 }
 
-bool Motor::setPWMFrequency(const int frequency)
+bool Motor::setMotorPins(uint8_t leftPWM, uint8_t rightPWM, uint8_t enable)
+{
+    PWMLeftPin = leftPWM;
+    PWMRightPin = rightPWM;
+    enablePin = enable;
+    if(gpioSetMode(enablePin, PI_OUTPUT) || gpioSetPullUpDown(enablePin, PI_PUD_OFF))
+    {
+        return false;
+    }
+
+    if(gpioSetMode(PWMRightPin, PI_OUTPUT) || gpioSetPullUpDown(PWMRightPin, PI_PUD_OFF))
+    {
+        return false;
+    }
+
+    if(gpioSetMode(PWMLeftPin, PI_OUTPUT) || gpioSetPullUpDown(PWMLeftPin, PI_PUD_OFF))
+    {
+        return false;
+    }
+    gpioWrite(enablePin, PI_HIGH);
+    return true;
+}
+
+bool Motor::setPWMFrequency(const int frequency, uint8_t pinNumber)
 {
     if(!gpioSetPWMfrequency(pinNumber,frequency))
     {

@@ -30,7 +30,7 @@ void IdleState::blindsUp(Blinds &blinds)
 
 void IdleState::blindsUpSwitch(Blinds &blinds)
 {
-    if(blinds.topSwitch->pinRead() || blinds.bottomSwitch->pinRead())
+    if(!blinds.topSwitch->pinRead() || !blinds.bottomSwitch->pinRead())
     {
         setState(blinds, new ErrorState());
     }
