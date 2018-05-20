@@ -39,6 +39,22 @@ bool Motor::setMotorPins(uint8_t leftPWM, uint8_t rightPWM, uint8_t enable)
     PWMLeftPin = leftPWM;
     PWMRightPin = rightPWM;
     enablePin = enable;
+    if(gpioSetMode(enablePin, PI_OUTPUT) || gpioSetPullUpDown(enablePin, PI_PUD_OFF))
+    {
+        return false;
+    }
+
+    if(gpioSetMode(PWMRightPin, PI_OUTPUT) || gpioSetPullUpDown(PWMRightPin, PI_PUD_OFF))
+    {
+        return false;
+    }
+
+    if(gpioSetMode(PWMLeftPin, PI_OUTPUT) || gpioSetPullUpDown(PWMLeftPin, PI_PUD_OFF))
+    {
+        return false;
+    }
+    gpioWrite(enablePin, PI_HIGH);
+    return true;
 }
 
 bool Motor::setPWMFrequency(const int frequency, uint8_t pinNumber)

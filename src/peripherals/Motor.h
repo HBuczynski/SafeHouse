@@ -26,6 +26,21 @@ public:
 
     bool setMotorPins(uint8_t leftPWM, uint8_t rightPWM, uint8_t enable);
 
+    uint8_t getLeftPWMPin() const
+    {
+        return PWMLeftPin;
+    }
+
+    uint8_t getRightPWMPin() const
+    {
+        return PWMRightPin;
+    }
+
+    uint8_t getEnablePin() const
+    {
+        return enablePin;
+    }
+
 private:
     int pwmFrequency = DEFAULT_PWM_FREQUENCY;
     uint8_t PWMLeftPin = 1;

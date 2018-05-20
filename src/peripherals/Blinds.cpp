@@ -21,14 +21,15 @@ Blinds::~Blinds()
 
 }
 
-bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft, uint16_t motorPWMRight, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_)
+bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft_, uint16_t motorPWMRight_, uint16_t motorPWMEnable_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_)
 {
     if(logger.isInformationEnable())
     {
         const std::string message = std::string("Initializing");
         logger.writeLog(utility::LogType::INFORMATION_LOG, message);
     }
-    motor->setMode(motorPWMLeft_, PI_OUTPUT, PI_PUD_OFF);
+    motor->setMode(motorPinEnable_,PI_OUTPUT,PI_PUD_OFF);
+    motor->setMotorPins(motorPWMLeft_, motorPWMRight_, motorPWMEnable_);
     topSwitch->setMode(topSwitchPin_, PI_INPUT, PI_PUD_UP);
     bottomSwitch->setMode(bottomSwitchPin_, PI_INPUT, PI_PUD_UP);
 
@@ -92,19 +93,22 @@ unsigned int Blinds::getPWMValue() const
 
 void Blinds::moveBlindsDown()
 {
-    motor->setPWM(pwmValue);
+    motor->setPWM(pwmValue,motor->getRightPWMPin());
+    motor->setPWM(0,motor->getLeftPWMPin());
     //TODO: setting direction (two pins)
 }
 
 void Blinds::moveBlindsUp()
 {
-    motor->setPWM(pwmValue);
+    motor->setPWM(pwmValue,motor->getLeftPWMPin());
+    motor->setPWM(0,motor->getRightPWMPin());
     //TODO: setting direction (two pins)
 }
 
 void Blinds::blindsStop()
 {
-    motor->setPWM(0);
+    motor->setPWM(0,motor->getLeftPWMPin());
+    motor->setPWM(0,motor->getRightPWMPin());
 }
 
 void Blinds::blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata)
