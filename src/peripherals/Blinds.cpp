@@ -72,8 +72,8 @@ bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft_, uint16_t mot
         logger.writeLog(utility::LogType::INFORMATION_LOG, message);
     }
 
-    if(motor->init() && topSwitch->registerHandler(blindsUpCallback, EITHER_EDGE, 0, static_cast<void*>(actualState.get()))
-                         && bottomSwitch->registerHandler(blindsDownCallback, EITHER_EDGE, 0, static_cast<void*>(actualState.get())))
+    if(motor->init() && topSwitch->registerHandler(blindsUpCallback, EITHER_EDGE, 0, reinterpret_cast<void*>(this))
+                         && bottomSwitch->registerHandler(blindsDownCallback, EITHER_EDGE, 0, reinterpret_cast<void*>(this)))
     {
         const std::string message = std::string("Callbacks registered.");
         logger.getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
@@ -115,7 +115,7 @@ void Blinds::blindsStop()
 
 void Blinds::blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata)
 {
-    Blinds* blinds = static_cast<Blinds*>(userdata);
+    Blinds* blinds = reinterpret_cast<Blinds*>(userdata);
         const std::string message = std::string("Blinds up callback invoked");
         utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
     blinds->actualState->blindsUpSwitch(*blinds);
@@ -123,7 +123,7 @@ void Blinds::blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata
 
 void Blinds::blindsDownCallback(int gpio, int level, uint32_t tick, void *userdata)
 {
-    Blinds* blinds = static_cast<Blinds*>(userdata);
+    Blinds* blinds = reinterpret_cast<Blinds*>(userdata);
         const std::string message = std::string("Blinds down callback invoked");
         utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
     blinds->actualState->blindsDownSwitch(*blinds);
