@@ -10,7 +10,11 @@
 
 void ClosedState::blindsDown(Blinds &blinds)
 {
-    std::cout << "Blinds already down!";
+    if(blinds.logger.isInformationEnable())
+    {
+        const std::string message = std::string("Blinds already down!");
+        blinds.logger.writeLog(utility::LogType::INFORMATION_LOG, message);
+    }
 }
 
 void ClosedState::blindsUp(Blinds &blinds)
@@ -30,7 +34,7 @@ void ClosedState::blindsUpSwitch(Blinds &blinds)
 
 void ClosedState::blindsDownSwitch(Blinds &blinds)
 {
-    if(!blinds.bottomSwitch->pinRead())
+    if(blinds.bottomSwitch->pinRead())
     {
         blinds.blindsStop();
         setState(blinds, new ErrorState());

@@ -16,16 +16,21 @@ public:
 
     virtual bool init() const;
 
-    bool setPWM(unsigned int pwmValue_);
+    bool setPWM(unsigned int pwmValue_, uint8_t pinNumber);
     int getPWM() const;
 
     bool setRange(const int &pwmUpperRange_) const;
     int getRange() const;
 
-    bool setPWMFrequency(const int frequency);
+    bool setPWMFrequency(const int frequency, uint8_t pinNumber);
+
+    bool setMotorPins(uint8_t leftPWM, uint8_t rightPWM, uint8_t enable);
 
 private:
     int pwmFrequency = DEFAULT_PWM_FREQUENCY;
+    uint8_t PWMLeftPin = 1;
+    uint8_t PWMRightPin = 2;
+    uint8_t enablePin = 3;
 };
 
 

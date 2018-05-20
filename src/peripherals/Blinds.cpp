@@ -21,14 +21,14 @@ Blinds::~Blinds()
 
 }
 
-bool Blinds::init(uint16_t motorPin_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_)
+bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft, uint16_t motorPWMRight, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_)
 {
     if(logger.isInformationEnable())
     {
         const std::string message = std::string("Initializing");
         logger.writeLog(utility::LogType::INFORMATION_LOG, message);
     }
-    motor->setMode(motorPin_, PI_OUTPUT, PI_PUD_OFF);
+    motor->setMode(motorPWMLeft_, PI_OUTPUT, PI_PUD_OFF);
     topSwitch->setMode(topSwitchPin_, PI_INPUT, PI_PUD_UP);
     bottomSwitch->setMode(bottomSwitchPin_, PI_INPUT, PI_PUD_UP);
 
