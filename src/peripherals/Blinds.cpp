@@ -23,23 +23,40 @@ Blinds::~Blinds()
 
 bool Blinds::init(uint16_t motorPin_, uint16_t motorPWMLeft_, uint16_t motorPWMRight_, uint16_t motorPWMEnable_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_)
 {
+    if(logger.isInformationEnable())
+    {
+        const std::string message = std::string("Initializing");
+        logger.writeLog(utility::LogType::INFORMATION_LOG, message);
+    }
     motor->setMode(motorPin_, PI_OUTPUT, PI_PUD_OFF);
-    topSwitch->setMode(topSwitchPin_, PI_INPUT, PI_PUD_OFF);
-    bottomSwitch->setMode(bottomSwitchPin_, PI_OUTPUT, PI_PUD_OFF);
+    topSwitch->setMode(topSwitchPin_, PI_INPUT, PI_PUD_UP);
+    bottomSwitch->setMode(bottomSwitchPin_, PI_INPUT, PI_PUD_UP);
 
     motor->init();
     topSwitch->init();
     bottomSwitch->init();
-
-    if(topSwitch->pinRead() && bottomSwitch->pinRead())
+    int top = -1, bottom = -1;
+    top = topSwitch->pinRead();
+    bottom = bottomSwitch->pinRead();
+    if(logger.isInformationEnable())
+    {
+        const std::string message = std::string("State up: " + std::to_string(top));
+        logger.writeLog(utility::LogType::INFORMATION_LOG, message);
+    }
+    if(logger.isInformationEnable())
+    {
+        const std::string message = std::string("State down: " + std::to_string(bottom));
+        logger.writeLog(utility::LogType::INFORMATION_LOG, message);
+    }
+    if(((!topSwitch->pinRead()) && (!bottomSwitch->pinRead())))
     {
         actualState.reset(new ErrorState());
     }
-    else if(topSwitch->pinRead())
+    else if(!topSwitch->pinRead())
     {
         actualState.reset(new OpenedState());
     }
-    else if(bottomSwitch->pinRead())
+    else if(!bottomSwitch->pinRead())
     {
         actualState.reset(new ClosedState());
     }
@@ -48,6 +65,11 @@ bool Blinds::init(uint16_t motorPin_, uint16_t motorPWMLeft_, uint16_t motorPWMR
         actualState.reset(new IdleState());
     }
 
+    if(logger.isInformationEnable())
+    {
+        const std::string message = std::string("Initial state: " + actualState->stateName);
+        logger.writeLog(utility::LogType::INFORMATION_LOG, message);
+    }
 
     if(motor->init() && topSwitch->registerHandler(blindsUpCallback, EITHER_EDGE, 0, static_cast<void*>(actualState.get()))
                          && bottomSwitch->registerHandler(blindsDownCallback, EITHER_EDGE, 0, static_cast<void*>(actualState.get())))

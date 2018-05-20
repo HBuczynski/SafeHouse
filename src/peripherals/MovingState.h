@@ -11,6 +11,9 @@
 class MovingState: public AbstractState
 {
 public:
+    MovingState():AbstractState(){
+        stateName = "MovingState";
+    };
     virtual ~MovingState(){};
 
     virtual void blindsUp(Blinds& blinds);
@@ -19,7 +22,6 @@ public:
     virtual void blindsUpSwitch(Blinds& blinds);
     virtual void blindsDownSwitch(Blinds& blinds);
 
-    const std::string stateName = "Moving state";
 };
 
 

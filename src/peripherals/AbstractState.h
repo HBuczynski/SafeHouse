@@ -9,7 +9,7 @@
 
 class AbstractState {
 public:
-    AbstractState() {};
+    AbstractState():stateName("AbstractState") {};
     virtual ~AbstractState() {};
 
     virtual void blindsUp(Blinds & blinds) = 0;
@@ -18,7 +18,7 @@ public:
     virtual void blindsUpSwitch(Blinds & blinds) = 0;
     virtual void blindsDownSwitch(Blinds & blinds) = 0;
 
-    const std::string stateName = "Abstract state";
+    std::string stateName;
 
 protected:
     void setState(Blinds & blinds, AbstractState* state);
