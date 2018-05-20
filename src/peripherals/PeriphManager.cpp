@@ -19,7 +19,6 @@ vector <unique_ptr<Blinds> > PeriphManager::connectedBlinds;
 
 PeriphManager::PeriphManager()
 {
-    gpioInitialise();
 }
 
 PeriphManager::~PeriphManager()
@@ -37,6 +36,7 @@ PeriphManager &PeriphManager::getInstance()
             instance_ = new PeriphManager();
 
             initialize();
+            gpioInitialise();
         }
     }
 

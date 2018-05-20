@@ -77,3 +77,10 @@ void SendStreamTCP::sendData(vector<uint8_t> message)
         throw logic_error("Cannot send packet.");
     }
 }
+
+string SendStreamTCP::getAddressIP() const
+{
+    char str[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &(sockAddress_.sin_addr), str, INET_ADDRSTRLEN);
+    return string(str);
+}

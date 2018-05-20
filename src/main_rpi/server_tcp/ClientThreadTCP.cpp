@@ -169,3 +169,8 @@ bool ClientThreadTCP::checkListenEnable()
 {
     return runListenThread_;
 }
+
+string ClientThreadTCP::getIP() const
+{
+    return socket_->getAddressIP();
+}

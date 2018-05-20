@@ -127,6 +127,8 @@ void ClientTCP::executeResponses()
         catch(exception &e)
         {
             catchExceptions(e.what());
+
+            stopCommandListeningAndSending();
         }
     }
 }

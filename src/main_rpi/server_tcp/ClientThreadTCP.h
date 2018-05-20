@@ -21,7 +21,7 @@ namespace communication
 
         void initializeCommandHandler();
 
-            void addResponse(std::shared_ptr<communication::Response> response);
+        void addResponse(std::shared_ptr<communication::Response> response);
 
         void startSendAndListen();
         void stopSendAndListen();
@@ -29,6 +29,8 @@ namespace communication
 
         void setID(uint32_t id);
         uint32_t getID() const;
+
+        std::string getIP() const;
 
     private:
         void runListen();

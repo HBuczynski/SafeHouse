@@ -24,6 +24,8 @@ namespace communication
         void connectToServer();
         void closeSocket();
 
+        std::string getAddressIP() const;
+
     private:
         void createSocket();
 
