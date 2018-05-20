@@ -35,8 +35,8 @@ PeriphManager &PeriphManager::getInstance()
         {
             instance_ = new PeriphManager();
 
-            initialize();
             gpioInitialise();
+            initialize();
         }
     }
 
