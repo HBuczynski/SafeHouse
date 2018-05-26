@@ -1,9 +1,9 @@
 #include "CommunicationManagerClient.h"
 
-#include <protocol/BlindsDOWNOnTimeCommand.h>
+#include <protocol/StartStreamCommand.h>
 #include <protocol/BlindsDOWNCommand.h>
 #include <protocol/BlindsUPCommand.h>
-#include <protocol/EndConnectionCommand.h>
+#include <protocol/StopStreamCommand.h>
 
 #include <iostream>
 
@@ -31,13 +31,13 @@ void CommunicationManagerClient::initializeClientConnection()
 
 void CommunicationManagerClient::sendCommands()
 {
-    auto command2 = make_unique<BlindsDOWNCommand>();
+    auto command2 = make_unique<StartStreamCommand>();
 
     std::this_thread::sleep_for(1s);
     client_->sendCommand(move(command2));
-    std::this_thread::sleep_for(1s);
-    auto command3 = make_unique<BlindsUPCommand>();
     std::this_thread::sleep_for(20s);
+    auto command3 = make_unique<StopStreamCommand>();
+    client_->sendCommand(move(command3));
 }
 
 
