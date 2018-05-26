@@ -172,7 +172,7 @@ void CommandHandlerVisitor::startStream()
     int status;
     int out[2];
 
-    char *firstArg1 = const_cast<char*>(STREAM_SCRIPT_PATH.c_str());
+    char *firstArg1 = const_cast<char*>(string(STREAM_SCRIPT_PATH + STREAM_SCRIPT_NAME).c_str());
     char *firstArgs[] = {firstArg1, NULL};
 
     posix_spawn_file_actions_init(&action_);
