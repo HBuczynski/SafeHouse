@@ -207,8 +207,8 @@ void CommandHandlerVisitor::stopStream()
     if(pid_ > 0)
     {
         kill(pid_, SIGKILL);
-        kill(++pid_, SIGKILL);
-        kill(++pid_, SIGKILL);
+        kill(pid_+1, SIGKILL);
+        //kill(pid_+1, SIGKILL);
 
         if(logger_.isInformationEnable())
         {
@@ -226,7 +226,7 @@ void CommandHandlerVisitor::stopStream()
     }
 
 
-	waitOnProcess();
+	//waitOnProcess();
 }
 
 void CommandHandlerVisitor::waitOnProcess()
