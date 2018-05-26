@@ -119,8 +119,10 @@ void ClientThreadTCP::runListen()
     {
         try
         {
+		cout << "Przed receive:" << endl;
             const auto frame = socket_->receivePacket();
 
+		cout << "Przed handlerem " << endl;
             const auto command = commandFactory_.createCommand(frame);
             command->accept(commandHandler_);
         }
@@ -129,7 +131,7 @@ void ClientThreadTCP::runListen()
 
             if(logger_.isInformationEnable())
             {
-                const string message = string("ClientThreadTCP :: ClientdID -") + to_string(getID()) + string("- socket was closed.");
+                const string message = string("ClientThreadTCP :: ClientdID -") + to_string(getID()) + string("- socket was closed.Error: " + string(e.what()));
                 logger_.writeLog(LogType::INFORMATION_LOG, message);
             }
             runListenThread_ = false;
