@@ -9,6 +9,8 @@
 #include "UserOutOfHomeBuilder.h"
 #include "EndConnectionBuilder.h"
 #include "SnapshotBuilder.h"
+#include "StartStreamBuilder.h"
+#include "StopStreamBuilder.h"
 
 #include <stdexcept>
 
@@ -53,6 +55,12 @@ unique_ptr<Command> CommandFactory::createCommand(const vector<uint8_t> &command
             return move(builder_->create(commandInBytes));
         case CommandType::SNAPSHOT :
             builder_ = make_unique<SnapshotBuilder>();
+            return move(builder_->create(commandInBytes));
+        case CommandType::START_STREAM :
+            builder_ = make_unique<StartStreamBuilder>();
+            return move(builder_->create(commandInBytes));
+        case CommandType::STOP_STREAM :
+            builder_ = make_unique<StartStreamBuilder>();
             return move(builder_->create(commandInBytes));
         case CommandType::END_CONNECTION :
             builder_ = make_unique<EndConnectionBuilder>();

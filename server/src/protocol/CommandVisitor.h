@@ -11,6 +11,8 @@
 #include "UserOutOfHomeCommand.h"
 #include "EndConnectionCommand.h"
 #include "SnapshotCommand.h"
+#include "StartStreamCommand.h"
+#include "StopStreamCommand.h"
 
 namespace communication
 {
@@ -30,6 +32,8 @@ namespace communication
         virtual void visit(UserOutOfHomeCommand& command) = 0;
         virtual void visit(EndConnectionCommand& command) = 0;
         virtual void visit(SnapshotCommand& command) = 0;
+        virtual void visit(StartStreamCommand& command) = 0;
+        virtual void visit(StopStreamCommand& command) = 0;
     };
 }
 #endif

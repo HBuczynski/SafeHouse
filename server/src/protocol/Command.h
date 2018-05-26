@@ -18,7 +18,9 @@ namespace communication
         TEMPERATURE_DEMAND = 35,
         USER_OUT_OF_HOME = 40,
         SNAPSHOT = 45,
-        END_CONNECTION = 50
+        END_CONNECTION = 50,
+        START_STREAM = 60,
+        STOP_STREAM = 70
 
     };
 

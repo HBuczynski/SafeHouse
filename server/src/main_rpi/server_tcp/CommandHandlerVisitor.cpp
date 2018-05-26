@@ -3,22 +3,31 @@
 #include <protocol/DataResponse.h>
 #include <main_rpi/server_tcp/ClientThreadTCP.h>
 
+#include <sys/wait.h>
 #include <iostream>
-
-//#include <GPIO.h>
+#include <unistd.h>
+#include <cstring>
 
 using namespace std;
 using namespace utility;
 using namespace peripherials;
 using namespace communication;
 
+extern char **environ;
+
+utility::Logger& CommandHandlerVisitor::logger_ = Logger::getInstance();
+const std::string CommandHandlerVisitor::STREAM_SCRIPT_PATH = "../../../stream.sh";
+posix_spawn_file_actions_t CommandHandlerVisitor::action_;
+pid_t CommandHandlerVisitor::pid_;
+
 CommandHandlerVisitor::CommandHandlerVisitor()
-    : logger_(Logger::getInstance()),
-      periphManager_(PeriphManager::getInstance())
+    :   periphManager_(PeriphManager::getInstance())
 {}
 
 CommandHandlerVisitor::~CommandHandlerVisitor()
-{}
+{
+    waitOnProcess();
+}
 
 void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
 {
@@ -130,7 +139,124 @@ void CommandHandlerVisitor::visit(EndConnectionCommand &command)
     currentClient_->stopSendAndListen();
 }
 
+void CommandHandlerVisitor::visit(StartStreamCommand& command)
+{
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: StartStreamCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+
+    startStream();
+}
+
+void CommandHandlerVisitor::visit(StopStreamCommand& command)
+{
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: StopStreamCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+
+    stopStream();
+}
+
 void CommandHandlerVisitor::initializeCurrentClient(ClientThreadTCP *client)
 {
     currentClient_ = client;
+}
+
+void CommandHandlerVisitor::startStream()
+{
+    int status;
+    int out[2];
+
+    char *firstArg1 = const_cast<char*>(STREAM_SCRIPT_PATH.c_str());
+
+    char *firstArgs[] = {firstArg1, NULL};
+
+    posix_spawn_file_actions_init(&action_);
+    pipe(out);
+    posix_spawn_file_actions_adddup2(&action_, out[1], STDOUT_FILENO);
+    posix_spawn_file_actions_addclose(&action_, out[0]);
+
+    status = posix_spawn(&pid_, firstArgs[0], &action_, NULL, firstArgs, environ);
+
+    if(status == 0)
+    {
+        if(logger_.isInformationEnable())
+        {
+            const string message = string("CommandHandlerVisitor :: Process was initialized, process ID: ")
+                                   + to_string(pid_);
+            logger_.writeLog(LogType::INFORMATION_LOG, message);
+        }
+    }
+    else
+    {
+        if(logger_.isErrorEnable())
+        {
+            const string message = string("MainProcessScheduler :: Process was not initialized correctly, process ID: ")
+                                   + to_string(pid_);
+            logger_.writeLog(LogType::INFORMATION_LOG, message);
+        }
+    }
+}
+
+void CommandHandlerVisitor::stopStream()
+{
+    if(pid_ > 0)
+    {
+        kill(pid_, SIGTERM);
+
+        if(logger_.isInformationEnable())
+        {
+            const string message = string("MainProcessScheduler :: Process was killed, process ID: ") + to_string(pid_);
+            logger_.writeLog(LogType::INFORMATION_LOG, message);
+        }
+    }
+    else
+    {
+        if(logger_.isWarningEnable())
+        {
+            const string message = string("MainProcessScheduler :: Process tried to be killed second time, process ID: ") + to_string(pid_);
+            logger_.writeLog(LogType::ERROR_LOG, message);
+        }
+    }
+}
+
+void CommandHandlerVisitor::waitOnProcess()
+{
+    int status;
+    if (waitpid(pid_, &status, 0) < 0)
+    {
+        if(logger_.isErrorEnable())
+        {
+            const string message = string("CommandHandlerVisitor :: Process ID: ") + to_string(pid_) +
+                                   string(". Error - ") +  strerror(errno);
+            logger_.writeLog(LogType::ERROR_LOG, message);
+        }
+    }
+    else
+    {
+        if (WIFEXITED(status))
+        {
+            if(logger_.isInformationEnable())
+            {
+                const string message = string("MainProcessScheduler :: Process ID: ") + to_string(pid_) +
+                                       string(". Child exit status - ") + to_string(WEXITSTATUS(status));
+                logger_.writeLog(LogType::INFORMATION_LOG, message);
+            }
+        }
+        else
+        {
+            if(logger_.isInformationEnable())
+            {
+                const string message = string("MainProcessScheduler :: Process ID: ") + to_string(pid_) +
+                                       string(". Child process had been finished before waitpid was launched.");
+                logger_.writeLog(LogType::INFORMATION_LOG, message);
+            }
+        }
+    }
+
+    posix_spawn_file_actions_destroy(&action_);
 }
