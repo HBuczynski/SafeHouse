@@ -16,7 +16,8 @@ using namespace communication;
 extern char **environ;
 
 utility::Logger& CommandHandlerVisitor::logger_ = Logger::getInstance();
-const std::string CommandHandlerVisitor::STREAM_SCRIPT_PATH = "../../../stream.sh";
+const std::string CommandHandlerVisitor::STREAM_SCRIPT_PATH = "../../camera_scripts/";
+const std::string CommandHandlerVisitor::STREAM_SCRIPT_NAME = "stream.sh";
 posix_spawn_file_actions_t CommandHandlerVisitor::action_;
 pid_t CommandHandlerVisitor::pid_;
 
@@ -171,7 +172,7 @@ void CommandHandlerVisitor::startStream()
     int status;
     int out[2];
 
-    char *firstArg1 = const_cast<char*>(STREAM_SCRIPT_PATH.c_str());
+    char *firstArg1 = const_cast<char*>(string(STREAM_SCRIPT_PATH + STREAM_SCRIPT_NAME).c_str());
 
     char *firstArgs[] = {firstArg1, NULL};
 

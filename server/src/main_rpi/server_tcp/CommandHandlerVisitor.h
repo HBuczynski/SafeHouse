@@ -52,6 +52,7 @@ namespace communication
         peripherials::PeriphManager &periphManager_;
 
         static const std::string STREAM_SCRIPT_PATH;
+        static const std::string STREAM_SCRIPT_NAME;
     };
 }
 #endif
