@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
+    <generated>
+      <config projectName="Project" targetName="NightlyStart" />
+      <config projectName="Project" targetName="NightlyMemoryCheck" />
+      <config projectName="Project" targetName="ContinuousTest" />
+      <config projectName="Project" targetName="NightlyBuild" />
+      <config projectName="Project" targetName="ContinuousMemCheck" />
+      <config projectName="Project" targetName="ContinuousSubmit" />
+      <config projectName="Project" targetName="ContinuousCoverage" />
+      <config projectName="Project" targetName="NightlyTest" />
+      <config projectName="Project" targetName="NightlyMemCheck" />
+      <config projectName="Project" targetName="NightlyCoverage" />
+      <config projectName="Project" targetName="ExperimentalMemCheck" />
+      <config projectName="Project" targetName="ContinuousUpdate" />
+      <config projectName="Project" targetName="docs" />
+      <config projectName="Project" targetName="NightlyConfigure" />
+      <config projectName="Project" targetName="ContinuousStart" />
+      <config projectName="Project" targetName="ContinuousConfigure" />
+      <config projectName="Project" targetName="Continuous" />
+      <config projectName="Project" targetName="ExperimentalStart" />
+      <config projectName="Project" targetName="ExperimentalSubmit" />
+      <config projectName="Project" targetName="ContinuousBuild" />
+      <config projectName="Project" targetName="Experimental" />
+      <config projectName="Project" targetName="Nightly" />
+      <config projectName="Project" targetName="NightlySubmit" />
+      <config projectName="Project" targetName="ExperimentalCoverage" />
+      <config projectName="Project" targetName="ExperimentalConfigure" />
+      <config projectName="Project" targetName="ExperimentalBuild" />
+      <config projectName="Project" targetName="ExperimentalUpdate" />
+      <config projectName="Project" targetName="ExperimentalTest" />
+      <config projectName="Project" targetName="NightlyUpdate" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" GENERATION_DIR="target/build" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0249488f-8c28-421b-900f-e4ef80e3786f" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/server/run_linux.sh" afterPath="$PROJECT_DIR$/server/run_linux.sh" />
+    </list>
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <ignored path="$PROJECT_DIR$/target/build/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>gpioInitialise</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/protocol/ErrorResponse.cpp" />
+        <option value="$PROJECT_DIR$/src/protocol/unit_tests/ResponsesTest.cpp" />
+        <option value="$PROJECT_DIR$/src/protocol/AuthenticateResponse.h" />
+        <option value="$PROJECT_DIR$/src/protocol/Response.h" />
+        <option value="$PROJECT_DIR$/src/protocol/AuthenticateResponse.cpp" />
+        <option value="$PROJECT_DIR$/src/protocol/ResponseVisitor.h" />
+        <option value="$PROJECT_DIR$/src/protocol/ResponseFactory.cpp" />
+        <option value="$PROJECT_DIR$/src/protocol/AuthenticateBuilder.h" />
+        <option value="$PROJECT_DIR$/src/protocol/AuthenticateBuilder.cpp" />
+        <option value="$PROJECT_DIR$/src/main_client/client_tcp/ResponseHandlerVisitor.h" />
+        <option value="$PROJECT_DIR$/3rd_party/PIGPIO/pigpio.h" />
+        <option value="$PROJECT_DIR$/src/logger/unit_tests/LoggerTest.cpp" />
+        <option value="$PROJECT_DIR$/src/protocol/unit_tests/CommandsTest.cpp" />
+        <option value="$PROJECT_DIR$/src/main_rpi/server_tcp/ServerTCP.h" />
+        <option value="$PROJECT_DIR$/src/main_rpi/server_tcp/CommandHandlerVisitor.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/main_rpi/server_tcp/ServerTCP.cpp" />
+        <option value="$PROJECT_DIR$/src/main_rpi/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/protocol/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/main_rpi/communication_manager_rpi/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/main_rpi/server_tcp/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/peripherals/unit_tests/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/peripherals/GPIO.cpp" />
+        <option value="$PROJECT_DIR$/src/peripherals/GPIO.h" />
+        <option value="$PROJECT_DIR$/src/peripherals/MotionSensor.h" />
+        <option value="$PROJECT_DIR$/src/peripherals/MotionSensor.cpp" />
+        <option value="$PROJECT_DIR$/src/peripherals/TemperatureSensor.h" />
+        <option value="$PROJECT_DIR$/src/peripherals/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/peripherals/Camera.h" />
+        <option value="$PROJECT_DIR$/src/peripherals/Camera.cpp" />
+        <option value="$PROJECT_DIR$/src/peripherals/Switch.h" />
+        <option value="$PROJECT_DIR$/src/peripherals/Motor.h" />
+        <option value="$PROJECT_DIR$/src/main_rpi/server_tcp/CommandHandlerVisitor.cpp" />
+        <option value="$PROJECT_DIR$/src/main_client/client_tcp/ResponseHandlerVisitor.cpp" />
+        <option value="$PROJECT_DIR$/src/protocol/BlindsStatusResponse.h" />
+        <option value="$PROJECT_DIR$/src/main_client/main.cpp" />
+        <option value="$PROJECT_DIR$/src/peripherals/PeriphManager.h" />
+        <option value="$PROJECT_DIR$/src/peripherals/unit_tests/PeripheralsTest.cpp" />
+        <option value="$PROJECT_DIR$/src/config_reader/unit_tests/ConfigReaderTest.cpp" />
+        <option value="$PROJECT_DIR$/src/peripherals/Blinds.h" />
+        <option value="$PROJECT_DIR$/src/main_rpi/server_tcp/ClientThreadTCP.h" />
+        <option value="$PROJECT_DIR$/src/packet/SendStreamTCP.h" />
+        <option value="$PROJECT_DIR$/src/packet/SendStreamTCP.cpp" />
+        <option value="$PROJECT_DIR$/src/main_rpi/server_tcp/ClientThreadTCP.cpp" />
+        <option value="$PROJECT_DIR$/src/main_client/client_tcp/ClientTCP.cpp" />
+        <option value="$PROJECT_DIR$/src/peripherals/PeriphManager.cpp" />
+        <option value="$PROJECT_DIR$/config.json" />
+        <option value="$PROJECT_DIR$/src/peripherals/IdleState.cpp" />
+        <option value="$PROJECT_DIR$/src/peripherals/Blinds.cpp" />
+        <option value="$PROJECT_DIR$/src/peripherals/Switch.cpp" />
+        <option value="$PROJECT_DIR$/src/main_client/communication_manager_client/CommunicationManagerClient.cpp" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="276" />
+    <option name="y" value="42" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>C/C++</id>
+          </State>
+          <State>
+            <id>Data flow analysisC/C++</id>
+          </State>
+          <State>
+            <id>Declaration orderC/C++</id>
+          </State>
+          <State>
+            <id>FunctionsC/C++</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>HidingNonVirtualFunction</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SafeHouse" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="SafeHouse" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SafeHouse" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="SafeHouse" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/server" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="file://$PROJECT_DIR$/target" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="main_client" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0249488f-8c28-421b-900f-e4ef80e3786f" name="Default" comment="" />
+      <created>1520687217188</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1520687217188</updated>
+      <workItem from="1520687218863" duration="1589000" />
+      <workItem from="1520689806983" duration="4780000" />
+      <workItem from="1520698554843" duration="8788000" />
+      <workItem from="1520709861741" duration="567000" />
+      <workItem from="1520759748002" duration="22570000" />
+      <workItem from="1520944171712" duration="2662000" />
+      <workItem from="1521296677957" duration="22323000" />
+      <workItem from="1521487344643" duration="269000" />
+      <workItem from="1522867271656" duration="1504000" />
+      <workItem from="1523193750259" duration="8532000" />
+      <workItem from="1525334598552" duration="14505000" />
+      <workItem from="1525351483083" duration="970000" />
+      <workItem from="1525793643835" duration="104000" />
+      <workItem from="1525793850036" duration="5544000" />
+      <workItem from="1525886393235" duration="863000" />
+      <workItem from="1526146022800" duration="1830000" />
+      <workItem from="1526833649701" duration="4334000" />
+      <workItem from="1526838806044" duration="130000" />
+      <workItem from="1526839038982" duration="944000" />
+      <workItem from="1526840057042" duration="11055000" />
+      <workItem from="1527334554245" duration="379000" />
+      <workItem from="1527327746762" duration="632000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="114874000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="276" y="42" width="1890" height="1080" extended-state="6" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3299285" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299285" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18692544" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22778346" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20531154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3299285" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/protocol/unit_tests/CommandsTest.cpp</url>
+          <line>25</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/config_reader/unit_tests/ConfigReaderTest.cpp</url>
+          <line>15</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/peripherals/PeriphManager.cpp</url>
+          <line>59</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="29" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main_rpi/server_tcp/CommandHandlerVisitor.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/main_client/client_tcp/ResponseHandlerVisitor.h" />
+    <entry file="file://$PROJECT_DIR$/src/main_client/client_tcp/ResponseHandlerVisitor.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/protocol/Response.h" />
+    <entry file="file://$PROJECT_DIR$/src/main_client/main.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/protocol/BlindsStatusResponse.h" />
+    <entry file="file://$PROJECT_DIR$/3rd_party/PIGPIO/pigpio.c" />
+    <entry file="file://$PROJECT_DIR$/src/protocol/Command.h" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/AbstractState.h" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/Camera.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/Camera.h" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/OpenedState.h" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/unit_tests/PeripheralsTest.cpp" />
+    <entry file="file:///usr/include/c++/5/functional">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="599" column="0" lean-forward="false" selection-start-line="599" selection-start-column="0" selection-end-line="599" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/5/thread">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main_client/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/src/config_reader/Parameters.h" />
+    <entry file="file://$PROJECT_DIR$/src/config_reader/unit_tests/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/src/config_reader/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/src/config_reader/unit_tests/ConfigReaderTest.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/config_reader/unit_tests/test.json" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/Motor.h" />
+    <entry file="file://$PROJECT_DIR$/src/main_rpi/server_tcp/ServerTCP.h" />
+    <entry file="file://$PROJECT_DIR$/src/packet/ListenStreamTCP.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/packet/SendStreamTCP.h" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/TemperatureSensor.h" />
+    <entry file="file://$PROJECT_DIR$/src/main_rpi/server_tcp/ClientThreadTCP.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/main_rpi/server_tcp/ClientThreadTCP.h" />
+    <entry file="file://$PROJECT_DIR$/src/config_reader/JSONParser.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/main_rpi/server_tcp/ServerTCP.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/PeriphManager.h" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/GPIO.h" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/GPIO.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/main_client/client_tcp/ClientTCP.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/main_client/communication_manager_client/CommunicationManagerClient.h" />
+    <entry file="file://$PROJECT_DIR$/run_linux.sh" />
+    <entry file="file:///usr/include/c++/5/tuple">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="826" column="0" lean-forward="false" selection-start-line="826" selection-start-column="0" selection-end-line="826" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/5/bits/unique_ptr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/peripherals/OpenedState.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/IdleState.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/Blinds.h" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/Switch.h" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/AbstractState.cpp" />
+    <entry file="file://$PROJECT_DIR$/config.json" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/PeriphManager.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/Motor.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/Switch.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/peripherals/Blinds.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/main_client/communication_manager_client/CommunicationManagerClient.cpp" />
+    <entry file="file://$PROJECT_DIR$/src/packet/SendStreamTCP.cpp" />
+  </component>
+</project>

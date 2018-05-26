@@ -6,6 +6,9 @@
 #include <protocol/Response.h>
 #include <peripherals/PeriphManager.h>
 
+#include <cstdint>
+#include <spawn.h>
+#include <cstdint>
 #include <memory>
 #include <queue>
 
@@ -29,14 +32,26 @@ namespace communication
         virtual void visit(UserOutOfHomeCommand& command) override;
         virtual void visit(EndConnectionCommand& command) override;
         virtual void visit(SnapshotCommand& command) override;
+        virtual void visit(StartStreamCommand& command) override;
+        virtual void visit(StopStreamCommand& command) override;
 
         void initializeCurrentClient(ClientThreadTCP *client);
 
     private:
+        static void startStream();
+        static void stopStream();
+
+        static void waitOnProcess();
+
         ClientThreadTCP *currentClient_;
 
-        utility::Logger& logger_;
+        static posix_spawn_file_actions_t action_;
+        static pid_t pid_;
+
+        static utility::Logger& logger_;
         peripherials::PeriphManager &periphManager_;
+
+        static const std::string STREAM_SCRIPT_PATH;
     };
 }
 #endif
