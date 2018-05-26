@@ -26,7 +26,7 @@ CommandHandlerVisitor::CommandHandlerVisitor()
 
 CommandHandlerVisitor::~CommandHandlerVisitor()
 {
-    waitOnProcess();
+    stopStream();
 }
 
 void CommandHandlerVisitor::visit(BlindsDOWNOnTimeCommand &command)
@@ -195,7 +195,7 @@ void CommandHandlerVisitor::startStream()
     {
         if(logger_.isErrorEnable())
         {
-            const string message = string("MainProcessScheduler :: Process was not initialized correctly, process ID: ")
+            const string message = string("CommandHandlerVisitor :: Process was not initialized correctly, process ID: ")
                                    + to_string(pid_);
             logger_.writeLog(LogType::INFORMATION_LOG, message);
         }
@@ -210,7 +210,7 @@ void CommandHandlerVisitor::stopStream()
 
         if(logger_.isInformationEnable())
         {
-            const string message = string("MainProcessScheduler :: Process was killed, process ID: ") + to_string(pid_);
+            const string message = string("CommandHandlerVisitor :: Process was killed, process ID: ") + to_string(pid_);
             logger_.writeLog(LogType::INFORMATION_LOG, message);
         }
     }
@@ -218,7 +218,7 @@ void CommandHandlerVisitor::stopStream()
     {
         if(logger_.isWarningEnable())
         {
-            const string message = string("MainProcessScheduler :: Process tried to be killed second time, process ID: ") + to_string(pid_);
+            const string message = string("CommandHandlerVisitor :: Process tried to be killed second time, process ID: ") + to_string(pid_);
             logger_.writeLog(LogType::ERROR_LOG, message);
         }
     }
@@ -242,7 +242,7 @@ void CommandHandlerVisitor::waitOnProcess()
         {
             if(logger_.isInformationEnable())
             {
-                const string message = string("MainProcessScheduler :: Process ID: ") + to_string(pid_) +
+                const string message = string("CommandHandlerVisitor :: Process ID: ") + to_string(pid_) +
                                        string(". Child exit status - ") + to_string(WEXITSTATUS(status));
                 logger_.writeLog(LogType::INFORMATION_LOG, message);
             }
@@ -251,7 +251,7 @@ void CommandHandlerVisitor::waitOnProcess()
         {
             if(logger_.isInformationEnable())
             {
-                const string message = string("MainProcessScheduler :: Process ID: ") + to_string(pid_) +
+                const string message = string("CommandHandlerVisitor :: Process ID: ") + to_string(pid_) +
                                        string(". Child process had been finished before waitpid was launched.");
                 logger_.writeLog(LogType::INFORMATION_LOG, message);
             }
