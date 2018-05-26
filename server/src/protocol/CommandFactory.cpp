@@ -60,7 +60,7 @@ unique_ptr<Command> CommandFactory::createCommand(const vector<uint8_t> &command
             builder_ = make_unique<StartStreamBuilder>();
             return move(builder_->create(commandInBytes));
         case CommandType::STOP_STREAM :
-            builder_ = make_unique<StartStreamBuilder>();
+            builder_ = make_unique<StopStreamBuilder>();
             return move(builder_->create(commandInBytes));
         case CommandType::END_CONNECTION :
             builder_ = make_unique<EndConnectionBuilder>();
