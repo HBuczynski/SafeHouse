@@ -206,9 +206,9 @@ void CommandHandlerVisitor::stopStream()
 {
     if(pid_ > 0)
     {
-        killpg(pid_, SIGKILL);
-        killpg(++pid_, SIGKILL);
-        killpg(++pid_, SIGKILL);
+        kill(pid_, SIGKILL);
+        kill(++pid_, SIGKILL);
+        kill(++pid_, SIGKILL);
 
         if(logger_.isInformationEnable())
         {

@@ -39,7 +39,7 @@ void CommunicationManagerClient::sendCommands()
     auto command3 = make_unique<StopStreamCommand>();
     client_->sendCommand(move(command3));
 
-    std::this_thread::sleep_for(10s);
+    std::this_thread::sleep_for(20s);
     auto command4 = make_unique<StartStreamCommand>();
     client_->sendCommand(move(command4));
 }
