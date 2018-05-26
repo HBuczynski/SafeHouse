@@ -172,9 +172,23 @@ void CommandHandlerVisitor::startStream()
     int status;
     int out[2];
 
-    char *firstArg1 = const_cast<char*>(string(STREAM_SCRIPT_PATH + STREAM_SCRIPT_NAME).c_str());
+    char *firstArg1 = "raspivid";
+    char *firstArg2 = "-t";
+    char *firstArg3 = "999999";
+    char *firstArg4 = "-vf";
+    char *firstArg5 = "-hf";
+    char *firstArg6 = "-b";
+    char *firstArg7 = "2000000";
+    char *firstArg8 = "-o";
+    char *firstArg9 = "-|cvlc";
+    char *firstArg10 = "stream:///dev/stdin";
+    char *firstArg11 = "--sout";
+    char *firstArg12 = "'#standard{access=http,mux=ts,dst=:8090}'";
+    char *firstArg13 = ":demux=h264";
 
-    char *firstArgs[] = {firstArg1, NULL};
+    char *firstArgs[] = {firstArg1,firstArg2,firstArg3,firstArg4,firstArg5,
+                         firstArg6,firstArg7,firstArg8,firstArg9,firstArg10,
+                         firstArg11,firstArg12,firstArg13,NULL};
 
     posix_spawn_file_actions_init(&action_);
     pipe(out);

@@ -2,13 +2,15 @@
 
 #define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
-
 #include "main_client/communication_manager_client/CommunicationManagerClient.h"
+
+using namespace std;
 
 BOOST_AUTO_TEST_SUITE( test_multiply )
 
     BOOST_AUTO_TEST_CASE( test_int )
     {
+
         BOOST_CHECK( 21 == 21);
     }
 
