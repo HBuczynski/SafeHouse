@@ -23,6 +23,10 @@
         </activity>
         <activity android:name=".MainActivity"
                   android:label="@string/SafeHouse"></activity>
+        <activity android:name=".SnapshotActivity"
+            android:label="@string/SafeHouse"></activity>
+        <activity android:name=".StreamActivity"
+            android:label="@string/SafeHouse"></activity>
     </application>
 
 </manifest>

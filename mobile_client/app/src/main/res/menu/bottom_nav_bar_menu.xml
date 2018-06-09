@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/logger"
+        android:icon="@drawable/ic_logger"
+        android:title="Logger"
+        />
+    <item
+        android:id="@+id/blinds"
+        android:icon="@drawable/ic_baseline"
+        android:title="Blinds"
+        />
+    <item
+        android:id="@+id/snpashot"
+        android:icon="@drawable/camera"
+        android:title="Snapshot"
+        />
+</menu>

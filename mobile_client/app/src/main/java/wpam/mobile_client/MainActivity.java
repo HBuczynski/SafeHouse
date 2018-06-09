@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.constraint.solver.widgets.Snapshot;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,8 +20,11 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    private ImageView viewer;
+    private String address;
+    private String port;
     private final static String TAG = "MainActivity";
-    private ImageView imageView;
+
 
     ClientThread clientThread;
 
@@ -30,17 +35,17 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             switch (item.getItemId()) {
-                case R.id.navigation_home: {
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.logger: {
+
 
                     return true;
                 }
-                case R.id.navigation_dashboard: {
+                case R.id.blinds: {
 
-                    mTextMessage.setText(R.string.title_dashboard);
+
                     return true;
                 }
-                case R.id.navigation_notifications:
+                case R.id.snpashot:
                 {
                     SnapshotCommand command = new SnapshotCommand();
                     try
@@ -51,15 +56,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     catch (Exception e)
                     {
-
                         e.printStackTrace();
                     }
 
+                    Intent intent = new Intent(getApplicationContext(), SnapshotActivity.class);
+                    startActivity(intent);
 
-                    /*String url = "http://89.65.72.7/img.jpg";
-                    new com.concretepage.AsyncTaskLoadImage(imageView).execute(url);
-
-                    mTextMessage.setText(R.string.title_notifications);*/
                     return true;
                 }
             }
@@ -73,17 +75,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTextMessage = (TextView) findViewById(R.id.message);
-        imageView = (ImageView)findViewById(R.id.image);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        String address = getIntent().getStringExtra("ipAdress");
-        String port = getIntent().getStringExtra("port");
+        address = getIntent().getStringExtra("ipAdress");
+        port = getIntent().getStringExtra("port");
 
         clientThread = new ClientThread(address, port);
 
         //TODO: catch exception or do it better !!
-        //new Thread(clientThread).start();
+        new Thread(clientThread).start();
+
+        viewer = (ImageView) findViewById(R.id.viewer);
+        viewer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplicationContext(), StreamActivity.class);
+                intent.putExtra("ipAdress", address);
+
+                StartStreamCommand command = new StartStreamCommand();
+                try
+                {
+                    Message msg = new Message();
+                    msg.obj = command;
+                    clientThread.sendHandler.sendMessage(msg);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                startActivity(intent);
+            }
+        });
     }
 
 }
