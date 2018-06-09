@@ -1,11 +1,15 @@
 package wpam.mobile_client;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 import android.net.Uri;
 import android.os.Bundle;
+
+import wpam.mobile_client.protocol.StopStreamCommand;
 
 
 public class StreamActivity extends AppCompatActivity {
@@ -18,7 +22,6 @@ public class StreamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stream);
-
 
         streamView = (VideoView)findViewById(R.id.streamview);
         address = getIntent().getStringExtra("ipAdress");
@@ -45,8 +48,27 @@ public class StreamActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        streamView.stopPlayback();
+
+        StopStreamCommand command = new StopStreamCommand();
+        Intent intent = new Intent();
+
+        intent.putExtra("command", command);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         streamView.stopPlayback();
+
+        StopStreamCommand command = new StopStreamCommand();
+        Intent intent = new Intent();
+
+        intent.putExtra("command", "lol");
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

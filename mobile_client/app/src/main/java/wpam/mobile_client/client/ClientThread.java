@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -20,7 +21,7 @@ import android.widget.EditText;
 import wpam.mobile_client.protocol.*;
 import wpam.mobile_client.client.*;
 
-public class ClientThread implements Runnable
+public class ClientThread implements Serializable, Runnable
 {
 	//For debug
 	private final String TAG = "ClientThread";
@@ -50,6 +51,10 @@ public class ClientThread implements Runnable
 	public ClientThread()
 	{
 		Log.d(TAG, "It is may be construct's problem...");
+	}
+
+	public String getIp() {
+		return ip;
 	}
 
 	public void run()

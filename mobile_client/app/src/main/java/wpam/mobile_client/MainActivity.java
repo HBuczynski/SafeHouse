@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private String address;
     private String port;
     private final static String TAG = "MainActivity";
+    private static final int REQUEST_CODE = 100;
 
 
     ClientThread clientThread;
@@ -105,10 +106,30 @@ public class MainActivity extends AppCompatActivity {
                 {
                     e.printStackTrace();
                 }
-
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null)
+        {
+            resultCode = RESULT_OK;
+            Command command = (Command) data.getSerializableExtra("command");
+            try
+            {
+                Message msg = new Message();
+                msg.obj = command;
+                clientThread.sendHandler.sendMessage(msg);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 }
