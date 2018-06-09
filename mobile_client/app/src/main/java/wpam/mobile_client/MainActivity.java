@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private ImageView viewer;
+    private ImageView thiefImage;
     private String address;
     private String port;
     private final static String TAG = "MainActivity";
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case R.id.blinds: {
 
+                    Intent intent = new Intent(getApplicationContext(), BlindActivity.class);
+                    startActivity(intent);
 
                     return true;
                 }
@@ -109,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
+
+        thiefImage = (ImageView)findViewById(R.id.thiefImage);
+        thiefImage.setVisibility(View.INVISIBLE);
     }
 
     @Override

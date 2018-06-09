@@ -27,6 +27,8 @@
             android:label="@string/SafeHouse"></activity>
         <activity android:name=".StreamActivity"
             android:label="@string/SafeHouse"></activity>
+        <activity android:name=".BlindActivity"
+            android:label="@string/SafeHouse"></activity>
     </application>
 
 </manifest>
