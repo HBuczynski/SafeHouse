@@ -1,17 +1,21 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/logger"
         android:icon="@drawable/ic_logger"
         android:title="Logger"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/blinds"
         android:icon="@drawable/ic_baseline"
         android:title="Blinds"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/snpashot"
         android:icon="@drawable/camera"
         android:title="Snapshot"
+        app:showAsAction="always"
         />
 </menu>

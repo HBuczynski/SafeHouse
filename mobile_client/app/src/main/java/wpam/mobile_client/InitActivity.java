@@ -29,6 +29,7 @@ public class InitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+
                 String ip = ipAddress.getText().toString();
                 String port = portNumber.getText().toString();
 
