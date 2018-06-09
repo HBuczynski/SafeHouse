@@ -21,4 +21,6 @@ import java.io.*;
 		public abstract void visit(UserOutOfHomeCommand command);
 		public abstract void visit(EndConnectionCommand command);
 		public abstract void visit(SnapshotCommand command);
+		public abstract void visit(StartStreamCommand command);
+		public abstract void visit(StopStreamCommand command);
 	}
