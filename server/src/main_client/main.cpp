@@ -26,7 +26,7 @@ int main(int argc , char *argv[])
 
 
     CommunicationParameters paramters;
-    paramters.destinationAddressTCP = "192.168.0.164";
+    paramters.destinationAddressTCP = "89.65.72.7";
     paramters.destinationPortTCP = 9000;
 
 
