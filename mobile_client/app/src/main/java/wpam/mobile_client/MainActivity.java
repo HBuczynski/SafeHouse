@@ -9,18 +9,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
@@ -111,6 +106,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         thiefImage.setVisibility(View.INVISIBLE);
 
         setListeners();
+
+        UserOutOfHomeCommand command = new UserOutOfHomeCommand();
+        try
+        {
+            Message msg = new Message();
+            msg.obj = command;
+            clientThread.sendHandler.sendMessage(msg);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void setListeners()
