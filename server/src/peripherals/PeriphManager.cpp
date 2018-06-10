@@ -252,6 +252,7 @@ void PeriphManager::runSnapshotHandler(int gpio, int level, uint32_t tick, void 
     {
         system("../../camera_scripts/take_snapshot.sh");
     }
+    ackRespo
 }
 
 void PeriphManager::runSnapshot()
