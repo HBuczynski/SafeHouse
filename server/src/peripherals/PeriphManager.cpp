@@ -34,6 +34,9 @@ PeriphManager &PeriphManager::getInstance()
         if (!instance_)
         {
             instance_ = new PeriphManager();
+		
+            gpioCfgSocketPort(9500);
+	    gpioCfgInterfaces(PI_DISABLE_SOCK_IF);
 
             gpioInitialise();
             initialize();
@@ -228,7 +231,7 @@ void PeriphManager::runUserOutOfHome()
 void PeriphManager::runSnapshot()
 {
     lock_guard<mutex> lock(commandMutex_);
-
+    system("../../camera_scripts/take_snapshot.sh");
 }
 
 void PeriphManager::broadcast(shared_ptr<Response> response)

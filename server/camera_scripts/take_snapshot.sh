@@ -10,6 +10,9 @@ if [ ! -d $snapshots_folder_name ]; then
 fi
 
 cd ${snapshots_folder_name}
-fileName=`date '+%Y%m%d_%H:%M:%S'`'.jpg'
+#fileName=`date '+%Y%m%d_%H:%M:%S'`'.jpg'
+fileName="img.jpg"
 touch ${fileName}
-raspistill -o ${fileName}
+raspistill -t 500 -vf -hf -o ${fileName}
+
+sudo mv img.jpg /var/www/html
