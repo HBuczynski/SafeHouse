@@ -119,6 +119,17 @@ void CommandHandlerVisitor::visit(UserOutOfHomeCommand &command)
     periphManager_.runUserOutOfHome();
 }
 
+void CommandHandlerVisitor::visit(UserInHomeCommand &command)
+{
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: UserInHomeCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+
+    periphManager_.runUserInHome();
+}
+
 void CommandHandlerVisitor::visit(SnapshotCommand &command)
 {
     if(logger_.isInformationEnable())

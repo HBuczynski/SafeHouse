@@ -228,6 +228,12 @@ void PeriphManager::runUserOutOfHome()
 
 }
 
+void PeriphManager::runUserInHome()
+{
+    lock_guard<mutex> lock(commandMutex_);
+
+}
+
 void PeriphManager::runSnapshot()
 {
     lock_guard<mutex> lock(commandMutex_);

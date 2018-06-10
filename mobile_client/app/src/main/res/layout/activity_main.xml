@@ -50,7 +50,7 @@
         app:srcCompat="@drawable/curtain_rod" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seek_bar"
         style="@android:style/Widget.Material.SeekBar.Discrete"
         android:layout_width="222dp"
         android:layout_height="45dp"

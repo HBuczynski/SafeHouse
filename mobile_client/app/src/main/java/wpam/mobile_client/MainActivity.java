@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import static java.security.AccessController.getContext;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private ImageView thiefImage;
     private ImageView firstWindow;
     private ImageView secondWindow;
+    private SeekBar  seekBar;
+
     private String address;
     private String port;
     private final static String TAG = "MainActivity";
@@ -100,6 +103,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         firstWindow = (ImageView) findViewById(R.id.first_window);
         secondWindow = (ImageView) findViewById(R.id.second_window);
 
+        seekBar = (SeekBar) findViewById(R.id.seek_bar);
+        seekBar.incrementProgressBy(100);
+        seekBar.setMax(100);
+
         thiefImage = (ImageView)findViewById(R.id.thiefImage);
         thiefImage.setVisibility(View.INVISIBLE);
 
@@ -138,6 +145,53 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 startActivity(intent);
 
                 thiefImage.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+                // TODO Auto-generated method stub
+                if(progress == 0)
+                {
+                    BlindsUPCommand command = new BlindsUPCommand();
+                    try
+                    {
+                        Message msg = new Message();
+                        msg.obj = command;
+                        clientThread.sendHandler.sendMessage(msg);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                else if(progress == 100)
+                {
+                    BlindsDOWNCommand command = new BlindsDOWNCommand();
+                    try
+                    {
+                        Message msg = new Message();
+                        msg.obj = command;
+                        clientThread.sendHandler.sendMessage(msg);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         });
     }
@@ -201,5 +255,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             }
         });
+    }
+
+    @Override
+    public void setSeekBarValue(int value)
+    {
+        seekBar.setProgress(0);
     }
 }

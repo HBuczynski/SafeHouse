@@ -31,6 +31,7 @@ namespace peripherials
         void runAutomaticBlinds();
         void runTemperatureDemand();
         void runUserOutOfHome();
+		void runUserInHome();
         void runSnapshot();
 
     private:
