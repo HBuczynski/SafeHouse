@@ -68,6 +68,12 @@ public class CommandFactory implements Closeable
 					command = this.builder.create(commandInBytes);
 					break;
 				}
+				case USER_IN_HOME:
+				{
+					this.builder = new UserInHomeBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
 				case TEMPERATURE_DEMAND:
 				{
 					this.builder = new TemperatureDemandBuilder();
