@@ -15,6 +15,7 @@ using namespace communication;
 
 extern char **environ;
 
+bool CommandHandlerVisitor::isKilled = false;
 utility::Logger& CommandHandlerVisitor::logger_ = Logger::getInstance();
 const std::string CommandHandlerVisitor::STREAM_SCRIPT_PATH = "../../camera_scripts/";
 const std::string CommandHandlerVisitor::STREAM_SCRIPT_NAME = "stream.sh";
@@ -172,6 +173,7 @@ void CommandHandlerVisitor::startStream()
     int status;
     int out[2];
 
+    isKilled = false;
     char *firstArg1 = const_cast<char*>(string(STREAM_SCRIPT_PATH + STREAM_SCRIPT_NAME).c_str());
     char *firstArgs[] = {firstArg1, NULL};
 
@@ -207,7 +209,8 @@ void CommandHandlerVisitor::stopStream()
     if(pid_ > 0)
     {
         kill(pid_, SIGKILL);
-
+	system("../../camera_scripts/kill_stream.sh");
+	
         if(logger_.isInformationEnable())
         {
             const string message = string("CommandHandlerVisitor :: Process was killed, process ID: ") + to_string(pid_);
@@ -224,12 +227,15 @@ void CommandHandlerVisitor::stopStream()
     }
 
 
-	//waitOnProcess();
+    waitOnProcess();
 }
 
 void CommandHandlerVisitor::waitOnProcess()
 {
     int status;
+	
+    if(!isKilled)
+    {
     if (waitpid(pid_, &status, 0) < 0)
     {
         if(logger_.isErrorEnable())
@@ -261,5 +267,7 @@ void CommandHandlerVisitor::waitOnProcess()
         }
     }
 
+    isKilled = true;
     posix_spawn_file_actions_destroy(&action_);
+    }
 }

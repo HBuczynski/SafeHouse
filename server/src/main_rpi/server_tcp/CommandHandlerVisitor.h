@@ -48,6 +48,7 @@ namespace communication
         static posix_spawn_file_actions_t action_;
         static pid_t pid_;
 
+	static bool isKilled;	
         static utility::Logger& logger_;
         peripherials::PeriphManager &periphManager_;
 
