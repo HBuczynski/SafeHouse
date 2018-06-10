@@ -12,9 +12,12 @@ using namespace config;
 
 PeriphManager *PeriphManager::instance_= nullptr;
 std::mutex PeriphManager::periphManagerMutex_;
+std::mutex PeriphManager::commandMutex_;
 
 vector <unique_ptr<GPIO>> PeriphManager::connectedDevices;
 vector <unique_ptr<Blinds> > PeriphManager::connectedBlinds;
+unique_ptr<MotionSensor> PeriphManager::connectedMotionSensor;
+
 
 
 PeriphManager::PeriphManager()
@@ -162,13 +165,11 @@ void PeriphManager::readConfig(const std::string &configFile)
     connectedMotionSensor->setMode(motionPin, PI_INPUT, PI_PUD_OFF);
     connectedMotionSensor->init();
     connectedMotionSensor->setSensor(false);
-    if(connectedMotionSensor->registerHandler(runSnapshot, FALLING_EDGE, 0, nullptr))
+    if(connectedMotionSensor->registerHandler(runSnapshotHandler, FALLING_EDGE, 0, nullptr))
     {
         const std::string message = std::string("Motion sensor callback registered.");
-        logger.getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
-        return true;
+        utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
     }
-    return false;
     //connectedDevices.push_back(move(motionSensor));
 }
 
@@ -242,7 +243,7 @@ void PeriphManager::runUserInHome()
     connectedMotionSensor->setSensor(false);
 }
 
-void PeriphManager::runSnapshot(int gpio, int level, uint32_t tick, void *userdata)
+void PeriphManager::runSnapshotHandler(int gpio, int level, uint32_t tick, void *userdata)
 {
     lock_guard<mutex> lock(commandMutex_);
     const std::string message = std::string("MotionSensor callback invoked");
@@ -251,6 +252,12 @@ void PeriphManager::runSnapshot(int gpio, int level, uint32_t tick, void *userda
     {
         system("../../camera_scripts/take_snapshot.sh");
     }
+}
+
+void PeriphManager::runSnapshot()
+{
+    lock_guard<mutex> lock(commandMutex_);
+    system("../../camera_scripts/take_snapshot.sh");
 }
 
 void PeriphManager::broadcast(shared_ptr<Response> response)

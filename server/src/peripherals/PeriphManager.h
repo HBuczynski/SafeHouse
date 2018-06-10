@@ -9,6 +9,7 @@
 #include "Switch.h"
 #include "Blinds.h"
 #include "TemperatureSensor.h"
+#include "MotionSensor.h"
 #include <config_reader/JSONParser.h>
 #include <protocol/Response.h>
 
@@ -32,7 +33,8 @@ namespace peripherials
         void runTemperatureDemand();
         void runUserOutOfHome();
 		void runUserInHome();
-        void runSnapshot(int gpio, int level, uint32_t tick, void *userdata);
+        static void runSnapshotHandler(int gpio, int level, uint32_t tick, void *userdata);
+        void runSnapshot();
 
     private:
         PeriphManager();
@@ -47,7 +49,7 @@ namespace peripherials
         static std::vector <std::unique_ptr<Blinds> > connectedBlinds;
         static std::unique_ptr<MotionSensor> connectedMotionSensor;
         std::function<void(std::shared_ptr<communication::Response>)> broadcastFunction_;
-        std::mutex commandMutex_;
+        static std::mutex commandMutex_;
 
         static PeriphManager *instance_;
         static std::mutex periphManagerMutex_;
