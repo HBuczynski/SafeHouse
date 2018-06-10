@@ -252,7 +252,6 @@ void PeriphManager::runSnapshotHandler(int gpio, int level, uint32_t tick, void 
     utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
     if(connectedMotionSensor->isTriggered())
     {
-        system("../../camera_scripts/take_snapshot.sh");
         const auto command = make_shared<AckResponse>(AckType::THIEF);
         manager->broadcast(command);
     }
