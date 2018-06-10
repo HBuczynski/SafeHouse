@@ -5,7 +5,8 @@ package wpam.mobile_client.protocol;
 		OK(10),
 		FAIL(20),
 		CONNECTION_ENDED(30),
-		CHANGED_MODE(40);
+		CHANGED_MODE(40),
+		THIEF(50);
 
 		private int value;
 		private static java.util.HashMap<Integer, AckType> mappings;
