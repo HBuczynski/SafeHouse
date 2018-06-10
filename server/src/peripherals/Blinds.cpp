@@ -31,6 +31,8 @@ bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft_, uint16_t mot
     }
     motor->setMode(motorPinEnable_,PI_OUTPUT,PI_PUD_OFF);
     motor->setMotorPins(motorPWMLeft_, motorPWMRight_, motorPWMEnable_);
+    motor->setRange(1000);
+    setPWMValue(1000);
     topSwitch->setMode(topSwitchPin_, PI_INPUT, PI_PUD_UP);
     bottomSwitch->setMode(bottomSwitchPin_, PI_INPUT, PI_PUD_UP);
 
@@ -40,6 +42,7 @@ bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft_, uint16_t mot
     int top = -1, bottom = -1;
     top = topSwitch->pinRead();
     bottom = bottomSwitch->pinRead();
+
     if(logger.isInformationEnable())
     {
         const std::string message = std::string("State up: " + std::to_string(top));
