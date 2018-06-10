@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private String port;
     private final static String TAG = "MainActivity";
     private static final int REQUEST_CODE = 100;
-
+    private static final int SHOW_THIEF = 50;
 
     ClientThread clientThread;
 
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         thiefImage.setVisibility(View.INVISIBLE);
 
         setListeners();
+        setIntents();
     }
 
     private void setListeners()
@@ -129,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setIntents()
+    {
+        Intent intent = new Intent(getApplicationContext(), ResponseHandlerVisitor.class);
+        startActivityForResult(intent, SHOW_THIEF);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -148,6 +155,10 @@ public class MainActivity extends AppCompatActivity {
             {
                 e.printStackTrace();
             }
+        }
+        else if(requestCode == SHOW_THIEF && resultCode == RESULT_OK && data != null)
+        {
+            thiefImage.setVisibility(View.VISIBLE);
         }
     }
 }

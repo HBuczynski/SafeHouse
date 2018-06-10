@@ -1,10 +1,15 @@
 package wpam.mobile_client.client;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import wpam.mobile_client.protocol.*;
 
 import java.io.*;
 
-	public final class ResponseHandlerVisitor extends ResponseVisitor implements Closeable
+import static android.app.Activity.RESULT_OK;
+
+public final class ResponseHandlerVisitor extends ResponseVisitor implements Closeable
 	{
 		public ResponseHandlerVisitor()
 		{
