@@ -13,8 +13,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 
@@ -25,7 +25,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private ImageView thiefImage;
     private ImageView firstWindow;
     private ImageView secondWindow;
-    private SeekBar  seekBar;
+
+    private ImageButton pushUP;
+    private ImageButton pushDOWN;
 
     private String address;
     private String port;
@@ -98,12 +100,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         firstWindow = (ImageView) findViewById(R.id.first_window);
         secondWindow = (ImageView) findViewById(R.id.second_window);
 
-        seekBar = (SeekBar) findViewById(R.id.seek_bar);
-        seekBar.incrementProgressBy(100);
-        seekBar.setMax(100);
-
         thiefImage = (ImageView)findViewById(R.id.thiefImage);
         thiefImage.setVisibility(View.INVISIBLE);
+
+        pushDOWN = (ImageButton)findViewById(R.id.push_down);
+        pushUP = (ImageButton) findViewById(R.id.push_up);
 
         setListeners();
 
@@ -155,54 +156,42 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             }
         });
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
+        pushUP.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
-                // TODO Auto-generated method stub
-                if(progress == 0)
+            public void onClick(View v)
+            {
+                BlindsUPCommand command = new BlindsUPCommand();
+                try
                 {
-                    BlindsUPCommand command = new BlindsUPCommand();
-                    try
-                    {
-                        Message msg = new Message();
-                        msg.obj = command;
-                        clientThread.sendHandler.sendMessage(msg);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    Message msg = new Message();
+                    msg.obj = command;
+                    clientThread.sendHandler.sendMessage(msg);
                 }
-                else if(progress == 100)
+                catch (Exception e)
                 {
-                    BlindsDOWNCommand command = new BlindsDOWNCommand();
-                    try
-                    {
-                        Message msg = new Message();
-                        msg.obj = command;
-                        clientThread.sendHandler.sendMessage(msg);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    e.printStackTrace();
                 }
+            }
+        });
 
+        pushDOWN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                BlindsDOWNCommand command = new BlindsDOWNCommand();
+                try
+                {
+                    Message msg = new Message();
+                    msg.obj = command;
+                    clientThread.sendHandler.sendMessage(msg);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -262,11 +251,5 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             }
         });
-    }
-
-    @Override
-    public void setSeekBarValue(int value)
-    {
-        seekBar.setProgress(0);
     }
 }
