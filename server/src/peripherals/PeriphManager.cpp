@@ -246,7 +246,7 @@ void PeriphManager::runUserInHome()
 void PeriphManager::runSnapshotHandler(int gpio, int level, uint32_t tick, void *userdata)
 {
     lock_guard<mutex> lock(commandMutex_);
-    const std::string message = std::string("MotionSensor callback invoked");
+    const std::string message = std::string("MotionSensor callback invoked, state: %d", connectedMotionSensor->pinRead());
     utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
     if(connectedMotionSensor->isTriggered())
     {
