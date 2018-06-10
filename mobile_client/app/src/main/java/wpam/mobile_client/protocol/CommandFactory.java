@@ -80,6 +80,18 @@ public class CommandFactory implements Closeable
 					command = this.builder.create(commandInBytes);
 					break;
 				}
+				case START_STREAM:
+				{
+					this.builder = new StartStreamBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
+				case STOP_STREAM:
+				{
+					this.builder = new StopStreamBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
 				default:
 				{
 					throw new IllegalArgumentException("Score is not valid!");

@@ -3,7 +3,7 @@ package wpam.mobile_client.protocol;
 import java.io.*;
 import java.util.ArrayList;
 
-public abstract class Frame implements Closeable
+public abstract class Frame implements Closeable, Serializable
 	{
 		public Frame(FrameType frameTypeIn, int dataSizeIn)
 		{
