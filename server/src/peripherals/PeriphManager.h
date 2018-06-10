@@ -45,6 +45,7 @@ namespace peripherials
 
         static std::vector <std::unique_ptr<GPIO>> connectedDevices;
         static std::vector <std::unique_ptr<Blinds> > connectedBlinds;
+        static std::unique_ptr<MotionSensor> connectedMotionSensor;
         std::function<void(std::shared_ptr<communication::Response>)> broadcastFunction_;
         std::mutex commandMutex_;
 

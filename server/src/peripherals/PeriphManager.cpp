@@ -158,11 +158,18 @@ void PeriphManager::readConfig(const std::string &configFile)
     parser.getUINT16t(motionElements, motionPin);
     motionElements.pop_back();
 
-    auto motionSensor = make_unique<MotionSensor>(motionID);
-    motionSensor->setMode(motionPin, PI_INPUT, PI_PUD_OFF);
-    motionSensor->init();
-    motionSensor->setSensor(false);
-    connectedDevices.push_back(move(motionSensor));
+    connectedMotionSensor = make_unique<MotionSensor>(motionID);
+    connectedMotionSensor->setMode(motionPin, PI_INPUT, PI_PUD_OFF);
+    connectedMotionSensor->init();
+    connectedMotionSensor->setSensor(false);
+    if(connectedMotionSensor->registerHandler(runSnapshot, FALLING_EDGE, 0, nullptr))
+    {
+        const std::string message = std::string("Motion sensor callback registered.");
+        logger.getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
+        return true;
+    }
+    return false;
+    //connectedDevices.push_back(move(motionSensor));
 }
 
 void PeriphManager::initBroadcastFucntion(function<void(shared_ptr<Response>)> broadcastFunction)
@@ -226,22 +233,28 @@ void PeriphManager::runTemperatureDemand()
 void PeriphManager::runUserOutOfHome()
 {
     lock_guard<mutex> lock(commandMutex_);
-
+    connectedMotionSensor->setSensor(true);
 }
 
 void PeriphManager::runUserInHome()
 {
     lock_guard<mutex> lock(commandMutex_);
-
+    connectedMotionSensor->setSensor(false);
 }
 
 void PeriphManager::runSnapshot()
 {
     lock_guard<mutex> lock(commandMutex_);
-    system("../../camera_scripts/take_snapshot.sh");
+    const std::string message = std::string("MotionSensor callback invoked");
+    utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
+    if(connectedMotionSensor->isTriggered())
+    {
+        system("../../camera_scripts/take_snapshot.sh");
+    }
 }
 
 void PeriphManager::broadcast(shared_ptr<Response> response)
 {
     broadcastFunction_(response);
 }
+
