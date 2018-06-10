@@ -8,8 +8,4 @@
     tools:context=".BlindActivity"
     android:background="@drawable/back">
 
-
-
-
-
 </android.support.constraint.ConstraintLayout>
