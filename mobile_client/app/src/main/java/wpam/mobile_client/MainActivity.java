@@ -5,23 +5,30 @@ import wpam.mobile_client.client.*;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.constraint.solver.widgets.Snapshot;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import static java.security.AccessController.getContext;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityInterface {
 
     private TextView mTextMessage;
     private ImageView viewer;
     private ImageView thiefImage;
+    private ImageView firstWindow;
+    private ImageView secondWindow;
     private String address;
     private String port;
     private final static String TAG = "MainActivity";
@@ -86,14 +93,17 @@ public class MainActivity extends AppCompatActivity {
         port = getIntent().getStringExtra("port");
 
         clientThread = ClientThread.getInstance();
+        clientThread.setMainActivityInterface(this);
 
         viewer = (ImageView) findViewById(R.id.viewer);
+
+        firstWindow = (ImageView) findViewById(R.id.first_window);
+        secondWindow = (ImageView) findViewById(R.id.second_window);
 
         thiefImage = (ImageView)findViewById(R.id.thiefImage);
         thiefImage.setVisibility(View.INVISIBLE);
 
         setListeners();
-        setIntents();
     }
 
     private void setListeners()
@@ -126,15 +136,12 @@ public class MainActivity extends AppCompatActivity {
             {
                 Intent intent = new Intent(getApplicationContext(), SnapshotActivity.class);
                 startActivity(intent);
+
+                thiefImage.setVisibility(View.INVISIBLE);
             }
         });
     }
 
-    private void setIntents()
-    {
-        Intent intent = new Intent(getApplicationContext(), ResponseHandlerVisitor.class);
-        startActivityForResult(intent, SHOW_THIEF);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -156,9 +163,43 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        else if(requestCode == SHOW_THIEF && resultCode == RESULT_OK && data != null)
-        {
-            thiefImage.setVisibility(View.VISIBLE);
-        }
+    }
+
+    @Override
+    public void thiefOccurred()
+    {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                thiefImage.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    @Override
+    public void blindsUP()
+    {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+    }
+
+    @Override
+    public void blindsDOWN()
+    {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                //DrawableCompat.setTint(firstWindow.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.orange));
+                //DrawableCompat.setTint(secondWindow.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.orange));
+
+            }
+        });
     }
 }

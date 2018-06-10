@@ -107,7 +107,7 @@
         app:srcCompat="@drawable/centralwin" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/first_window"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -125,7 +125,7 @@
         app:srcCompat="@drawable/first_meadow" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/second_window"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
