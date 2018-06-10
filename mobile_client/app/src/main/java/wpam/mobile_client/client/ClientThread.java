@@ -12,6 +12,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -21,15 +22,16 @@ import android.widget.EditText;
 import wpam.mobile_client.protocol.*;
 import wpam.mobile_client.client.*;
 
-public class ClientThread implements Serializable, Runnable
+public class ClientThread implements  Runnable
 {
+	private static ClientThread instance;
 	//For debug
 	private final String TAG = "ClientThread";
     private final int HEADER_SIZE = 5;
 
 	private Socket socket;
-	private String ip;
-	private int port;
+	private static String ip;
+	private static int port;
 	public Handler sendHandler;
 
 	private InputStream inputStream;
@@ -37,24 +39,37 @@ public class ClientThread implements Serializable, Runnable
     ResponseFactory responseFactory;
     ResponseHandlerVisitor responseHandler;
 	public boolean isConnect = false;
+	public String generalResponse ="RUN";
 
-	public ClientThread(String ip, String port) {
+	public static synchronized ClientThread getInstance(){
+		if(instance==null){
+			instance=new ClientThread();
+		}
+		return instance;
+	}
+	private ClientThread() {
 		// TODO Auto-generated constructor stub
-		this.ip = ip;
-		this.port = Integer.valueOf(port);
+		//this.ip = ip;
+		//this.port = Integer.valueOf(port);
 
         responseFactory = new ResponseFactory();
         responseHandler = new ResponseHandlerVisitor();
 
 		Log.d(TAG, "ClientThread's construct is OK!!");
 	}
-	public ClientThread()
-	{
-		Log.d(TAG, "It is may be construct's problem...");
+
+	public static String getIp() {
+		return ip;
 	}
 
-	public String getIp() {
-		return ip;
+	public static void setAdress(String ip)
+	{
+		ClientThread.ip = ip;
+	}
+
+	public static void setPort(String port)
+	{
+		ClientThread.port = Integer.valueOf(port);
 	}
 
 	public void run()
@@ -66,6 +81,8 @@ public class ClientThread implements Serializable, Runnable
 			isConnect = socket.isConnected();
 			inputStream = socket.getInputStream();
 			outputStream = socket.getOutputStream();
+
+			generalResponse = "OK";
 
 			new Thread()
 			{
@@ -96,6 +113,7 @@ public class ClientThread implements Serializable, Runnable
 					}
 					catch(IOException e)
 					{
+
 						Log.d(TAG, e.getMessage());
 						e.printStackTrace();
 					}
@@ -141,16 +159,19 @@ public class ClientThread implements Serializable, Runnable
 		} catch (SocketTimeoutException e) 
 		{
 			// TODO Auto-generated catch block
+			generalResponse = "FALSE";
 			Log.d(TAG, e.getMessage());
 			e.printStackTrace();
 		}catch (UnknownHostException e) 
 		{
 			// TODO Auto-generated catch block
+			generalResponse = "FALSE";
 			Log.d(TAG, e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) 
 		{
 			// TODO Auto-generated catch block
+			generalResponse = "FALSE";
 			Log.d(TAG, e.getMessage());
 			e.printStackTrace();
 		}

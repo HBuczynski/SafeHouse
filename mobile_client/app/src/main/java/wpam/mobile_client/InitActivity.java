@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import wpam.mobile_client.client.ClientThread;
+
 
 public class InitActivity extends AppCompatActivity {
 
@@ -16,6 +18,8 @@ public class InitActivity extends AppCompatActivity {
     private TextView warning;
     private Button connectButton;
     private ProgressBar progressBar;
+
+    private ClientThread client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,26 @@ public class InitActivity extends AppCompatActivity {
                 String ip = ipAddress.getText().toString();
                 String port = portNumber.getText().toString();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("ipAdress", ip);
-                intent.putExtra("port", port);
+                ClientThread.setPort(port);
+                ClientThread.setAdress(ip);
 
-                startActivity(intent);
-                finish();
+                client = ClientThread.getInstance();
+                new Thread(client).start();
+
+                android.os.SystemClock.sleep(200);
+
+                if (client.isConnect) {
+                    warning.setText("");
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                    startActivity(intent);
+                    finish();
+                } else if (!client.isConnect){
+                    progressBar.setVisibility(View.INVISIBLE);
+
+                    warning.setText("Cannot connect !");
+                }
+
             }
         });
     }
