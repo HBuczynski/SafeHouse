@@ -166,7 +166,7 @@ void PeriphManager::readConfig(const std::string &configFile)
     connectedMotionSensor->setMode(motionPin, PI_INPUT, PI_PUD_OFF);
     connectedMotionSensor->init();
     connectedMotionSensor->setSensor(false);
-    if(connectedMotionSensor->registerHandler(runSnapshotHandler, FALLING_EDGE, 0, reinterpret_cast<void*>(instance_)))
+    if(connectedMotionSensor->registerHandler(runSnapshotHandler, RISING_EDGE, 0, reinterpret_cast<void*>(instance_)))
     {
         const std::string message = std::string("Motion sensor callback registered.");
         utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
