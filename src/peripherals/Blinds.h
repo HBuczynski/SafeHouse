@@ -19,6 +19,13 @@ public:
     Blinds(uint8_t blindsId_);
    ~Blinds();
 
+    enum DIRECTION
+    {
+        STOPPED = 0,
+        UP,
+        DOWN
+    };
+
     bool init(uint16_t motorPinEnable_, uint16_t motorPWMLeft_, uint16_t motorPWMRight_, uint16_t motorPWMEnable_, uint16_t topSwitchPin_, uint16_t bottomSwitchPin_);
 
     void setPWMValue(unsigned int pwmValue_);
@@ -34,6 +41,7 @@ public:
 
     uint8_t blindsId;
     unsigned int pwmValue;
+    DIRECTION direction = DIRECTION::STOPPED;
 
     std::unique_ptr<Motor> motor = nullptr;
     std::unique_ptr<Switch> topSwitch = nullptr;

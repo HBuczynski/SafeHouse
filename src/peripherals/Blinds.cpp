@@ -14,6 +14,7 @@ Blinds::Blinds(uint8_t blindsId_)
     topSwitch = std::make_unique<Switch>(blindsId_, GPIOType::UPPER_SWITCH);
     bottomSwitch = std::make_unique<Switch>(blindsId_, GPIOType::DOWN_SWITCH);
     actualState = std::make_unique<IdleState>();
+    direction = UP;
 }
 
 Blinds::~Blinds()
