@@ -9,6 +9,7 @@ import android.widget.VideoView;
 import android.net.Uri;
 import android.os.Bundle;
 
+import wpam.mobile_client.client.ClientThread;
 import wpam.mobile_client.protocol.StopStreamCommand;
 
 
@@ -24,7 +25,7 @@ public class StreamActivity extends AppCompatActivity {
         setContentView(R.layout.stream);
 
         streamView = (VideoView)findViewById(R.id.streamview);
-        address = getIntent().getStringExtra("ipAdress");
+        address = (ClientThread.getInstance()).getIp();
 
         String url = "http://"+address+":8090";
         playStream(url);

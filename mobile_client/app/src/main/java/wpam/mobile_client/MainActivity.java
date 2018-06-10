@@ -85,12 +85,18 @@ public class MainActivity extends AppCompatActivity {
         address = getIntent().getStringExtra("ipAdress");
         port = getIntent().getStringExtra("port");
 
-        clientThread = new ClientThread(address, port);
-
-        //TODO: catch exception or do it better !!
-        new Thread(clientThread).start();
+        clientThread = ClientThread.getInstance();
 
         viewer = (ImageView) findViewById(R.id.viewer);
+
+        thiefImage = (ImageView)findViewById(R.id.thiefImage);
+        thiefImage.setVisibility(View.INVISIBLE);
+
+        setListeners();
+    }
+
+    private void setListeners()
+    {
         viewer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -113,8 +119,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        thiefImage = (ImageView)findViewById(R.id.thiefImage);
-        thiefImage.setVisibility(View.INVISIBLE);
+        thiefImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplicationContext(), SnapshotActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
