@@ -19,6 +19,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.EditText;
 
+import wpam.mobile_client.MainActivityInterface;
 import wpam.mobile_client.protocol.*;
 import wpam.mobile_client.client.*;
 
@@ -70,6 +71,11 @@ public class ClientThread implements  Runnable
 	public static void setPort(String port)
 	{
 		ClientThread.port = Integer.valueOf(port);
+	}
+
+	public void setMainActivityInterface(MainActivityInterface mainActivityInterface)
+	{
+		responseHandler.setMainActivityInterface(mainActivityInterface);
 	}
 
 	public void run()
