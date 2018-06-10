@@ -161,6 +161,7 @@ void PeriphManager::readConfig(const std::string &configFile)
     auto motionSensor = make_unique<MotionSensor>(motionID);
     motionSensor->setMode(motionPin, PI_INPUT, PI_PUD_OFF);
     motionSensor->init();
+    motionSensor->setSensor(false);
     connectedDevices.push_back(move(motionSensor));
 }
 
