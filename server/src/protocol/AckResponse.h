@@ -10,7 +10,8 @@ namespace communication
         OK = 10,
         FAIL = 20,
         CONNECTION_ENDED = 30,
-        CHANGED_MODE = 40
+        CHANGED_MODE = 40,
+	THIEF = 50
     };
 
     class AckResponse final : public Response
