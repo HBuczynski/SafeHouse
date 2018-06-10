@@ -35,13 +35,13 @@ void CommunicationManagerClient::sendCommands()
     std::this_thread::sleep_for(1s);
     client_->sendCommand(move(command));
 
-    auto command  = make_unique<BlindsUPCommand>();
+    auto command1  = make_unique<BlindsUPCommand>();
     std::this_thread::sleep_for(1s);
-    client_->sendCommand(move(command));
+    client_->sendCommand(move(command1));
 
-    auto command  = make_unique<BlindsUPCommand>();
+    auto command2  = make_unique<BlindsUPCommand>();
     std::this_thread::sleep_for(1s);
-    client_->sendCommand(move(command));
+    client_->sendCommand(move(command2));
 //    auto command2 = make_unique<StartStreamCommand>();
 //    std::this_thread::sleep_for(1s);
 //    client_->sendCommand(move(command2));
