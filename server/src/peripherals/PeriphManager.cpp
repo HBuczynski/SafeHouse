@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "protocol/BlindsStatusResponse.h"
 #include <protocol/DataResponse.h>
+#include <protocol/AckResponse.h>
 #include <config_reader/JSONParser.h>
 
 using namespace std;
@@ -165,7 +166,7 @@ void PeriphManager::readConfig(const std::string &configFile)
     connectedMotionSensor->setMode(motionPin, PI_INPUT, PI_PUD_OFF);
     connectedMotionSensor->init();
     connectedMotionSensor->setSensor(false);
-    if(connectedMotionSensor->registerHandler(runSnapshotHandler, FALLING_EDGE, 0, nullptr))
+    if(connectedMotionSensor->registerHandler(runSnapshotHandler, FALLING_EDGE, 0, reinterpret_cast<void*>(instance_)))
     {
         const std::string message = std::string("Motion sensor callback registered.");
         utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
@@ -246,13 +247,15 @@ void PeriphManager::runUserInHome()
 void PeriphManager::runSnapshotHandler(int gpio, int level, uint32_t tick, void *userdata)
 {
     lock_guard<mutex> lock(commandMutex_);
-    const std::string message = std::string("MotionSensor callback invoked, state: %d", connectedMotionSensor->pinRead());
+    PeriphManager* manager = reinterpret_cast<PeriphManager*>(userdata);
+    const std::string message = std::string("MotionSensor callback invoked, state: " ) + to_string(connectedMotionSensor->pinRead());
     utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
     if(connectedMotionSensor->isTriggered())
     {
         system("../../camera_scripts/take_snapshot.sh");
+        const auto command = make_shared<AckResponse>(AckType::THIEF);
+        manager->broadcast(command);
     }
-    ackRespo
 }
 
 void PeriphManager::runSnapshot()
