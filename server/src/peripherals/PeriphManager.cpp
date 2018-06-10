@@ -242,7 +242,7 @@ void PeriphManager::runUserInHome()
     connectedMotionSensor->setSensor(false);
 }
 
-void PeriphManager::runSnapshot()
+void PeriphManager::runSnapshot(int gpio, int level, uint32_t tick, void *userdata)
 {
     lock_guard<mutex> lock(commandMutex_);
     const std::string message = std::string("MotionSensor callback invoked");

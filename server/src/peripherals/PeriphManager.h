@@ -32,7 +32,7 @@ namespace peripherials
         void runTemperatureDemand();
         void runUserOutOfHome();
 		void runUserInHome();
-        void runSnapshot();
+        void runSnapshot(int gpio, int level, uint32_t tick, void *userdata);
 
     private:
         PeriphManager();
