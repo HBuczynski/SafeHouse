@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Guard Settings"
+        android:key="guard_category">
+
+        <CheckBoxPreference
+            android:key="perform_sync"
+            android:summary="User out of home"
+            android:title="Guard in the room will be enabled"
+            android:defaultValue="false"/>
+
+        <CheckBoxPreference
+            android:key="perform_sync"
+            android:summary="User in home"
+            android:title="Guard in the room will be disabled"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Blinds settings"
+        android:key="blinds_category">
+
+        <CheckBoxPreference
+            android:key="perform_sync"
+            android:summary="Automatic blinds"
+            android:title="Blinds will be up and down according to the sunset and sunrise. "
+            android:defaultValue="false"/>
+
+        <EditTextPreference
+            android:key="up_on_time"
+            android:title="Blinds UP on time"
+            android:summary="Set time on which blinds should be raised"
+            android:dialogTitle="Time"
+            android:dialogMessage="Set time"
+            android:defaultValue="6:00"
+            android:inputType="time"/>
+
+        <EditTextPreference
+            android:key="up_on_time"
+            android:title="Blinds DOWN on time"
+            android:summary="Set time on which blinds should be lowered"
+            android:dialogTitle="Time"
+            android:dialogMessage="Set time"
+            android:defaultValue="22:00"
+            android:inputType="time"/>
+        <Preference
+            android:key="pref_static_field_key"
+            android:selectable="false"
+            android:title="you can omit the title"
+            android:summary="Multi line description\ncan go here."/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

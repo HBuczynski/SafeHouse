@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             switch (item.getItemId()) {
                 case R.id.logger: {
-
+                    Intent intent = new Intent(getApplicationContext(), InformationActivity.class);
+                    startActivity(intent);
 
                     return true;
                 }

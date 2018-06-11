@@ -27,6 +27,8 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name=".BlindActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name=".InformationActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>
