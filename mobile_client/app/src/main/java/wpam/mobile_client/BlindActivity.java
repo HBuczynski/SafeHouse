@@ -1,6 +1,7 @@
 package wpam.mobile_client;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -8,6 +9,7 @@ import android.preference.PreferenceActivity;
 import android.widget.ImageView;
 
 import wpam.mobile_client.client.ClientThread;
+import wpam.mobile_client.protocol.Command;
 
 public class BlindActivity extends PreferenceActivity {
 
@@ -24,9 +26,17 @@ public class BlindActivity extends PreferenceActivity {
         client = ClientThread.getInstance();
 
         userOutHome = (CheckBoxPreference)findPreference("user_out_home");
-        userOutHome.setChecked(false);
         userInHome = (CheckBoxPreference)findPreference("user_in_home");
-        userInHome.setChecked(false);
+
+        if(userOutHome.isChecked())
+        {
+            userInHome.setEnabled(false);
+        }
+
+        if(userInHome.isChecked())
+        {
+            userOutHome.setEnabled(false);
+        }
 
         setListeners();
         }
@@ -68,5 +78,20 @@ public class BlindActivity extends PreferenceActivity {
                 return true;
             }
         });
+    }
+
+    private void sendMessage(Command command)
+    {
+        try
+        {
+            Message msg = new Message();
+            msg.obj = command;
+            client.sendHandler.sendMessage(msg);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

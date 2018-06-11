@@ -7,14 +7,16 @@
         <CheckBoxPreference
             android:key="user_out_home"
             android:summary="User out of home"
-            android:title="Guard in the room will be enabled"
-            android:defaultValue="false"/>
+            android:title="Enable Guard"
+            android:defaultValue="false"
+            android:checked="false"/>
 
         <CheckBoxPreference
             android:key="user_in_home"
             android:summary="User in home"
-            android:title="Guard in the room will be disabled"
-            android:defaultValue="false"/>
+            android:title="Disable Guard"
+            android:defaultValue="false"
+            android:checked="false"/>
 
     </PreferenceCategory>
 
@@ -24,8 +26,8 @@
 
         <CheckBoxPreference
             android:key="perform_sync"
-            android:summary="Automatic blinds"
-            android:title="Blinds will be up and down according to the sunset and sunrise. "
+            android:summary="Blinds will be up and down \naccording to the sunset and sunrise. "
+            android:title="Automatic blinds"
             android:defaultValue="false"/>
 
         <EditTextPreference
