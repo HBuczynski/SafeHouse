@@ -5,13 +5,13 @@
         android:key="guard_category">
 
         <CheckBoxPreference
-            android:key="perform_sync"
+            android:key="user_out_home"
             android:summary="User out of home"
             android:title="Guard in the room will be enabled"
             android:defaultValue="false"/>
 
         <CheckBoxPreference
-            android:key="perform_sync"
+            android:key="user_in_home"
             android:summary="User in home"
             android:title="Guard in the room will be disabled"
             android:defaultValue="false"/>
@@ -45,11 +45,6 @@
             android:dialogMessage="Set time"
             android:defaultValue="22:00"
             android:inputType="time"/>
-        <Preference
-            android:key="pref_static_field_key"
-            android:selectable="false"
-            android:title="you can omit the title"
-            android:summary="Multi line description\ncan go here."/>
 
     </PreferenceCategory>
 
