@@ -3,6 +3,8 @@ package wpam.mobile_client;
 import wpam.mobile_client.protocol.*;
 import wpam.mobile_client.client.*;
 
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +12,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 {
                     e.printStackTrace();
                 }
+                changeOnImage();
             }
         });
 
@@ -189,9 +193,29 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 {
                     e.printStackTrace();
                 }
+
+                changeOnBlinds();
             }
         });
     }
+
+    public void changeOnBlinds()
+    {
+        DrawableCompat.setTint(firstWindow.getDrawable(), android.support.v4.content.ContextCompat.getColor(getApplicationContext(), R.color.orange));
+
+        DrawableCompat.setTint(secondWindow.getDrawable(), android.support.v4.content.ContextCompat.getColor(getApplicationContext(), R.color.orange));
+
+    }
+
+    public void changeOnImage()
+    {
+        Bitmap bImage = BitmapFactory.decodeResource(this.getResources(), R.drawable.first_meadow);
+        firstWindow.setImageBitmap(bImage);
+
+        Bitmap bImage2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.second_meadow);
+        secondWindow.setImageBitmap(bImage2);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
