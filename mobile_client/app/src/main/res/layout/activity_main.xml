@@ -49,26 +49,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/curtain_rod" />
 
-    <SeekBar
-        android:id="@+id/seek_bar"
-        style="@android:style/Widget.Material.SeekBar.Discrete"
-        android:layout_width="222dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="18dp"
-        android:foregroundGravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/central_window"
-        app:layout_constraintVertical_bias="0.644" />
-
     <ImageView
         android:id="@+id/thiefImage"
         android:layout_width="64dp"
@@ -82,10 +62,10 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.751"
+        app:layout_constraintVertical_bias="0.9"
         app:srcCompat="@drawable/thief" />
 
     <ImageButton
@@ -141,6 +121,43 @@
         app:layout_constraintTop_toTopOf="@+id/central_window"
         app:layout_constraintVertical_bias="0.45"
         app:srcCompat="@drawable/second_meadow" />
+
+    <ImageButton
+        android:id="@+id/push_down"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.672"
+        app:srcCompat="@drawable/down" />
+
+    <ImageButton
+        android:id="@+id/push_up"
+        style="@android:style/Widget.Material.Light.ImageButton"
+        android:layout_width="69dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.672"
+        app:srcCompat="@drawable/up" />
 
 
 </android.support.constraint.ConstraintLayout>

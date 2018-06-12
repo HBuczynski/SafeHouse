@@ -3,24 +3,22 @@ package wpam.mobile_client;
 import wpam.mobile_client.protocol.*;
 import wpam.mobile_client.client.*;
 
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-
-import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
@@ -30,7 +28,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private ImageView thiefImage;
     private ImageView firstWindow;
     private ImageView secondWindow;
-    private SeekBar  seekBar;
+
+    private ImageButton pushUP;
+    private ImageButton pushDOWN;
 
     private String address;
     private String port;
@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             switch (item.getItemId()) {
                 case R.id.logger: {
-
+                    Intent intent = new Intent(getApplicationContext(), InformationActivity.class);
+                    startActivity(intent);
 
                     return true;
                 }
@@ -103,14 +104,25 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         firstWindow = (ImageView) findViewById(R.id.first_window);
         secondWindow = (ImageView) findViewById(R.id.second_window);
 
-        seekBar = (SeekBar) findViewById(R.id.seek_bar);
-        seekBar.incrementProgressBy(100);
-        seekBar.setMax(100);
-
         thiefImage = (ImageView)findViewById(R.id.thiefImage);
         thiefImage.setVisibility(View.INVISIBLE);
 
+        pushDOWN = (ImageButton)findViewById(R.id.push_down);
+        pushUP = (ImageButton) findViewById(R.id.push_up);
+
         setListeners();
+
+        UserOutOfHomeCommand command = new UserOutOfHomeCommand();
+        try
+        {
+            Message msg = new Message();
+            msg.obj = command;
+            clientThread.sendHandler.sendMessage(msg);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void setListeners()
@@ -148,52 +160,61 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             }
         });
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
+        pushUP.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
-                // TODO Auto-generated method stub
-                if(progress == 0)
+            public void onClick(View v)
+            {
+                BlindsUPCommand command = new BlindsUPCommand();
+                try
                 {
-                    BlindsUPCommand command = new BlindsUPCommand();
-                    try
-                    {
-                        Message msg = new Message();
-                        msg.obj = command;
-                        clientThread.sendHandler.sendMessage(msg);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    Message msg = new Message();
+                    msg.obj = command;
+                    clientThread.sendHandler.sendMessage(msg);
                 }
-                else if(progress == 100)
+                catch (Exception e)
                 {
-                    BlindsDOWNCommand command = new BlindsDOWNCommand();
-                    try
-                    {
-                        Message msg = new Message();
-                        msg.obj = command;
-                        clientThread.sendHandler.sendMessage(msg);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    e.printStackTrace();
                 }
-
+                changeOnImage();
             }
         });
+
+        pushDOWN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                BlindsDOWNCommand command = new BlindsDOWNCommand();
+                try
+                {
+                    Message msg = new Message();
+                    msg.obj = command;
+                    clientThread.sendHandler.sendMessage(msg);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                changeOnBlinds();
+            }
+        });
+    }
+
+    public void changeOnBlinds()
+    {
+        DrawableCompat.setTint(firstWindow.getDrawable(), android.support.v4.content.ContextCompat.getColor(getApplicationContext(), R.color.orange));
+
+        DrawableCompat.setTint(secondWindow.getDrawable(), android.support.v4.content.ContextCompat.getColor(getApplicationContext(), R.color.orange));
+
+    }
+
+    public void changeOnImage()
+    {
+        Bitmap bImage = BitmapFactory.decodeResource(this.getResources(), R.drawable.first_meadow);
+        firstWindow.setImageBitmap(bImage);
+
+        Bitmap bImage2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.second_meadow);
+        secondWindow.setImageBitmap(bImage2);
     }
 
 
@@ -255,11 +276,5 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             }
         });
-    }
-
-    @Override
-    public void setSeekBarValue(int value)
-    {
-        seekBar.setProgress(0);
     }
 }

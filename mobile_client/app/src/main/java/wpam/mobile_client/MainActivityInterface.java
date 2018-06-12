@@ -5,5 +5,4 @@ public interface MainActivityInterface {
     public void thiefOccurred();
     public void blindsUP();
     public void blindsDOWN();
-    public void setSeekBarValue(int value);
 }
