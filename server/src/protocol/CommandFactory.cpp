@@ -68,10 +68,10 @@ unique_ptr<Command> CommandFactory::createCommand(const vector<uint8_t> &command
         case CommandType::STOP_STREAM :
             builder_ = make_unique<StopStreamBuilder>();
             return move(builder_->create(commandInBytes));
-		case CommandType::MOTOR_STATUS :
+		case CommandType::MOTOR_STATUS_COMMAND :
             builder_ = make_unique<MotorStatusCommandBuilder>();
             return move(builder_->create(commandInBytes));
-		case CommandType::GUARD_STATUS :
+		case CommandType::GUARD_STATUS_COMMAND :
             builder_ = make_unique<GuardStatusCommandBuilder>();
             return move(builder_->create(commandInBytes));
         case CommandType::END_CONNECTION :
