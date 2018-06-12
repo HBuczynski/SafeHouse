@@ -148,6 +148,8 @@ void CommandHandlerVisitor::visit(GuardStatusCommand& command)
         const string message = string("CommandHandlerVisitor :: GuardStatusCommand was received.");
         logger_.writeLog(LogType::INFORMATION_LOG, message);
     }
+	
+	periphManager_.runGuardStatus();
 
 }
 
@@ -159,6 +161,7 @@ void CommandHandlerVisitor::visit(MotorStatusCommand& command)
         logger_.writeLog(LogType::INFORMATION_LOG, message);
     }
 
+	periphManager_.runMotorStatus();
 }
 
 void CommandHandlerVisitor::visit(EndConnectionCommand &command)
