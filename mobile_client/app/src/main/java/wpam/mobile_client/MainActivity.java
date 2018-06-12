@@ -49,17 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             switch (item.getItemId()) {
                 case R.id.logger: {
 
-                    BlindsStatusCommand statusCommand = new BlindsStatusCommand();
-                    try
-                    {
-                        Message msg = new Message();
-                        msg.obj = statusCommand;
-                        clientThread.sendHandler.sendMessage(msg);
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    sendBasicCommands();
 
                     Intent intent = new Intent(getApplicationContext(), InformationActivity.class);
                     startActivity(intent);
@@ -125,17 +115,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         setListeners();
 
-        UserOutOfHomeCommand command = new UserOutOfHomeCommand();
-        try
-        {
-            Message msg = new Message();
-            msg.obj = command;
-            clientThread.sendHandler.sendMessage(msg);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        sendBasicCommands();
     }
 
     private void setListeners()
@@ -211,6 +191,33 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                 changeOnBlinds();
             }
         });
+    }
+
+    private void sendBasicCommands()
+    {
+        BlindsStatusCommand command = new BlindsStatusCommand();
+        try
+        {
+            Message msg = new Message();
+            msg.obj = command;
+            clientThread.sendHandler.sendMessage(msg);;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        GuardStatusCommand guardStatusCommand = new GuardStatusCommand();
+        try
+        {
+            Message msg = new Message();
+            msg.obj = guardStatusCommand;
+            clientThread.sendHandler.sendMessage(msg);;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void changeOnBlinds()

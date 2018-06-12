@@ -28,11 +28,12 @@
         android:title="Logger"
         android:key="logger_category">
 
-    <Preference
+    <EditTextPreference
         android:key="logger_state"
         android:selectable="false"
         android:title="Current logs:"
         android:summary=""/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -1,32 +1,30 @@
 package wpam.mobile_client.client;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.widget.EditText;
 
 import wpam.mobile_client.MainActivityInterface;
 import wpam.mobile_client.protocol.*;
-import wpam.mobile_client.client.*;
 
 public class ClientThread implements  Runnable
 {
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 	private static ClientThread instance;
 	//For debug
 	private final String TAG = "ClientThread";
@@ -45,6 +43,7 @@ public class ClientThread implements  Runnable
 	public String generalResponse ="RUN";
 
 	private boolean userInHomer;
+	Queue messageQueue = new LinkedList();
 
 	public static synchronized ClientThread getInstance(){
 		if(instance==null){
@@ -58,7 +57,7 @@ public class ClientThread implements  Runnable
 		//this.port = Integer.valueOf(port);
 
         responseFactory = new ResponseFactory();
-        responseHandler = new ResponseHandlerVisitor();
+        responseHandler = new ResponseHandlerVisitor(this);
 
 		Log.d(TAG, "ClientThread's construct is OK!!");
 	}
@@ -141,6 +140,10 @@ public class ClientThread implements  Runnable
                    DataOutputStream out = new DataOutputStream(baos);
                    Command command = (Command) msg.obj;
 
+					String currentDateandTime = sdf.format(new Date());
+					addToQueue("--" + currentDateandTime +"-- Send:: " +
+							command.getName() +".");
+
                    ArrayList<Integer> rawData = command.getFrameBytes();
                    try {
                        for (int element : rawData) {
@@ -187,9 +190,29 @@ public class ClientThread implements  Runnable
 		}
 	}
 
-	public String getLogdata()
+	public void addToQueue(String command)
 	{
-		return responseHandler.getLogData();
+		String msg = command;
+		if(messageQueue.size() <20)
+		{
+			messageQueue.add(msg);
+		}
+		else
+		{
+			messageQueue.remove();
+			messageQueue.add(msg);
+		}
+	}
+
+	public String getLogData()
+	{
+		String data = "";
+
+		for(Object object : messageQueue) {
+			data = data + '\n' + (String) object;
+		}
+
+		return data;
 	}
 
 	public String getBlindsStatus()

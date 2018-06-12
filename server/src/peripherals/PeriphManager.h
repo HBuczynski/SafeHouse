@@ -33,6 +33,9 @@ namespace peripherials
         void runTemperatureDemand();
         void runUserOutOfHome();
 		void runUserInHome();
+		void runGuardStatus();
+		void runMotorStatus();
+		
         static void runSnapshotHandler(int gpio, int level, uint32_t tick, void *userdata);
         void runSnapshot();
 

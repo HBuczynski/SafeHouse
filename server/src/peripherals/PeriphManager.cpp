@@ -264,6 +264,28 @@ void PeriphManager::runSnapshot()
     system("../../camera_scripts/take_snapshot.sh");
 }
 
+void PeriphManager::runGuardStatus()
+{
+	lock_guard<mutex> lock(commandMutex_);
+	shared_ptr<Response> response;
+	
+	if(connectedMotionSensor->isTriggered())
+    {
+        response = make_shared<GuardStatusResponse>(GuardStatus::ON);
+    }
+	else
+	{
+		response = make_shared<GuardStatusResponse>(GuardStatus::OFF);
+	}
+	
+	manager->broadcast(command);
+}
+
+void PeriphManager::runMotorStatus()
+{
+	lock_guard<mutex> lock(commandMutex_);
+}
+
 void PeriphManager::broadcast(shared_ptr<Response> response)
 {
     broadcastFunction_(response);
