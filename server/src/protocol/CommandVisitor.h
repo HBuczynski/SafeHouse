@@ -14,6 +14,8 @@
 #include "SnapshotCommand.h"
 #include "StartStreamCommand.h"
 #include "StopStreamCommand.h"
+#include "GuardStatusCommand.h"
+#include "MotorStatusCommand.h"
 
 namespace communication
 {
