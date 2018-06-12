@@ -7,8 +7,6 @@ import wpam.mobile_client.protocol.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.Queue;
 
 
 public final class ResponseHandlerVisitor extends ResponseVisitor implements Closeable
@@ -86,10 +84,17 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 		{
 			String currentDateandTime = sdf.format(new Date());
 			client.addToQueue("--" + currentDateandTime +"-- Received:: " +
-					response.getName() + ", blinds status: " + response.getGuardStatus().toString() + ".");
+					response.getName() + ", guard status: " + response.getGuardStatus().toString() + ".");
 
-			blindsStatus = "Blinds status: " + response.getGuardStatus().toString();
-			System.out.println(response.getName());
+			if(response.getGuardStatus() == GuardStatus.OFF)
+			{
+				client.setUserInHome(true);
+			}
+			else
+			{
+				client.setUserInHome(false);
+			}
+			System.out.println(response.getName() + " " + response.getGuardStatus().toString());
 		}
 
 		public String getBlindsStatus()

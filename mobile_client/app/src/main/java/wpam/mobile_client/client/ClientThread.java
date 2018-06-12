@@ -42,7 +42,7 @@ public class ClientThread implements  Runnable
 	public boolean isConnect = false;
 	public String generalResponse ="RUN";
 
-	private boolean userInHomer;
+	private boolean userInHome;
 	Queue messageQueue = new LinkedList();
 
 	public static synchronized ClientThread getInstance(){
@@ -193,7 +193,7 @@ public class ClientThread implements  Runnable
 	public void addToQueue(String command)
 	{
 		String msg = command;
-		if(messageQueue.size() <20)
+		if(messageQueue.size() <6)
 		{
 			messageQueue.add(msg);
 		}
@@ -220,13 +220,13 @@ public class ClientThread implements  Runnable
 		return responseHandler.getBlindsStatus();
 	}
 
-	public boolean getUserFlag()
+	public boolean getUserInHome()
 	{
-		return userInHomer;
+		return userInHome;
 	}
 
-	public void setUserFlag(boolean flag)
+	public void setUserInHome(boolean flag)
 	{
-		userInHomer = flag;
+		userInHome = flag;
 	}
 }

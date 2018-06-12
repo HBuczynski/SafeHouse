@@ -3,13 +3,14 @@ package wpam.mobile_client;
 import android.os.Bundle;
 import android.os.Message;
 import android.preference.CheckBoxPreference;
-import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.widget.ImageView;
 
 import wpam.mobile_client.client.ClientThread;
 import wpam.mobile_client.protocol.Command;
+import wpam.mobile_client.protocol.GuardStatusCommand;
+import wpam.mobile_client.protocol.UserInHomeCommand;
+import wpam.mobile_client.protocol.UserOutOfHomeCommand;
 
 public class BlindActivity extends PreferenceActivity {
 
@@ -28,19 +29,19 @@ public class BlindActivity extends PreferenceActivity {
         userOutHome = (CheckBoxPreference)findPreference("user_out_home");
         userInHome = (CheckBoxPreference)findPreference("user_in_home");
 
-        if(userOutHome.isChecked())
+        if(client.getUserInHome())
         {
-            userInHome.setEnabled(false);
-            client.setUserFlag(false);
-        }
-        else if(userInHome.isChecked())
-        {
+            userInHome.setEnabled(true);
+            userInHome.setChecked(true);
             userOutHome.setEnabled(false);
-            client.setUserFlag(true);
+            userOutHome.setChecked(false);
         }
         else
         {
-            client.setUserFlag(false);
+            userOutHome.setEnabled(true);
+            userOutHome.setChecked(true);
+            userInHome.setEnabled(false);
+            userInHome.setChecked(false);
         }
 
         setListeners();
@@ -48,8 +49,25 @@ public class BlindActivity extends PreferenceActivity {
 
     private void setListeners()
     {
-        userOutHome.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        userOutHome.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
+            public boolean onPreferenceClick(Preference preference) {
+                CheckBoxPreference checkBoxPreference = (CheckBoxPreference)preference;
+                if(checkBoxPreference.isChecked())
+                {
+                    /*UserOutOfHomeCommand guardStatusCommand = new UserOutOfHomeCommand();
+                    sendMessage(guardStatusCommand);*/
+                }
+                else
+                {
+                    userInHome.setEnabled(true);
+                }
+
+                return true;
+            }
+        });
+        /*setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
 
                 CheckBoxPreference checkBoxPreference = (CheckBoxPreference)preference;
@@ -57,27 +75,30 @@ public class BlindActivity extends PreferenceActivity {
                 {
                     userInHome.setEnabled(true);
                 }
-                else
+                else if(!checkBoxPreference.isChecked())
                 {
                     userInHome.setEnabled(false);
+
+                    UserOutOfHomeCommand guardStatusCommand = new UserOutOfHomeCommand();
+                    sendMessage(guardStatusCommand);
                 }
 
                 return true;
             }
-        });
+        });*/
 
-        userInHome.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        userInHome.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-
+            public boolean onPreferenceClick(Preference preference) {
                 CheckBoxPreference checkBoxPreference = (CheckBoxPreference)preference;
                 if(checkBoxPreference.isChecked())
                 {
-                    userOutHome.setEnabled(true);
+                    UserInHomeCommand guardStatusCommand = new UserInHomeCommand();
+                    sendMessage(guardStatusCommand);
                 }
                 else
                 {
-                    userOutHome.setEnabled(false);
+                    userOutHome.setEnabled(true);
                 }
 
                 return true;

@@ -6,7 +6,7 @@ public final class UserInHomeCommand extends Command
 {
     public UserInHomeCommand()
     {
-        super(10, CommandType.USER_OUT_OF_HOME);
+        super(10, CommandType.USER_IN_HOME);
     }
     public final void close()
     {

@@ -1,12 +1,9 @@
 package wpam.mobile_client;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.widget.TextView;
 
 import wpam.mobile_client.client.ClientThread;
 
@@ -31,13 +28,13 @@ public class InformationActivity extends PreferenceActivity {
         logger.setSummary(client.getLogData());
         blinds.setSummary(client.getBlindsStatus());
 
-        if(client.getUserFlag())
+        if(client.getUserInHome())
         {
-            guard.setSummary("User is out of home");
+            guard.setSummary("User is in home");
         }
         else
         {
-            guard.setSummary("User is in home");
+            guard.setSummary("User is out of home");
         }
     }
 }
