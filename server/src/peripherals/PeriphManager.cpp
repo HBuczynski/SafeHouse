@@ -4,6 +4,7 @@
 #include "protocol/BlindsStatusResponse.h"
 #include <protocol/DataResponse.h>
 #include <protocol/AckResponse.h>
+#include <protocol/GuardStatusResponse.h>
 #include <config_reader/JSONParser.h>
 
 using namespace std;
