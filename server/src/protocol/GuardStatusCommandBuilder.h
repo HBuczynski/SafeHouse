@@ -1,15 +1,15 @@
-#ifndef SAFEHOUSE_GUARDSTATUSBUILDER_H
-#define SAFEHOUSE_GUARDSTATUSBUILDER_H
+#ifndef SAFEHOUSE_GUARDSTATUSCOMMANDBUILDER_H
+#define SAFEHOUSE_GUARDSTATUSCOMMANDBUILDER_H
 
 #include "CommandBuilder.h"
 
 namespace communication
 {
-    class GuardStatusBuilder final : public CommandBuilder
+    class GuardStatusCommandBuilder final : public CommandBuilder
     {
     public:
-        GuardStatusBuilder();
-        ~GuardStatusBuilder();
+        GuardStatusCommandBuilder();
+        ~GuardStatusCommandBuilder();
 
         std::unique_ptr<Command> create(const std::vector<uint8_t> &commandInBytes) override;
     };

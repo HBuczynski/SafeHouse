@@ -1,16 +1,16 @@
-#include "MotorStatusBuilder.h"
+#include "MotorStatusCommandBuilder.h"
 #include "MotorStatusCommand.h"
 
 using namespace std;
 using namespace communication;
 
-MotorStatusBuilder::MotorStatusBuilder()
+MotorStatusCommandBuilder::MotorStatusCommandBuilder()
 {}
 
-MotorStatusBuilder::~MotorStatusBuilder()
+MotorStatusCommandBuilder::~MotorStatusCommandBuilder()
 {}
 
-unique_ptr<Command> MotorStatusBuilder::create(const vector<uint8_t> &commandInBytes)
+unique_ptr<Command> MotorStatusCommandBuilder::create(const vector<uint8_t> &commandInBytes)
 {
     auto command = make_unique<MotorStatusCommand>();
 

@@ -1,15 +1,15 @@
-#ifndef SAFEHOUSE_MOTORSTATUSBUILDER_H
-#define SAFEHOUSE_MOTORSTATUSBUILDER_H
+#ifndef SAFEHOUSE_MOTORSTATUCOmmandSBUILDER_H
+#define SAFEHOUSE_MOTORSTATUCOmmandSBUILDER_H
 
 #include "CommandBuilder.h"
 
 namespace communication
 {
-    class MotorStatusBuilder final : public CommandBuilder
+    class MotorStatusCommandBuilder final : public CommandBuilder
     {
     public:
-        MotorStatusBuilder();
-        ~MotorStatusBuilder();
+        MotorStatusCommandBuilder();
+        ~MotorStatusCommandBuilder();
 
         std::unique_ptr<Command> create(const std::vector<uint8_t> &commandInBytes) override;
     };
