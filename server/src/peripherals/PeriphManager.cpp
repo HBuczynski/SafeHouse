@@ -270,6 +270,8 @@ void PeriphManager::runGuardStatus()
 	lock_guard<mutex> lock(commandMutex_);
 	shared_ptr<Response> response;
 	
+	cout << "Run guards status." <<endl;
+	
 	if(connectedMotionSensor->isTriggered())
     {
         response = make_shared<GuardStatusResponse>(GuardStatus::ON);
@@ -289,6 +291,7 @@ void PeriphManager::runMotorStatus()
 
 void PeriphManager::broadcast(shared_ptr<Response> response)
 {
+	cout << "in broadcast " << response.getName() << endl;
     broadcastFunction_(response);
 }
 

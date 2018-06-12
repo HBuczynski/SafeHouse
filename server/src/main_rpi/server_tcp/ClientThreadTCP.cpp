@@ -119,10 +119,7 @@ void ClientThreadTCP::runListen()
     {
         try
         {
-		cout << "Przed receive:" << endl;
             const auto frame = socket_->receivePacket();
-
-		cout << "Przed handlerem " << endl;
             const auto command = commandFactory_.createCommand(frame);
             command->accept(commandHandler_);
         }
