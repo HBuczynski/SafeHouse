@@ -5,7 +5,7 @@ using namespace std;
 using namespace communication;
 
 GuardStatusCommand::GuardStatusCommand()
-        : Command(10, CommandType::GUARD_STATUS)
+        : Command(10, CommandType::GUARD_STATUS_COMMAND)
 {}
 
 GuardStatusCommand::~GuardStatusCommand()

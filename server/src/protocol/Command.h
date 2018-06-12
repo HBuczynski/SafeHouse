@@ -22,8 +22,8 @@ namespace communication
         END_CONNECTION = 50,
         START_STREAM = 60,
         STOP_STREAM = 70,
-		MOTOR_STATUS = 71,
-		GUARD_STATUS = 72
+		MOTOR_STATUS_COMMAND = 71,
+		GUARD_STATUS_COMMAND = 72
     };
 
     class Command : public Frame

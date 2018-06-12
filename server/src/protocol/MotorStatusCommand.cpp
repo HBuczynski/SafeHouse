@@ -5,7 +5,7 @@ using namespace std;
 using namespace communication;
 
 MotorStatusCommand::MotorStatusCommand()
-        : Command(10, CommandType::MOTOR_STATUS)
+        : Command(10, CommandType::MOTOR_STATUS_COMMAND)
 {}
 
 MotorStatusCommand::~MotorStatusCommand()
