@@ -291,7 +291,7 @@ void PeriphManager::runMotorStatus()
 
 void PeriphManager::broadcast(shared_ptr<Response> response)
 {
-	cout << "in broadcast " << response.getName() << endl;
+	cout << "in broadcast " << response->getName() << endl;
     broadcastFunction_(response);
 }
 
