@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         handler.post(new Runnable() {
             @Override
             public void run() {
-
+                changeOnImage();
             }
         });
     }
@@ -291,9 +291,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         handler.post(new Runnable() {
             @Override
             public void run() {
-                //DrawableCompat.setTint(firstWindow.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.orange));
-                //DrawableCompat.setTint(secondWindow.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.orange));
-
+                changeOnBlinds();
             }
         });
     }

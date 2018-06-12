@@ -16,7 +16,6 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
 		String blindsStatus;
-		String motorStatus;
 
 		ClientThread client;
 
@@ -75,8 +74,24 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 			client.addToQueue("--" + currentDateandTime +"-- Received:: " +
 					response.getName() + ", blinds status: " + response.getBlindsStatus().toString() + ".");
 
-			blindsStatus = "Blinds status: " + response.getBlindsStatus().toString();
-			System.out.println(response.getName());
+
+			BlindsStatus status = response.getBlindsStatus();
+			blindsStatus = "Blinds status: " + status.name();
+
+			switch (status)
+			{
+				case UP:
+				{
+					mainActivityInterface.blindsUP();
+					break;
+				}
+				case DOWN:
+				{
+					mainActivityInterface.blindsDOWN();
+					break;
+				}
+			}
+
 		}
 
 		@Override
