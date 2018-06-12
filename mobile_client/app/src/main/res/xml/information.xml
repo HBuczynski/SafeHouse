@@ -31,7 +31,7 @@
     <Preference
         android:key="logger_state"
         android:selectable="false"
-        android:title="Guard State"
+        android:title="Current logs:"
         android:summary=""/>
     </PreferenceCategory>
 

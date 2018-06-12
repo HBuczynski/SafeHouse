@@ -48,6 +48,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             switch (item.getItemId()) {
                 case R.id.logger: {
+
+                    BlindsStatusCommand statusCommand = new BlindsStatusCommand();
+                    try
+                    {
+                        Message msg = new Message();
+                        msg.obj = statusCommand;
+                        clientThread.sendHandler.sendMessage(msg);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
                     Intent intent = new Intent(getApplicationContext(), InformationActivity.class);
                     startActivity(intent);
 

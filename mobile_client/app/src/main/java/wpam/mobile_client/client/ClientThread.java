@@ -11,6 +11,8 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import android.app.Application;
 import android.os.Handler;
@@ -41,6 +43,8 @@ public class ClientThread implements  Runnable
     ResponseHandlerVisitor responseHandler;
 	public boolean isConnect = false;
 	public String generalResponse ="RUN";
+
+	private boolean userInHomer;
 
 	public static synchronized ClientThread getInstance(){
 		if(instance==null){
@@ -181,5 +185,25 @@ public class ClientThread implements  Runnable
 			Log.d(TAG, e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public String getLogdata()
+	{
+		return responseHandler.getLogData();
+	}
+
+	public String getBlindsStatus()
+	{
+		return responseHandler.getBlindsStatus();
+	}
+
+	public boolean getUserFlag()
+	{
+		return userInHomer;
+	}
+
+	public void setUserFlag(boolean flag)
+	{
+		userInHomer = flag;
 	}
 }

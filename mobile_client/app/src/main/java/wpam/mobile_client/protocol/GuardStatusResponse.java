@@ -2,16 +2,13 @@ package wpam.mobile_client.protocol;
 
 import java.util.ArrayList;
 
-public final class ErrorResponse extends Response
+public final class GuardStatusResponse extends Response
 {
-	private ErrorType type_;
-
-	public ErrorResponse(ErrorType type)
+	public GuardStatusResponse(GuardStatus type)
 	{
-		super(10, ResponseType.ERROR);
+		super(10, ResponseType.GUARD_STATUS);
 		this.type_ = type;
 	}
-
 	public final void close()
 	{
 		super.close();
@@ -31,23 +28,21 @@ public final class ErrorResponse extends Response
 	@Override
 	public String getName()
 	{
-		return new String("ErrorResponse");
+		return new String("GuardStatusResponse");
 	}
-
 	@Override
 	public void accept(ResponseVisitor visitor)
 	{
 		visitor.visit(this);
 	}
 
-	public ErrorType getErrorType()
+	public GuardStatus getGuardStatus()
 	{
-		return this.type_;
+		return type_;
 	}
-
-	public void setErrorType(ErrorType type)
+	public void setGuardStatus(GuardStatus type)
 	{
-		this.type_ = type;
+		type = type_;
 	}
 
 	@Override
@@ -55,4 +50,6 @@ public final class ErrorResponse extends Response
 	{
 		setDataSize(2);
 	}
+
+	private GuardStatus type_;
 }

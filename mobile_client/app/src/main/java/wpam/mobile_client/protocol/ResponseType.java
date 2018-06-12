@@ -6,7 +6,8 @@ public enum ResponseType
 		BLINDS_STATUS_RSP(15),
 		MOTOR_STATUS(20),
 		ERROR(25),
-		AUTHENTICATE(30);
+		AUTHENTICATE(30),
+		GUARD_STATUS(35);
 
 		private int value;
 		private static java.util.HashMap<Integer, ResponseType> mappings;

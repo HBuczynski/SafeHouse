@@ -31,11 +31,16 @@ public class BlindActivity extends PreferenceActivity {
         if(userOutHome.isChecked())
         {
             userInHome.setEnabled(false);
+            client.setUserFlag(false);
         }
-
-        if(userInHome.isChecked())
+        else if(userInHome.isChecked())
         {
             userOutHome.setEnabled(false);
+            client.setUserFlag(true);
+        }
+        else
+        {
+            client.setUserFlag(false);
         }
 
         setListeners();

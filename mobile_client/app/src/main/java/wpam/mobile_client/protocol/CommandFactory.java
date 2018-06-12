@@ -98,6 +98,18 @@ public class CommandFactory implements Closeable
 					command = this.builder.create(commandInBytes);
 					break;
 				}
+				case GUARD_STATUS_COMMAND:
+				{
+					this.builder = new GuardStatusCommandBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
+				case MOTOR_STATUS_COMMAND:
+				{
+					this.builder = new MotorStatusCommandBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
 				default:
 				{
 					throw new IllegalArgumentException("Score is not valid!");
