@@ -36,6 +36,9 @@ namespace communication
         virtual void visit(SnapshotCommand& command) = 0;
         virtual void visit(StartStreamCommand& command) = 0;
         virtual void visit(StopStreamCommand& command) = 0;
-    };
+		virtual void visit(GuardStatusCommand& command) = 0;
+		virtual void visit(MotorStatusCommand& command) = 0;
+
+		};
 }
 #endif

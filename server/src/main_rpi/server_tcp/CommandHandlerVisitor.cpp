@@ -141,6 +141,26 @@ void CommandHandlerVisitor::visit(SnapshotCommand &command)
     periphManager_.runSnapshot();
 }
 
+void visit(GuardStatusCommand& command)
+{
+	if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: GuardStatusCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+
+}
+
+void visit(MotorStatusCommand& command)
+{
+	if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: MotorStatusCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+
+}
+
 void CommandHandlerVisitor::visit(EndConnectionCommand &command)
 {
     if(logger_.isInformationEnable())

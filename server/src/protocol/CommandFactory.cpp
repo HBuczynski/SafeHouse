@@ -12,6 +12,8 @@
 #include "SnapshotBuilder.h"
 #include "StartStreamBuilder.h"
 #include "StopStreamBuilder.h"
+#include "GuardStatusCommandBuilder.h"
+#include "MotorStatusCommandBuilder.h"
 
 #include <stdexcept>
 
@@ -65,6 +67,12 @@ unique_ptr<Command> CommandFactory::createCommand(const vector<uint8_t> &command
             return move(builder_->create(commandInBytes));
         case CommandType::STOP_STREAM :
             builder_ = make_unique<StopStreamBuilder>();
+            return move(builder_->create(commandInBytes));
+		case CommandType::MOTOR_STATUS :
+            builder_ = make_unique<MotorStatusCommandBuilder>();
+            return move(builder_->create(commandInBytes));
+		case CommandType::GUARD_STATUS :
+            builder_ = make_unique<GuardStatusCommandBuilder>();
             return move(builder_->create(commandInBytes));
         case CommandType::END_CONNECTION :
             builder_ = make_unique<EndConnectionBuilder>();
