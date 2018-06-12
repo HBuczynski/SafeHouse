@@ -141,7 +141,7 @@ void CommandHandlerVisitor::visit(SnapshotCommand &command)
     periphManager_.runSnapshot();
 }
 
-void visit(GuardStatusCommand& command)
+void CommandHandlerVisitor::visit(GuardStatusCommand& command)
 {
 	if(logger_.isInformationEnable())
     {
@@ -151,7 +151,7 @@ void visit(GuardStatusCommand& command)
 
 }
 
-void visit(MotorStatusCommand& command)
+void CommandHandlerVisitor::visit(MotorStatusCommand& command)
 {
 	if(logger_.isInformationEnable())
     {
