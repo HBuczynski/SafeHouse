@@ -14,7 +14,8 @@ namespace communication
         BLINDS_STATUS_RSP = 15,
         MOTOR_STATUS = 20,
         ERROR = 25,
-        AUTHENTICATE = 30
+        AUTHENTICATE = 30,
+		GUARD_STATUS = 35
     };
 
     class Response : public Frame
