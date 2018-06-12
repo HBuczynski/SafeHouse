@@ -278,7 +278,7 @@ void PeriphManager::runGuardStatus()
 		response = make_shared<GuardStatusResponse>(GuardStatus::OFF);
 	}
 	
-	broadcast(command);
+	broadcast(response);
 }
 
 void PeriphManager::runMotorStatus()
