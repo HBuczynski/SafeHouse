@@ -19,7 +19,6 @@ public:
 
 protected:
     void setState(Blinds & blinds, AbstractState* state);
-	peripherials::PeriphManager &periphManager_;
 };
 
 
