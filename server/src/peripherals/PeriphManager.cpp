@@ -215,13 +215,13 @@ void PeriphManager::runBlindsStatus()
     lock_guard<mutex> lock(commandMutex_);
     for(unsigned int i = 0; i < connectedBlinds.size(); ++i)
     {   //TODO: Make BlindStatus and mode enum in common directory, differentiate blinds by IDs:
-        if(connectedBlinds[i].actualState->stateName == "ClosedState")
+        if(connectedBlinds[i]->actualState->stateName == "ClosedState")
         {
             const auto blindStatusResponse = std::make_shared<BlindsStatusResponse>(DOWN, MANUAL);
             broadcast(blindStatusResponse);
 
         }
-        else if(connectedBlinds[i].actualState->stateName == "OpenedState")
+        else if(connectedBlinds[i]->actualState->stateName == "OpenedState")
         {
             const auto blindStatusResponse = std::make_shared<BlindsStatusResponse>(UP, MANUAL);
             broadcast(blindStatusResponse);
@@ -263,6 +263,7 @@ void PeriphManager::runSnapshotHandler(int gpio, int level, uint32_t tick, void 
     if(connectedMotionSensor->isTriggered())
     {
         const auto command = make_shared<AckResponse>(AckType::THIEF);
+		system("../../camera_scripts/take_snapshot.sh");
         manager->broadcast(command);
     }
 }
