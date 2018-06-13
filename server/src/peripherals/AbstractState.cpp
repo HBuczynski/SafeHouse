@@ -1,5 +1,7 @@
 #include "AbstractState.h"
 
+#include <peripherals/PeriphManager.h>
+
 using namespace peripherials;
 
 AbstractState::AbstractState()

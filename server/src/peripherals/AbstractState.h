@@ -2,7 +2,8 @@
 #define SAFEHOUSE_ABSTRACTSTATE_H
 
 #include "Blinds.h"
-#include <peripherals/PeriphManager.h>
+
+class peripherials::PeriphManager;
 
 class AbstractState {
 public:
