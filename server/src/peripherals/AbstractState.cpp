@@ -1,5 +1,13 @@
 #include "AbstractState.h"
 
+using namespace peripherials;
+
+AbstractState::AbstractState()
+	:stateName("AbstractState"),
+	periphManager(PeriphManager::getInstance())
+{
+	
+};
 
 void AbstractState::setState(Blinds& blinds, AbstractState* state)
 {
