@@ -1,11 +1,8 @@
-//
-// Created by marcin on 17.03.18.
-//
-
 #ifndef SAFEHOUSE_ABSTRACTSTATE_H
 #define SAFEHOUSE_ABSTRACTSTATE_H
 
 #include "Blinds.h"
+#include "PeriphManager.h"
 
 class AbstractState {
 public:
@@ -22,6 +19,7 @@ public:
 
 protected:
     void setState(Blinds & blinds, AbstractState* state);
+	peripherials::PeriphManager &periphManager_;
 };
 
 

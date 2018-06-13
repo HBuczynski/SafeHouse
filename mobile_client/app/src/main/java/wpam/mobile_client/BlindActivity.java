@@ -69,6 +69,7 @@ public class BlindActivity extends PreferenceActivity {
                 {
                     UserOutOfHomeCommand guardStatusCommand = new UserOutOfHomeCommand();
                     sendMessage(guardStatusCommand);
+                    userInHome.setEnabled(false);
                 }
                 else
                 {
@@ -87,6 +88,7 @@ public class BlindActivity extends PreferenceActivity {
                 {
                     UserInHomeCommand guardStatusCommand = new UserInHomeCommand();
                     sendMessage(guardStatusCommand);
+                    userOutHome.setEnabled(false);
                 }
                 else
                 {
