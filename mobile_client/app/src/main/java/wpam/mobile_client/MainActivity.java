@@ -6,6 +6,7 @@ import wpam.mobile_client.client.*;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         thiefImage = (ImageView)findViewById(R.id.thiefImage);
         thiefImage.setVisibility(View.INVISIBLE);
 
-        pushDOWN = (ImageButton)findViewById(R.id.push_down);
+        pushDOWN = (ImageButton) findViewById(R.id.push_down);
         pushUP = (ImageButton) findViewById(R.id.push_up);
 
         setListeners();
