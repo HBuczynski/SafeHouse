@@ -6,9 +6,11 @@
 
 class AbstractState {
 public:
-    AbstractState():stateName("AbstractState") 
+    AbstractState()
+		:stateName("AbstractState"),
+		periphManager(PeriphManager::getInstance())
 	{
-		periphManager= peripherials::PeriphManager::getInstance();
+		
 	};
     virtual ~AbstractState() {};
 
