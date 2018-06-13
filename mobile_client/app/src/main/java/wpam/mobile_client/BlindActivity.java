@@ -9,6 +9,8 @@ import android.preference.PreferenceActivity;
 
 import wpam.mobile_client.client.ClientThread;
 import wpam.mobile_client.protocol.AutomaticBlindsCommand;
+import wpam.mobile_client.protocol.BlindsDOWNOnTimeCommand;
+import wpam.mobile_client.protocol.BlindsUPOnTimeCommand;
 import wpam.mobile_client.protocol.Command;
 import wpam.mobile_client.protocol.GuardStatusCommand;
 import wpam.mobile_client.protocol.UserInHomeCommand;
@@ -116,6 +118,25 @@ public class BlindActivity extends PreferenceActivity {
             }
         });
 
+        upOnTime.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+
+                BlindsUPOnTimeCommand blindsUPOnTimeCommand = new BlindsUPOnTimeCommand(340);
+                sendMessage(blindsUPOnTimeCommand);
+                return true;
+            }
+        });
+
+        downOnTime.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+
+                BlindsDOWNOnTimeCommand blindsDOWNOnTimeCommand = new BlindsDOWNOnTimeCommand(340);
+                sendMessage(blindsDOWNOnTimeCommand);
+                return true;
+            }
+        });
     }
 
     private void sendMessage(Command command)
