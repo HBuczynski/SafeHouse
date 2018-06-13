@@ -6,7 +6,10 @@
 
 class AbstractState {
 public:
-    AbstractState():stateName("AbstractState") {};
+    AbstractState():stateName("AbstractState") 
+	{
+		periphManager= peripherials::PeriphManager::getInstance();
+	};
     virtual ~AbstractState() {};
 
     virtual void blindsUp(Blinds & blinds) = 0;
@@ -19,6 +22,8 @@ public:
 
 protected:
     void setState(Blinds & blinds, AbstractState* state);
+	
+	peripherials::PeriphManager &periphManager_;
 };
 
 
