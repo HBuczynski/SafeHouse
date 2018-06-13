@@ -3,7 +3,7 @@
 
 #include "Blinds.h"
 
-class peripherials::PeriphManager;
+class PeriphManager;
 
 class AbstractState {
 public:
@@ -21,7 +21,7 @@ public:
 protected:
     void setState(Blinds & blinds, AbstractState* state);
 	
-	peripherials::PeriphManager &periphManager;
+	PeriphManager &periphManager;
 };
 
 
