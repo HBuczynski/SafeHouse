@@ -5,7 +5,7 @@ void AbstractState::setState(Blinds& blinds, AbstractState* state)
 {
     blinds.actualState.reset(state);
 	
-	peripherials::PeriphManager &periphManager= PeriphManager::getInstance();
+	peripherials::PeriphManager &periphManager= peripherials::PeriphManager::getInstance();
 	
     if(blinds.logger.isInformationEnable())
     {
