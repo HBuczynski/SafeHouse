@@ -18,6 +18,7 @@ void IdleState::blindsDown(Blinds &blinds)
     }
     else
     {
+        blinds.blindsStop();
         setState(blinds, new ErrorState());
     }
 }
@@ -31,6 +32,7 @@ void IdleState::blindsUp(Blinds &blinds)
     }
     else
     {
+        blinds.blindsStop();
         setState(blinds, new ErrorState());
     }
 }

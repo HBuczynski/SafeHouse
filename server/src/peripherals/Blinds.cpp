@@ -100,6 +100,7 @@ void Blinds::moveBlindsDown()
 {
     motor->setPWM(pwmValue,motor->getRightPWMPin());
     motor->setPWM(0,motor->getLeftPWMPin());
+    direction = DIRECTION::DOWN;
     //TODO: setting direction (two pins)
 }
 
@@ -107,6 +108,7 @@ void Blinds::moveBlindsUp()
 {
     motor->setPWM(pwmValue,motor->getLeftPWMPin());
     motor->setPWM(0,motor->getRightPWMPin());
+    direction = DIRECTION::UP;
     //TODO: setting direction (two pins)
 }
 
@@ -114,6 +116,7 @@ void Blinds::blindsStop()
 {
     motor->setPWM(0,motor->getLeftPWMPin());
     motor->setPWM(0,motor->getRightPWMPin());
+    direction = DIRECTION::STOPPED;
 }
 
 void Blinds::blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata)
