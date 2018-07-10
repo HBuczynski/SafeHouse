@@ -5,29 +5,151 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/title_home"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="@drawable/romm"
+    tools:context=".MainActivity">>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/bottom_nav_bar_menu" />
+
+    <ImageView
+        android:id="@+id/viewer"
+        android:layout_width="170dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="95dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/central_window"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/viewer" />
+
+    <ImageView
+        android:id="@+id/curtain_rod"
+        android:layout_width="456dp"
+        android:layout_height="74dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/curtain_rod" />
+
+    <ImageView
+        android:id="@+id/thiefImage"
+        android:layout_width="64dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        app:srcCompat="@drawable/thief" />
+
+    <ImageButton
+        android:id="@+id/central_window"
+        android:layout_width="351dp"
+        android:layout_height="257dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155"
+        app:srcCompat="@drawable/centralwin" />
+
+    <ImageView
+        android:id="@+id/first_window"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/central_window"
+        app:layout_constraintEnd_toEndOf="@+id/central_window"
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toStartOf="@+id/central_window"
+        app:layout_constraintTop_toTopOf="@+id/central_window"
+        app:layout_constraintVertical_bias="0.425"
+        app:srcCompat="@drawable/first_meadow" />
+
+    <ImageView
+        android:id="@+id/second_window"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/central_window"
+        app:layout_constraintEnd_toEndOf="@+id/central_window"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="@+id/central_window"
+        app:layout_constraintTop_toTopOf="@+id/central_window"
+        app:layout_constraintVertical_bias="0.45"
+        app:srcCompat="@drawable/second_meadow" />
+
+    <ImageButton
+        android:id="@+id/push_down"
+        android:layout_width="61dp"
+        android:layout_height="57dp"
+        android:background="@xml/image_selector"
+        android:clickable="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toStartOf="@+id/viewer"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/central_window"
+        app:layout_constraintVertical_bias="0.132"
+        app:srcCompat="@drawable/ic_double_arrow" />
+
+    <ImageButton
+        android:id="@+id/push_up"
+        android:layout_width="61dp"
+        android:layout_height="57dp"
+        android:background="@xml/image_selector"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintStart_toEndOf="@+id/viewer"
+        app:layout_constraintTop_toBottomOf="@+id/central_window"
+        app:layout_constraintVertical_bias="0.132"
+        app:srcCompat="@drawable/ic_double_up" />
+
 
 </android.support.constraint.ConstraintLayout>

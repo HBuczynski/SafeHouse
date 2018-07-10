@@ -12,8 +12,13 @@ import java.util.*;
 		AUTOMATIC_BLINDS(30),
 		TEMPERATURE_DEMAND(35),
 		USER_OUT_OF_HOME(40),
+		USER_IN_HOME(41),
 		SNAPSHOT(45),
-		END_CONNECTION(50);
+		END_CONNECTION(50),
+		START_STREAM(60),
+		STOP_STREAM(70),
+		MOTOR_STATUS_COMMAND(71),
+		GUARD_STATUS_COMMAND(72);
 
 		private int Value;
 		private static java.util.HashMap<Integer, CommandType> mappings;

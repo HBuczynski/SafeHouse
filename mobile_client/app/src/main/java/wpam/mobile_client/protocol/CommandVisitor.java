@@ -19,6 +19,11 @@ import java.io.*;
 		public abstract void visit(AutomaticBlindsCommand command);
 		public abstract void visit(TemperatureDemandCommand command);
 		public abstract void visit(UserOutOfHomeCommand command);
+		public abstract void visit(UserInHomeCommand command);
 		public abstract void visit(EndConnectionCommand command);
 		public abstract void visit(SnapshotCommand command);
+		public abstract void visit(StartStreamCommand command);
+		public abstract void visit(StopStreamCommand command);
+		public abstract void visit(GuardStatusCommand command);
+		public abstract void visit(MotorStatusCommand command);
 	}

@@ -14,6 +14,7 @@ Blinds::Blinds(uint8_t blindsId_)
     topSwitch = std::make_unique<Switch>(blindsId_, GPIOType::UPPER_SWITCH);
     bottomSwitch = std::make_unique<Switch>(blindsId_, GPIOType::DOWN_SWITCH);
     actualState = std::make_unique<IdleState>();
+    direction = UP;
 }
 
 Blinds::~Blinds()
@@ -30,6 +31,7 @@ bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft_, uint16_t mot
     }
     motor->setMode(motorPinEnable_,PI_OUTPUT,PI_PUD_OFF);
     motor->setMotorPins(motorPWMLeft_, motorPWMRight_, motorPWMEnable_);
+    setPWMValue(motor->getRange()/2);
     topSwitch->setMode(topSwitchPin_, PI_INPUT, PI_PUD_UP);
     bottomSwitch->setMode(bottomSwitchPin_, PI_INPUT, PI_PUD_UP);
 
@@ -39,6 +41,7 @@ bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft_, uint16_t mot
     int top = -1, bottom = -1;
     top = topSwitch->pinRead();
     bottom = bottomSwitch->pinRead();
+
     if(logger.isInformationEnable())
     {
         const std::string message = std::string("State up: " + std::to_string(top));
@@ -72,9 +75,8 @@ bool Blinds::init(uint16_t motorPinEnable_, uint16_t motorPWMLeft_, uint16_t mot
         logger.writeLog(utility::LogType::INFORMATION_LOG, message);
     }
 
-    //if(motor->init() && topSwitch->registerHandler(blindsUpCallback, EITHER_EDGE, 0, reinterpret_cast<void*>(this))
-    if(topSwitch->registerHandler(blindsUpCallback, EITHER_EDGE, 0, reinterpret_cast<void*>(this))
-                         && bottomSwitch->registerHandler(blindsDownCallback, EITHER_EDGE, 0, reinterpret_cast<void*>(this)))
+    if(topSwitch->registerHandler(blindsUpCallback, FALLING_EDGE, 0, reinterpret_cast<void*>(this))
+                         && bottomSwitch->registerHandler(blindsDownCallback, FALLING_EDGE, 0, reinterpret_cast<void*>(this)))
     {
         const std::string message = std::string("Callbacks registered.");
         logger.getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
@@ -98,6 +100,7 @@ void Blinds::moveBlindsDown()
 {
     motor->setPWM(pwmValue,motor->getRightPWMPin());
     motor->setPWM(0,motor->getLeftPWMPin());
+    direction = DIRECTION::DOWN;
     //TODO: setting direction (two pins)
 }
 
@@ -105,6 +108,7 @@ void Blinds::moveBlindsUp()
 {
     motor->setPWM(pwmValue,motor->getLeftPWMPin());
     motor->setPWM(0,motor->getRightPWMPin());
+    direction = DIRECTION::UP;
     //TODO: setting direction (two pins)
 }
 
@@ -112,6 +116,7 @@ void Blinds::blindsStop()
 {
     motor->setPWM(0,motor->getLeftPWMPin());
     motor->setPWM(0,motor->getRightPWMPin());
+    direction = DIRECTION::STOPPED;
 }
 
 void Blinds::blindsUpCallback(int gpio, int level, uint32_t tick, void *userdata)

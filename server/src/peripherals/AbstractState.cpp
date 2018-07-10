@@ -1,13 +1,19 @@
-//
-// Created by marcin on 17.03.18.
-//
-
 #include "AbstractState.h"
 
+#include <peripherals/PeriphManager.h>
+
+using namespace peripherials;
+
+AbstractState::AbstractState()
+	:stateName("AbstractState")
+{
+	
+};
 
 void AbstractState::setState(Blinds& blinds, AbstractState* state)
 {
     blinds.actualState.reset(state);
+		
     if(blinds.logger.isInformationEnable())
     {
         const std::string message = std::string("Changing state to: " + blinds.actualState->stateName);

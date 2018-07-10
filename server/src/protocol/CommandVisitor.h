@@ -9,10 +9,13 @@
 #include "AutomaticBlindsCommand.h"
 #include "TemperatureDemandCommand.h"
 #include "UserOutOfHomeCommand.h"
+#include "UserInHomeCommand.h"
 #include "EndConnectionCommand.h"
 #include "SnapshotCommand.h"
 #include "StartStreamCommand.h"
 #include "StopStreamCommand.h"
+#include "GuardStatusCommand.h"
+#include "MotorStatusCommand.h"
 
 namespace communication
 {
@@ -30,10 +33,14 @@ namespace communication
         virtual void visit(AutomaticBlindsCommand& command) = 0;
         virtual void visit(TemperatureDemandCommand& command) = 0;
         virtual void visit(UserOutOfHomeCommand& command) = 0;
+		virtual void visit(UserInHomeCommand& command) = 0;
         virtual void visit(EndConnectionCommand& command) = 0;
         virtual void visit(SnapshotCommand& command) = 0;
         virtual void visit(StartStreamCommand& command) = 0;
         virtual void visit(StopStreamCommand& command) = 0;
-    };
+		virtual void visit(GuardStatusCommand& command) = 0;
+		virtual void visit(MotorStatusCommand& command) = 0;
+
+		};
 }
 #endif

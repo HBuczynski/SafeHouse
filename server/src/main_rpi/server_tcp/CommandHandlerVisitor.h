@@ -30,10 +30,13 @@ namespace communication
         virtual void visit(AutomaticBlindsCommand& command) override;
         virtual void visit(TemperatureDemandCommand& command) override;
         virtual void visit(UserOutOfHomeCommand& command) override;
+		virtual void visit(UserInHomeCommand& command) override;
         virtual void visit(EndConnectionCommand& command) override;
         virtual void visit(SnapshotCommand& command) override;
         virtual void visit(StartStreamCommand& command) override;
         virtual void visit(StopStreamCommand& command) override;
+		virtual void visit(GuardStatusCommand& command) override;
+		virtual void visit(MotorStatusCommand& command) override;
 
         void initializeCurrentClient(ClientThreadTCP *client);
 
@@ -48,6 +51,7 @@ namespace communication
         static posix_spawn_file_actions_t action_;
         static pid_t pid_;
 
+	static bool isKilled;	
         static utility::Logger& logger_;
         peripherials::PeriphManager &periphManager_;
 

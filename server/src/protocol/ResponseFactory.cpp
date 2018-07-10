@@ -4,6 +4,7 @@
 #include "AckResponseBuilder.h"
 #include "ErrorBuilder.h"
 #include "MotorStatusBuilder.h"
+#include "GuardStatusBuilder.h"
 #include "BlindsStatusResponseBuilder.h"
 #include "AuthenticateBuilder.h"
 
@@ -33,6 +34,9 @@ unique_ptr<Response> ResponseFactory::createCommand(const vector<uint8_t> &comma
             return move(builder_->create(commandInBytes));
         case ResponseType::MOTOR_STATUS:
             builder_ = make_unique<MotorStatusBuilder>();
+            return move(builder_->create(commandInBytes));
+		case ResponseType::GUARD_STATUS:
+            builder_ = make_unique<GuardStatusBuilder>();
             return move(builder_->create(commandInBytes));
         case ResponseType::BLINDS_STATUS_RSP:
             builder_ = make_unique<BlindsStatusResponseBuilder>();

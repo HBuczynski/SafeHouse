@@ -39,6 +39,18 @@ public class ResponseFactory implements Closeable
 					response = builder.create(commandInBytes);
 					break;
 				}
+				case ACK:
+				{
+					this.builder = new AckResponseBuilder();
+					response = builder.create(commandInBytes);
+					break;
+				}
+				case GUARD_STATUS:
+				{
+					this.builder = new GuardStatusBuilder();
+					response = builder.create(commandInBytes);
+					break;
+				}
 				default:
 				{
 					throw new IllegalArgumentException("Score is not valid!");

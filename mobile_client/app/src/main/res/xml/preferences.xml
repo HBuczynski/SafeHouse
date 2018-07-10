@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Guard Settings"
+        android:key="guard_category">
+
+        <CheckBoxPreference
+            android:key="user_out_home"
+            android:summary="User out of home"
+            android:title="Enable Guard"
+            android:defaultValue="false"
+            android:checked="false"/>
+
+        <CheckBoxPreference
+            android:key="user_in_home"
+            android:summary="User in home"
+            android:title="Disable Guard"
+            android:defaultValue="false"
+            android:checked="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Blinds settings"
+        android:key="blinds_category">
+
+        <CheckBoxPreference
+            android:key="automatic_blinds"
+            android:summary="Blinds will be up and down \naccording to the sunset and sunrise. "
+            android:title="Automatic blinds"
+            android:defaultValue="false"/>
+
+        <EditTextPreference
+            android:key="up_on_time"
+            android:title="Blinds UP on time"
+            android:summary="Set time on which blinds should be raised"
+            android:dialogTitle="Time"
+            android:dialogMessage="Set time"
+            android:defaultValue="6:00"
+            android:inputType="time"/>
+
+        <EditTextPreference
+            android:key="down_on_time"
+            android:title="Blinds DOWN on time"
+            android:summary="Set time on which blinds should be lowered"
+            android:dialogTitle="Time"
+            android:dialogMessage="Set time"
+            android:defaultValue="22:00"
+            android:inputType="time"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

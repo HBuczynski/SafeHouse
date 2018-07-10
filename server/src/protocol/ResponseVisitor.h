@@ -5,6 +5,7 @@
 #include "DataResponse.h"
 #include "ErrorResponse.h"
 #include "MotorStatusResponse.h"
+#include "GuardStatusResponse.h"
 #include "BlindsStatusResponse.h"
 #include "AuthenticateResponse.h"
 
@@ -22,6 +23,7 @@ namespace communication
         virtual void visit(MotorStatusResponse& data) = 0;
         virtual void visit(BlindsStatusResponse& data) = 0;
         virtual void visit(AuthenticateResponse& data) = 0;
+		virtual void visit(GuardStatusResponse& data) = 0;
     };
 }
 

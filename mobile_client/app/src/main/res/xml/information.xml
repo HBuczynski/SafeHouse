@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Actual State"
+        android:key="information_category">
+
+        <Preference
+            android:key="guard_state"
+            android:selectable="false"
+            android:title="Guard State"
+            android:summary="Guard is disabled."/>
+
+        <Preference
+            android:key="blidns_state"
+            android:selectable="false"
+            android:title="Blinds State"
+            android:summary="Blinds are disabled."/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Logger"
+        android:key="logger_category">
+
+    <EditTextPreference
+        android:key="logger_state"
+        android:selectable="false"
+        android:title="Current logs:"
+        android:summary=""/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

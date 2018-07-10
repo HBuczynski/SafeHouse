@@ -68,6 +68,12 @@ public class CommandFactory implements Closeable
 					command = this.builder.create(commandInBytes);
 					break;
 				}
+				case USER_IN_HOME:
+				{
+					this.builder = new UserInHomeBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
 				case TEMPERATURE_DEMAND:
 				{
 					this.builder = new TemperatureDemandBuilder();
@@ -77,6 +83,30 @@ public class CommandFactory implements Closeable
 				case END_CONNECTION:
 				{
 					this.builder = new EndConnectionBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
+				case START_STREAM:
+				{
+					this.builder = new StartStreamBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
+				case STOP_STREAM:
+				{
+					this.builder = new StopStreamBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
+				case GUARD_STATUS_COMMAND:
+				{
+					this.builder = new GuardStatusCommandBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
+				case MOTOR_STATUS_COMMAND:
+				{
+					this.builder = new MotorStatusCommandBuilder();
 					command = this.builder.create(commandInBytes);
 					break;
 				}

@@ -10,3 +10,23 @@ MotionSensor::~MotionSensor()
 {
 
 }
+
+bool MotionSensor::isTriggered() const
+{
+    return triggered;
+}
+
+void MotionSensor::setSensor(bool isTriggered)
+{
+    triggered = isTriggered;
+}
+
+bool MotionSensor::registerHandler(gpioISRFuncEx_t fun, const int &edge, const int &timeout,void *intData)
+{
+    if(!gpioSetISRFuncEx(pinNumber, edge, timeout,fun, intData))
+    {
+        std::cout << "ISR register correct." << std::endl;
+        return true;
+    }
+    return false;
+}

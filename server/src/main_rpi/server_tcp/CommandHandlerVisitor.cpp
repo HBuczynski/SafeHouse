@@ -15,6 +15,7 @@ using namespace communication;
 
 extern char **environ;
 
+bool CommandHandlerVisitor::isKilled = false;
 utility::Logger& CommandHandlerVisitor::logger_ = Logger::getInstance();
 const std::string CommandHandlerVisitor::STREAM_SCRIPT_PATH = "../../camera_scripts/";
 const std::string CommandHandlerVisitor::STREAM_SCRIPT_NAME = "stream.sh";
@@ -118,6 +119,17 @@ void CommandHandlerVisitor::visit(UserOutOfHomeCommand &command)
     periphManager_.runUserOutOfHome();
 }
 
+void CommandHandlerVisitor::visit(UserInHomeCommand &command)
+{
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: UserInHomeCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+
+    periphManager_.runUserInHome();
+}
+
 void CommandHandlerVisitor::visit(SnapshotCommand &command)
 {
     if(logger_.isInformationEnable())
@@ -127,6 +139,29 @@ void CommandHandlerVisitor::visit(SnapshotCommand &command)
     }
 
     periphManager_.runSnapshot();
+}
+
+void CommandHandlerVisitor::visit(GuardStatusCommand& command)
+{
+	if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: GuardStatusCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+	
+	periphManager_.runGuardStatus();
+
+}
+
+void CommandHandlerVisitor::visit(MotorStatusCommand& command)
+{
+	if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: MotorStatusCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+
+	periphManager_.runMotorStatus();
 }
 
 void CommandHandlerVisitor::visit(EndConnectionCommand &command)
@@ -172,6 +207,7 @@ void CommandHandlerVisitor::startStream()
     int status;
     int out[2];
 
+    isKilled = false;
     char *firstArg1 = const_cast<char*>(string(STREAM_SCRIPT_PATH + STREAM_SCRIPT_NAME).c_str());
     char *firstArgs[] = {firstArg1, NULL};
 
@@ -207,9 +243,8 @@ void CommandHandlerVisitor::stopStream()
     if(pid_ > 0)
     {
         kill(pid_, SIGKILL);
-        kill(pid_+1, SIGKILL);
-        //kill(pid_+1, SIGKILL);
-
+	system("../../camera_scripts/kill_stream.sh");
+	
         if(logger_.isInformationEnable())
         {
             const string message = string("CommandHandlerVisitor :: Process was killed, process ID: ") + to_string(pid_);
@@ -226,12 +261,15 @@ void CommandHandlerVisitor::stopStream()
     }
 
 
-	//waitOnProcess();
+    waitOnProcess();
 }
 
 void CommandHandlerVisitor::waitOnProcess()
 {
     int status;
+	
+    if(!isKilled)
+    {
     if (waitpid(pid_, &status, 0) < 0)
     {
         if(logger_.isErrorEnable())
@@ -263,5 +301,7 @@ void CommandHandlerVisitor::waitOnProcess()
         }
     }
 
+    isKilled = true;
     posix_spawn_file_actions_destroy(&action_);
+    }
 }

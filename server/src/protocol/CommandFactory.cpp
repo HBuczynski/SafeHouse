@@ -7,10 +7,13 @@
 #include "AutomaticBlindsBuilder.h"
 #include "TemperatureDemandBuilder.h"
 #include "UserOutOfHomeBuilder.h"
+#include "UserInHomeBuilder.h"
 #include "EndConnectionBuilder.h"
 #include "SnapshotBuilder.h"
 #include "StartStreamBuilder.h"
 #include "StopStreamBuilder.h"
+#include "GuardStatusCommandBuilder.h"
+#include "MotorStatusCommandBuilder.h"
 
 #include <stdexcept>
 
@@ -53,6 +56,9 @@ unique_ptr<Command> CommandFactory::createCommand(const vector<uint8_t> &command
         case CommandType::USER_OUT_OF_HOME :
             builder_ = make_unique<UserOutOfHomeBuilder>();
             return move(builder_->create(commandInBytes));
+		case CommandType::USER_IN_HOME :
+            builder_ = make_unique<UserInHomeBuilder>();
+            return move(builder_->create(commandInBytes));
         case CommandType::SNAPSHOT :
             builder_ = make_unique<SnapshotBuilder>();
             return move(builder_->create(commandInBytes));
@@ -61,6 +67,12 @@ unique_ptr<Command> CommandFactory::createCommand(const vector<uint8_t> &command
             return move(builder_->create(commandInBytes));
         case CommandType::STOP_STREAM :
             builder_ = make_unique<StopStreamBuilder>();
+            return move(builder_->create(commandInBytes));
+		case CommandType::MOTOR_STATUS_COMMAND :
+            builder_ = make_unique<MotorStatusCommandBuilder>();
+            return move(builder_->create(commandInBytes));
+		case CommandType::GUARD_STATUS_COMMAND :
+            builder_ = make_unique<GuardStatusCommandBuilder>();
             return move(builder_->create(commandInBytes));
         case CommandType::END_CONNECTION :
             builder_ = make_unique<EndConnectionBuilder>();

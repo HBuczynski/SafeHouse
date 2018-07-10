@@ -3,6 +3,8 @@
 #include "Camera.h"
 #include "protocol/BlindsStatusResponse.h"
 #include <protocol/DataResponse.h>
+#include <protocol/AckResponse.h>
+#include <protocol/GuardStatusResponse.h>
 #include <config_reader/JSONParser.h>
 
 using namespace std;
@@ -12,9 +14,12 @@ using namespace config;
 
 PeriphManager *PeriphManager::instance_= nullptr;
 std::mutex PeriphManager::periphManagerMutex_;
+std::mutex PeriphManager::commandMutex_;
 
 vector <unique_ptr<GPIO>> PeriphManager::connectedDevices;
 vector <unique_ptr<Blinds> > PeriphManager::connectedBlinds;
+unique_ptr<MotionSensor> PeriphManager::connectedMotionSensor;
+
 
 
 PeriphManager::PeriphManager()
@@ -34,6 +39,9 @@ PeriphManager &PeriphManager::getInstance()
         if (!instance_)
         {
             instance_ = new PeriphManager();
+		
+            gpioCfgSocketPort(9500);
+	    gpioCfgInterfaces(PI_DISABLE_SOCK_IF);
 
             gpioInitialise();
             initialize();
@@ -155,10 +163,16 @@ void PeriphManager::readConfig(const std::string &configFile)
     parser.getUINT16t(motionElements, motionPin);
     motionElements.pop_back();
 
-    auto motionSensor = make_unique<MotionSensor>(motionID);
-    motionSensor->setMode(motionPin, PI_INPUT, PI_PUD_OFF);
-    motionSensor->init();
-    connectedDevices.push_back(move(motionSensor));
+    connectedMotionSensor = make_unique<MotionSensor>(motionID);
+    connectedMotionSensor->setMode(motionPin, PI_INPUT, PI_PUD_OFF);
+    connectedMotionSensor->init();
+    connectedMotionSensor->setSensor(false);
+    if(connectedMotionSensor->registerHandler(runSnapshotHandler, RISING_EDGE, 0, reinterpret_cast<void*>(instance_)))
+    {
+        const std::string message = std::string("Motion sensor callback registered.");
+        utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
+    }
+    //connectedDevices.push_back(move(motionSensor));
 }
 
 void PeriphManager::initBroadcastFucntion(function<void(shared_ptr<Response>)> broadcastFunction)
@@ -201,8 +215,17 @@ void PeriphManager::runBlindsStatus()
     lock_guard<mutex> lock(commandMutex_);
     for(unsigned int i = 0; i < connectedBlinds.size(); ++i)
     {   //TODO: Make BlindStatus and mode enum in common directory, differentiate blinds by IDs:
-        const auto blindStatusResponse = std::make_shared<BlindsStatusResponse>(UP, MANUAL);
-        broadcast(blindStatusResponse);
+        if(connectedBlinds[i]->actualState->stateName == "ClosedState")
+        {
+            const auto blindStatusResponse = std::make_shared<BlindsStatusResponse>(DOWN, MANUAL);
+            broadcast(blindStatusResponse);
+
+        }
+        else if(connectedBlinds[i]->actualState->stateName == "OpenedState")
+        {
+            const auto blindStatusResponse = std::make_shared<BlindsStatusResponse>(UP, MANUAL);
+            broadcast(blindStatusResponse);
+        }
     }
 }
 
@@ -222,16 +245,59 @@ void PeriphManager::runTemperatureDemand()
 void PeriphManager::runUserOutOfHome()
 {
     lock_guard<mutex> lock(commandMutex_);
+    connectedMotionSensor->setSensor(true);
+}
 
+void PeriphManager::runUserInHome()
+{
+    lock_guard<mutex> lock(commandMutex_);
+    connectedMotionSensor->setSensor(false);
+}
+
+void PeriphManager::runSnapshotHandler(int gpio, int level, uint32_t tick, void *userdata)
+{
+    lock_guard<mutex> lock(commandMutex_);
+    PeriphManager* manager = reinterpret_cast<PeriphManager*>(userdata);
+    const std::string message = std::string("MotionSensor callback invoked, state: " ) + to_string(connectedMotionSensor->pinRead());
+    utility::Logger::getInstance().writeLog(utility::LogType::INFORMATION_LOG, message);
+    if(connectedMotionSensor->isTriggered())
+    {
+        const auto command = make_shared<AckResponse>(AckType::THIEF);
+		system("../../camera_scripts/take_snapshot.sh");
+        manager->broadcast(command);
+    }
 }
 
 void PeriphManager::runSnapshot()
 {
     lock_guard<mutex> lock(commandMutex_);
+    system("../../camera_scripts/take_snapshot.sh");
+}
 
+void PeriphManager::runGuardStatus()
+{
+	lock_guard<mutex> lock(commandMutex_);
+	shared_ptr<Response> response;
+	
+	if(connectedMotionSensor->isTriggered())
+    {
+        response = make_shared<GuardStatusResponse>(GuardStatus::ON);
+    }
+	else
+	{
+		response = make_shared<GuardStatusResponse>(GuardStatus::OFF);
+	}
+	
+	broadcast(response);
+}
+
+void PeriphManager::runMotorStatus()
+{
+	lock_guard<mutex> lock(commandMutex_);
 }
 
 void PeriphManager::broadcast(shared_ptr<Response> response)
 {
     broadcastFunction_(response);
 }
+

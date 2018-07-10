@@ -53,6 +53,15 @@ void ResponseHandlerVisitor::visit(MotorStatusResponse &data)
     }
 }
 
+void ResponseHandlerVisitor::visit(GuardStatusResponse &data)
+{
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("ResponseHandlerVisitor :: Received DataResponse, data: ") + to_string(data.getGuardStatus());
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+}
+
 void ResponseHandlerVisitor::visit(BlindsStatusResponse &data)
 {
     if(logger_.isInformationEnable())
