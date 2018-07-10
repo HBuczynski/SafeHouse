@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hubert/Documents/Projekty/Auxiliary_projects/main.cpp
+stdlib.h
+-
+unistd.h
+-
+stdio.h
+-
+signal.h
+-
+time.h
+-
+
