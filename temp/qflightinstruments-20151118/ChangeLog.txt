@@ -1,3 +1,0 @@
-2015-11-18 18:00 Marek Cel <marekcel@marekcel.pl>
-    * navigation display widget added
-    * minor changes in primary flight display widget

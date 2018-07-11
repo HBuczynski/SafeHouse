@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /home/hubert/Documents/Projekty/Auxiliary_projects

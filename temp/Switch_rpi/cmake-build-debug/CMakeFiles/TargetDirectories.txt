@@ -1,3 +1,0 @@
-/home/hubert/Documents/Projekty/Auxiliary_projects/Switch_rpi/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/hubert/Documents/Projekty/Auxiliary_projects/Switch_rpi/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/hubert/Documents/Projekty/Auxiliary_projects/Switch_rpi/cmake-build-debug/CMakeFiles/Auxiliary_projects.dir
