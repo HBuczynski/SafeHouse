@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     private ImageButton pushUP;
     private ImageButton pushDOWN;
+    private ImageButton temeperatureIcon;
 
     private String address;
     private String port;
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         pushDOWN = (ImageButton) findViewById(R.id.push_down);
         pushUP = (ImageButton) findViewById(R.id.push_up);
+        temeperatureIcon = (ImageButton) findViewById(R.id.temeperatureImage);
 
         setListeners();
 
@@ -149,6 +151,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             {
                 Intent intent = new Intent(getApplicationContext(), SnapshotActivity.class);
                 startActivity(intent);
+
+                thiefImage.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        temeperatureIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
+                startActivity(intent);
+
+                Bundle bundle = new Bundle();
+
+
 
                 thiefImage.setVisibility(View.INVISIBLE);
             }

@@ -50,17 +50,17 @@ public class InitActivity extends AppCompatActivity {
 
                 android.os.SystemClock.sleep(200);
 
-                if (client.isConnect) {
+//                if (client.isConnect) {
                     warning.setText("");
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                     startActivity(intent);
                     finish();
-                } else if (!client.isConnect){
-                    progressBar.setVisibility(View.INVISIBLE);
-
-                    warning.setText("Cannot connect !");
-                }
+//                } else if (!client.isConnect){
+//                    progressBar.setVisibility(View.INVISIBLE);
+//
+//                    warning.setText("Cannot connect !");
+//                }
 
             }
         });

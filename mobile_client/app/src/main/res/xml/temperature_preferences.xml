@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:layout="@layout/preference_category"
+        android:title="    I Sensor Tag"
+        android:key="sensor_tag_I">
+        <CheckBoxPreference
+            android:key="temp_I"
+            android:title="Temperature"
+            android:defaultValue="false"
+            android:checked="false"/>
+        <CheckBoxPreference
+            android:key="humidity_I"
+            android:title="Humidity"
+            android:defaultValue="false"
+            android:checked="false"/>
+        <CheckBoxPreference
+            android:key="luminacia_I"
+            android:title="Luminancia"
+            android:defaultValue="false"
+            android:checked="false"/>
+        <Preference
+            android:layout="@layout/plot_button"
+            android:key="plot_I"
+            android:title="History Plot" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/preference_category"
+        android:title="    II Sensor Tag"
+        android:key="sensor_tag_II">
+        <CheckBoxPreference
+            android:key="temp_II"
+            android:title="Temperature"
+            android:defaultValue="false"
+            android:checked="false"/>
+        <CheckBoxPreference
+            android:key="humidity_II"
+            android:title="Humidity"
+            android:defaultValue="false"
+            android:checked="false"/>
+        <CheckBoxPreference
+            android:key="luminacia_II"
+            android:title="Luminancia"
+            android:defaultValue="false"
+            android:checked="false"/>
+        <Preference
+            android:layout="@layout/plot_button"
+            android:key="plot_II"
+            android:title="History Plot" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/preference_category"
+        android:title="    III Sensor Tag"
+        android:key="sensor_tag_III">
+        <CheckBoxPreference
+            android:key="temp_III"
+            android:title="Temperature"
+            android:defaultValue="false"
+            android:checked="false"/>
+        <CheckBoxPreference
+            android:key="humidity_III"
+            android:title="Humidity"
+            android:defaultValue="false"
+            android:checked="false"/>
+        <CheckBoxPreference
+            android:key="luminacia_III"
+            android:title="Luminancia"
+            android:defaultValue="false"
+            android:checked="false"/>
+        <Preference
+            android:layout="@layout/plot_button"
+            android:key="plot_III"
+            android:title="History Plot" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/preference_category"
+        android:title="    General Information"
+        android:key="sensor_tag_III">
+        <CheckBoxPreference
+            android:key="tempCheck"
+            android:title="Temperature"
+            android:defaultValue="false"
+            android:checked="false"/>
+
+        <CheckBoxPreference
+            android:key="humidityCheck"
+            android:title="Humidity"
+            android:defaultValue="false"
+            android:checked="false"/>
+
+        <CheckBoxPreference
+            android:key="luminaciaCheck"
+            android:title="Luminacia"
+            android:defaultValue="false"
+            android:checked="false"/>
+
+        <Preference
+            android:layout="@layout/general_plot"
+            android:key="summary_plot"
+            android:title="Summary Plot" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

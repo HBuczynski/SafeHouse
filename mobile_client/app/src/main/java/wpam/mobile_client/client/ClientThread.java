@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -22,7 +23,7 @@ import android.util.Log;
 import wpam.mobile_client.MainActivityInterface;
 import wpam.mobile_client.protocol.*;
 
-public class ClientThread implements  Runnable
+public class ClientThread implements Runnable
 {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 	private static ClientThread instance;

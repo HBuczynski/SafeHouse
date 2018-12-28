@@ -20,7 +20,6 @@ public class InformationActivity extends PreferenceActivity {
 
         client = ClientThread.getInstance();
 
-
         guard = (Preference) findPreference("guard_state");
         logger = (EditTextPreference) findPreference("logger_state");
         blinds = (Preference) findPreference("blidns_state");
