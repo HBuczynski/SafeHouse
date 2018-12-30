@@ -9,6 +9,7 @@
 #include "BlindsStatusResponse.h"
 #include "AuthenticateResponse.h"
 #include "SensorTagSamplesResponse.h"
+#include "PlotResponse.h"
 
 namespace communication
 {
@@ -26,6 +27,8 @@ namespace communication
         virtual void visit(AuthenticateResponse& data) = 0;
 		virtual void visit(GuardStatusResponse& data) = 0;
         virtual void visit(SensorTagSamplesResponse& data) = 0;
+        virtual void visit(PlotResponse& data) = 0;
+
     };
 }
 
