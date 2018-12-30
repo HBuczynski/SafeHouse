@@ -1,7 +1,5 @@
 #include "SensorTagManager.h"
 
-
-
 bool SensorTagManager::initBluetooth()
 {
     try {
@@ -18,6 +16,11 @@ bool SensorTagManager::initBluetooth()
 
 void SensorTagManager::scanDevicesTest()
 {
+    if(bleManager == nullptr)
+    {
+        std::cout << "BluetoothManager not initialized!" << std::endl;
+        return;
+    }
     bool ret = bleManager->start_discovery();
     std::cout << "Started = " << (ret ? "true" : "false") << std::endl;
     for (int i = 0; i < 15; ++i) {
@@ -39,4 +42,34 @@ void SensorTagManager::scanDevicesTest()
     /* Stop the discovery (the device was found or number of tries ran out */
     ret = bleManager->stop_discovery();
     std::cout << "Stopped = " << (ret ? "true" : "false") << std::endl;
+}
+
+bool SensorTagManager::scanSensorTags()
+{
+    if(bleManager == nullptr)
+    {
+        std::cout << "BluetoothManager not initialized!" << std::endl;
+        return false;
+    }
+    bool ret = bleManager->start_discovery();
+    std::cout << "Started = " << (ret ? "true" : "false") << std::endl;
+    sensorTags = bleManager->get_devices();
+
+    for (auto it = sensorTags.begin(); it != sensorTags.end(); ++it) {
+
+        std::cout << "Class = " << (*it)->get_class_name() << " ";
+        std::cout << "Path = " << (*it)->get_object_path() << " ";
+        std::cout << "Name = " << (*it)->get_name() << " ";
+        std::cout << "Connected = " << (*it)->get_connected() << " ";
+        std::cout << std::endl;
+        /* Remove devices that are not sensor tags */
+        if((*it)->get_name().find("Sensor Tag")!=std::string::npos)
+        {
+            std::cout << "Found sensor tag!" << std::endl;
+        }
+    }
+    /* Stop the discovery (the device was found or number of tries ran out */
+    ret = bleManager->stop_discovery();
+    std::cout << "Stopped = " << (ret ? "true" : "false") << std::endl;
+
 }

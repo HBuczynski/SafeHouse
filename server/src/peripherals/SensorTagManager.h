@@ -22,7 +22,7 @@ public:
 
     bool initBluetooth();
     void scanDevicesTest(void);
-    void scanForDevice(const char* deviceMAC);
+    bool scanSensorTags();
 
 
 
