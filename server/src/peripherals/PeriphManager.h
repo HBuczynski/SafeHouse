@@ -3,6 +3,7 @@
 #define SAFEHOUSE_PERIPHMANAGER_H
 
 #include <mutex>
+#include <functional>
 
 #include "GPIO.h"
 #include "Motor.h"
