@@ -11,6 +11,7 @@
 #include "Blinds.h"
 #include "TemperatureSensor.h"
 #include "MotionSensor.h"
+#include "SensorTagManager.h"
 #include <config_reader/JSONParser.h>
 #include <protocol/Response.h>
 

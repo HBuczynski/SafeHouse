@@ -23,13 +23,21 @@ target_include_directories(
 file(GLOB pigpio_source_list "../../3rd_party/PIGPIO/*.c")
 file(GLOB pigpio_header_list "../../3rd_party/PIGPIO/*.h")
 
+file(GLOB tinyb_source_list "../../3rd_party/tinyb/src/*.cpp")
+file(GLOB tinyb_header_list "../../3rd_party/tinyb/api/*.hpp")
+file(GLOB tinyb_utils_list  "../../3rd_party/tinyb/include/*.h")
+
 message("Found PIGPIO file list: ${pigpio_source_list} ${pigpio_header_list}")
+
+message("Found tinyb file list: ${tinyb_source_list} ${tinyb_header_list}")
+message("Found tinyb utils list: ${tinyb_utils_list}")
 
 add_library(PIGPIO STATIC ${pigpio_source_list} ${pigpio_header_list})
 
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC config_reader)
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC protocol)
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC PIGPIO)
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC tinyb)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib OPTIONAL)
 install(FILES ${header_list} DESTINATION include OPTIONAL)

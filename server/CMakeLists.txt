@@ -39,6 +39,7 @@ execute_process(WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/3rd_party/PIGPIO/ COMMAND 
 #########################################################################################################
 #                                           ADDING SUBMODULES                                           #
 #########################################################################################################
+add_subdirectory("3rd_party/tinyb"                                      tinyb                           )
 add_subdirectory("src/time_manager"                                     time_manager                    )
 add_subdirectory("src/logger"                                           logger                          )
 add_subdirectory("src/utility"                                          utility                         )
