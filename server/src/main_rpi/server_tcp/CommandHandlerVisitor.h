@@ -37,6 +37,7 @@ namespace communication
         virtual void visit(StopStreamCommand& command) override;
 		virtual void visit(GuardStatusCommand& command) override;
 		virtual void visit(MotorStatusCommand& command) override;
+		virtual void visit(SensorTagSamplesCommand& command) override;
 
         void initializeCurrentClient(ClientThreadTCP *client);
 

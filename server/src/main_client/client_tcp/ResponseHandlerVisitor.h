@@ -19,6 +19,7 @@ namespace communication
 		virtual void visit(GuardStatusResponse& data) override;
         virtual void visit(BlindsStatusResponse& data) override;
         virtual void visit(AuthenticateResponse& data) override;
+        virtual void visit(SensorTagSamplesResponse& data) override;
 
     private:
         utility::Logger& logger_;

@@ -16,6 +16,7 @@
 #include "StopStreamCommand.h"
 #include "GuardStatusCommand.h"
 #include "MotorStatusCommand.h"
+#include "SensorTagSamplesCommand.h"
 
 namespace communication
 {
@@ -40,6 +41,7 @@ namespace communication
         virtual void visit(StopStreamCommand& command) = 0;
 		virtual void visit(GuardStatusCommand& command) = 0;
 		virtual void visit(MotorStatusCommand& command) = 0;
+		virtual void visit(SensorTagSamplesCommand& command) = 0;
 
 		};
 }

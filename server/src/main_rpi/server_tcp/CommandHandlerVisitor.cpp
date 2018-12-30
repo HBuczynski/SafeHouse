@@ -197,6 +197,17 @@ void CommandHandlerVisitor::visit(StopStreamCommand& command)
     stopStream();
 }
 
+void CommandHandlerVisitor::visit(SensorTagSamplesCommand& command)
+{
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: SensorTagSamplesCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+
+    periphManager_.runSensorTagsSamples();
+}
+
 void CommandHandlerVisitor::initializeCurrentClient(ClientThreadTCP *client)
 {
     currentClient_ = client;
