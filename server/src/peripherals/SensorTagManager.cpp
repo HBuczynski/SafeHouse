@@ -1,4 +1,7 @@
+
+#include <algorithm>
 #include "SensorTagManager.h"
+
 
 bool SensorTagManager::initBluetooth()
 {
@@ -55,21 +58,12 @@ bool SensorTagManager::scanSensorTags()
     std::cout << "Started = " << (ret ? "true" : "false") << std::endl;
     sensorTags = bleManager->get_devices();
 
-    for (auto it = sensorTags.begin(); it != sensorTags.end(); ++it) {
-
-        std::cout << "Class = " << (*it)->get_class_name() << " ";
-        std::cout << "Path = " << (*it)->get_object_path() << " ";
-        std::cout << "Name = " << (*it)->get_name() << " ";
-        std::cout << "Connected = " << (*it)->get_connected() << " ";
-        std::cout << std::endl;
-        /* Remove devices that are not sensor tags */
-        if((*it)->get_name().find("SensorTag")!=std::string::npos)
-        {
-            std::cout << "Found sensor tag!" << std::endl;
-        }
-    }
+    sensorTags.erase(std::remove_if(sensorTags.begin(), sensorTags.end(), [](auto& item) {
+                return item->get_name().find("SensorTag")!=std::string::npos;
+            }), sensorTags.end());
     /* Stop the discovery (the device was found or number of tries ran out */
     ret = bleManager->stop_discovery();
     std::cout << "Stopped = " << (ret ? "true" : "false") << std::endl;
-
+    std::cout << "Found " << sensorTags.size() << "sensor tags." << std::endl;
+    return true;
 }
