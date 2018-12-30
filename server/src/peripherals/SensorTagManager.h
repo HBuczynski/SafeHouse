@@ -32,12 +32,13 @@ public:
     bool scanSensorTags();
     void connectDevicesAndGetTemp(void);
 
+    uint16_t ambientTemp = 0;
+
 
 private:
 
     BluetoothManager *bleManager = nullptr;
     std::vector<std::unique_ptr<BluetoothDevice>> sensorTags;
-    uint16_t ambientTemp = 0;
 };
 
 

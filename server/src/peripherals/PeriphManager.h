@@ -59,6 +59,7 @@ namespace peripherials
 
         static PeriphManager *instance_;
         static std::mutex periphManagerMutex_;
+		static SensorTagManager tagManager;
 
 
     };
