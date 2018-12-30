@@ -20,6 +20,7 @@ std::mutex PeriphManager::commandMutex_;
 vector <unique_ptr<GPIO>> PeriphManager::connectedDevices;
 vector <unique_ptr<Blinds> > PeriphManager::connectedBlinds;
 unique_ptr<MotionSensor> PeriphManager::connectedMotionSensor;
+SensorTagManager PeriphManager::tagManager;
 
 
 
@@ -42,7 +43,7 @@ PeriphManager &PeriphManager::getInstance()
             instance_ = new PeriphManager();
 		
             gpioCfgSocketPort(9500);
-	    gpioCfgInterfaces(PI_DISABLE_SOCK_IF);
+	        gpioCfgInterfaces(PI_DISABLE_SOCK_IF);
 
             gpioInitialise();
             initialize();
@@ -59,7 +60,7 @@ void PeriphManager::initialize()
         tagManager.scanSensorTags();
     }
     else{
-        
+
     }
 }
 

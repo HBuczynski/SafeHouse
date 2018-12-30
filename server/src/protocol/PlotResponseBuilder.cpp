@@ -19,7 +19,7 @@ unique_ptr<Response> PlotResponseBuilder::create(const vector<uint8_t> &dataInBy
     vector<uint16_t > timestamp;
     uint16_t position = INIT_DATA_POSITION;
 
-    const auto parameterType = static_cast<ParameterType>(dataInBytes[initialDataPosition]);
+    const auto parameterType = static_cast<ParameterType>(dataInBytes[position]);
     position++;
 
     for(int i=0; i<1000; ++i) {
