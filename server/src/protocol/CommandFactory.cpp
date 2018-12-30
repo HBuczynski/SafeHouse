@@ -14,6 +14,7 @@
 #include "StopStreamBuilder.h"
 #include "GuardStatusCommandBuilder.h"
 #include "MotorStatusCommandBuilder.h"
+#include "SensorTagSamplesBuilder.h"
 
 #include <stdexcept>
 
@@ -76,6 +77,9 @@ unique_ptr<Command> CommandFactory::createCommand(const vector<uint8_t> &command
             return move(builder_->create(commandInBytes));
         case CommandType::END_CONNECTION :
             builder_ = make_unique<EndConnectionBuilder>();
+            return move(builder_->create(commandInBytes));
+        case CommandType::SENSOR_TAG_SAMPLES :
+            builder_ = make_unique<SensorTagSamplesBuilder>();
             return move(builder_->create(commandInBytes));
         default:
             throw invalid_argument("Received command does not register in factory.");

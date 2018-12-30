@@ -5,6 +5,7 @@
 #include <protocol/DataResponse.h>
 #include <protocol/AckResponse.h>
 #include <protocol/GuardStatusResponse.h>
+#include <protocol/SensorTagSamplesResponse.h>
 #include <config_reader/JSONParser.h>
 
 using namespace std;
@@ -236,6 +237,15 @@ void PeriphManager::runAutomaticBlinds()
 
 }
 
+void PeriphManager::runSensorTagsSamples()
+{
+    //TODO: add data from sensors:
+    vector<uint16_t> data = {123, 7864, 6543, 1212, 1313, 5463, 908, 9, 3245}; // mock data
+    shared_ptr<Response> response = make_shared<SensorTagSamplesResponse>(data);
+
+    broadcast(response);}
+
+
 void PeriphManager::runTemperatureDemand()
 {
     lock_guard<mutex> lock(commandMutex_);
@@ -300,4 +310,5 @@ void PeriphManager::broadcast(shared_ptr<Response> response)
 {
     broadcastFunction_(response);
 }
+
 

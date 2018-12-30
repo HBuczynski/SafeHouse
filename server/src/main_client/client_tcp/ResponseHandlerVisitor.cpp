@@ -79,3 +79,12 @@ void ResponseHandlerVisitor::visit(AuthenticateResponse& data)
         logger_.writeLog(LogType::INFORMATION_LOG, message);
     }
 }
+
+void ResponseHandlerVisitor::visit(SensorTagSamplesResponse& data)
+{
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("ResponseHandlerVisitor :: Received SensorTagSamplesResponse message.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+}

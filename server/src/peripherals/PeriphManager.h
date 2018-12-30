@@ -3,6 +3,7 @@
 #define SAFEHOUSE_PERIPHMANAGER_H
 
 #include <mutex>
+#include <functional>
 
 #include "GPIO.h"
 #include "Motor.h"
@@ -35,6 +36,7 @@ namespace peripherials
 		void runUserInHome();
 		void runGuardStatus();
 		void runMotorStatus();
+		void runSensorTagsSamples();
 		
         static void runSnapshotHandler(int gpio, int level, uint32_t tick, void *userdata);
         void runSnapshot();
