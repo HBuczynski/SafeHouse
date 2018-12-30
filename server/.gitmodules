@@ -1,3 +1,0 @@
-[submodule "tinyb"]
-	path = server/3rd_party/tinyb
-	url = https://github.com/intel-iot-devkit/tinyb.git
