@@ -24,7 +24,8 @@ namespace communication
         STOP_STREAM = 70,
 		MOTOR_STATUS_COMMAND = 71,
 		GUARD_STATUS_COMMAND = 72,
-        SENSOR_TAG_SAMPLES=73
+        SENSOR_TAG_SAMPLES=73,
+        PLOT = 74
     };
 
     class Command : public Frame

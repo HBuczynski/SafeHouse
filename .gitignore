@@ -1,0 +1,44 @@
+#Ignore target files:
+target/*
+snapshot/*
+
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Others
+.cproject
+.project
+.gitignore.save
+.idea
+cmake-build-debug
+
+CMakeDoxyfile.in
+CMakeDoxygenDefaults.cmake
+README.md.save

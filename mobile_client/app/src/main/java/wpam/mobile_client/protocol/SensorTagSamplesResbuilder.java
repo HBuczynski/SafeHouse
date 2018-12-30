@@ -18,7 +18,7 @@ public final class SensorTagSamplesResbuilder implements ResponseBuilder, Closea
         int counter = initialDataPosition;
 
         for(int i = 0; i<18; ++i) {
-            data.add((commandInBytes.get(counter+i) << 8) & commandInBytes.get(counter+i+1));
+            data.add((commandInBytes.get(counter+i) << 8) | commandInBytes.get(counter+i+1));
             ++i;
         }
 

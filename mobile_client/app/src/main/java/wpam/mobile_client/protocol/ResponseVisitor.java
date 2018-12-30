@@ -18,6 +18,7 @@ public abstract class ResponseVisitor implements Closeable
     public abstract void visit(BlindsStatusResponse data);
     public abstract void visit(GuardStatusResponse data);
     public abstract void visit(SensorTagSamplesResponse data);
+    public abstract void visit(PlotResponse data);
 
 }
 

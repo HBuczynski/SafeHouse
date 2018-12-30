@@ -16,7 +16,8 @@ namespace communication
         ERROR = 25,
         AUTHENTICATE = 30,
 		GUARD_STATUS = 35,
-        SENSOR_TAG = 40
+        SENSOR_TAG = 40,
+        PLOT_RESPONSE = 45
     };
 
     class Response : public Frame

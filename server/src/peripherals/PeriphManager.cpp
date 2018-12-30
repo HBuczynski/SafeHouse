@@ -20,6 +20,7 @@ std::mutex PeriphManager::commandMutex_;
 vector <unique_ptr<GPIO>> PeriphManager::connectedDevices;
 vector <unique_ptr<Blinds> > PeriphManager::connectedBlinds;
 unique_ptr<MotionSensor> PeriphManager::connectedMotionSensor;
+SensorTagManager PeriphManager::tagManager;
 
 
 
@@ -42,7 +43,7 @@ PeriphManager &PeriphManager::getInstance()
             instance_ = new PeriphManager();
 		
             gpioCfgSocketPort(9500);
-	    gpioCfgInterfaces(PI_DISABLE_SOCK_IF);
+	        gpioCfgInterfaces(PI_DISABLE_SOCK_IF);
 
             gpioInitialise();
             initialize();
@@ -55,6 +56,12 @@ PeriphManager &PeriphManager::getInstance()
 void PeriphManager::initialize()
 {
     readConfig("../../config.json");
+    if(tagManager.initBluetooth()){
+        tagManager.scanSensorTags();
+    }
+    else{
+
+    }
 }
 
 void PeriphManager::readConfig(const std::string &configFile)
@@ -240,7 +247,8 @@ void PeriphManager::runAutomaticBlinds()
 void PeriphManager::runSensorTagsSamples()
 {
     //TODO: add data from sensors:
-    vector<uint16_t> data = {123, 7864, 6543, 1212, 1313, 5463, 908, 9, 3245}; // mock data
+    tagManager.connectDevicesAndGetTemp();
+    vector<uint16_t> data = {tagManager.ambientTemp, 7864, 6543, 1212, 1313, 5463, 908, 9, 3245}; // mock data
     shared_ptr<Response> response = make_shared<SensorTagSamplesResponse>(data);
 
     broadcast(response);}
