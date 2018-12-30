@@ -3,6 +3,7 @@ package wpam.mobile_client.client;
 
 import wpam.mobile_client.MainActivityInterface;
 import wpam.mobile_client.protocol.*;
+import wpam.mobile_client.sensor_tag.SensorsInterface;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,7 @@ import java.util.Date;
 public final class ResponseHandlerVisitor extends ResponseVisitor implements Closeable
 	{
 		private MainActivityInterface mainActivityInterface;
+		private SensorsInterface sensorsInterface;
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
@@ -30,6 +32,11 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 		public void setMainActivityInterface(MainActivityInterface mainActivityInterface)
 		{
 			this.mainActivityInterface = mainActivityInterface;
+		}
+
+		public void setSensorsTagInterface(SensorsInterface sensorsInterface)
+		{
+			this.sensorsInterface = sensorsInterface;
 		}
 
 		@Override
@@ -110,6 +117,16 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 				client.setUserInHome(false);
 			}
 			System.out.println(response.getName() + " " + response.getGuardStatus().toString());
+		}
+
+		@Override
+		public void visit(SensorTagSamplesResponse response)
+		{
+			String currentDateandTime = sdf.format(new Date());
+			client.addToQueue("--" + currentDateandTime +"-- Received:: " +
+					response.getName() + ".");
+
+			sensorsInterface.singleSamples(response.getValues());
 		}
 
 		public String getBlindsStatus()

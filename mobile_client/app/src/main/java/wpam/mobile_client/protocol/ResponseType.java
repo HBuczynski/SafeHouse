@@ -7,7 +7,8 @@ public enum ResponseType
 		MOTOR_STATUS(20),
 		ERROR(25),
 		AUTHENTICATE(30),
-		GUARD_STATUS(35);
+		GUARD_STATUS(35),
+		SENSOR_TAG(40);
 
 		private int value;
 		private static java.util.HashMap<Integer, ResponseType> mappings;
