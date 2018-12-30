@@ -63,7 +63,7 @@ bool SensorTagManager::scanSensorTags()
         std::cout << "Connected = " << (*it)->get_connected() << " ";
         std::cout << std::endl;
         /* Remove devices that are not sensor tags */
-        if((*it)->get_name().find("Sensor Tag")!=std::string::npos)
+        if((*it)->get_name().find("SensorTag")!=std::string::npos)
         {
             std::cout << "Found sensor tag!" << std::endl;
         }

@@ -31,7 +31,7 @@ int main(int argc , char *argv[])
     std::cout << "Starting bluetooth test." << std::endl;
     if(tagManager.initBluetooth())
     {
-        tagManager.scanDevicesTest();
+        tagManager.scanSensorTags();
         std::cout << "Bluetooth test complete." << std::endl;
     }
     else
