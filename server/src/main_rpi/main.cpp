@@ -26,25 +26,22 @@ int main(int argc , char *argv[])
 
     logger.initLogger(struc);
 
-    //Test bluetooth peripheral:
+//    CommunicationManagerRpi manager(9000,4);
+//    manager.initialize();
+
     SensorTagManager tagManager;
-    std::cout << "Starting bluetooth test." << std::endl;
     if(tagManager.initBluetooth())
     {
         tagManager.scanSensorTags();
-        std::cout << "Bluetooth test complete." << std::endl;
-    }
-    else
+    } else
     {
-        std::cout << "Bluetooth test failed." << std::endl;
+        std::cout << "Bluetooth initialization failed!" << std::endl;
+        return 0;
     }
-
-    CommunicationManagerRpi manager(9000,4);
-    manager.initialize();
 
     while(1)
     {
-
+        tagManager.connectDevicesAndGetTemp();
     }
 
     return 0;
