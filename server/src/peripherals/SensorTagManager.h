@@ -13,6 +13,13 @@
 
 using namespace tinyb;
 
+static float celsius_temp(uint16_t raw_temp)
+{
+    const float SCALE_LSB = 0.03125;
+    return ((float)(raw_temp >> 2)) * SCALE_LSB;
+}
+
+
 class SensorTagManager {
 
 public:
@@ -22,14 +29,15 @@ public:
 
     bool initBluetooth();
     void scanDevicesTest(void);
-    void scanForDevice(const char* deviceMAC);
-
+    bool scanSensorTags();
+    void connectDevicesAndGetTemp(void);
 
 
 private:
 
     BluetoothManager *bleManager = nullptr;
     std::vector<std::unique_ptr<BluetoothDevice>> sensorTags;
+    uint16_t ambientTemp = 0;
 };
 
 
