@@ -26,4 +26,5 @@ import java.io.*;
 		public abstract void visit(StopStreamCommand command);
 		public abstract void visit(GuardStatusCommand command);
 		public abstract void visit(MotorStatusCommand command);
+		public abstract void visit(SensorTagSamplesCommand command);
 	}

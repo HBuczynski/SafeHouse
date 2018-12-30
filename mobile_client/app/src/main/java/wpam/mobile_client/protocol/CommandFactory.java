@@ -110,6 +110,12 @@ public class CommandFactory implements Closeable
 					command = this.builder.create(commandInBytes);
 					break;
 				}
+				case SENSOR_TAG_SAMPLES:
+				{
+					this.builder = new SensorTagSamplesBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
 				default:
 				{
 					throw new IllegalArgumentException("Score is not valid!");

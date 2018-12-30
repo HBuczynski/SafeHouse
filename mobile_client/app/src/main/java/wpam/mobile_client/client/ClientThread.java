@@ -22,6 +22,7 @@ import android.util.Log;
 
 import wpam.mobile_client.MainActivityInterface;
 import wpam.mobile_client.protocol.*;
+import wpam.mobile_client.sensor_tag.SensorsInterface;
 
 public class ClientThread implements Runnable
 {
@@ -75,6 +76,11 @@ public class ClientThread implements Runnable
 	public static void setPort(String port)
 	{
 		ClientThread.port = Integer.valueOf(port);
+	}
+
+	public void setSensorsTagInterface(SensorsInterface sensorsInterface)
+	{
+		responseHandler.setSensorsTagInterface(sensorsInterface);
 	}
 
 	public void setMainActivityInterface(MainActivityInterface mainActivityInterface)
