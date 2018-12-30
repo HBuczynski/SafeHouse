@@ -22,6 +22,7 @@ import android.util.Log;
 
 import wpam.mobile_client.MainActivityInterface;
 import wpam.mobile_client.protocol.*;
+import wpam.mobile_client.sensor_tag.PlotInterface;
 import wpam.mobile_client.sensor_tag.SensorsInterface;
 
 public class ClientThread implements Runnable
@@ -88,6 +89,11 @@ public class ClientThread implements Runnable
 		responseHandler.setMainActivityInterface(mainActivityInterface);
 	}
 
+	public void setPlotInterface(PlotInterface plotInterface)
+	{
+		this.responseHandler.setPlotInterface(plotInterface);
+	}
+
 	public void run()
 	{
 		try 
@@ -113,13 +119,18 @@ public class ClientThread implements Runnable
 						{
                             ArrayList<Integer> payload = new ArrayList<Integer>();
 
-                            byte[] rawBytes = new byte[1000];
+                            byte[] rawBytes = new byte[10500];
                             inputStream.read(rawBytes);
                             int dataSize = (rawBytes[3] << 8 & 0xFF00) | (rawBytes[4] &0xFF);
                             int totalSize = dataSize + HEADER_SIZE;
 
                             for (int i = 0; i < totalSize; i++) {
-                                payload.add((int)rawBytes[i]);
+                            	int data = (int)rawBytes[i];
+                            	if(data < 0) {
+									payload.add(256 + data);
+								} else {
+                            		payload.add(data);
+								}
                             }
                             System.out.println(payload);
 
@@ -129,7 +140,6 @@ public class ClientThread implements Runnable
 					}
 					catch(IOException e)
 					{
-
 						Log.d(TAG, e.getMessage());
 						e.printStackTrace();
 					}

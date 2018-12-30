@@ -3,6 +3,7 @@ package wpam.mobile_client.client;
 
 import wpam.mobile_client.MainActivityInterface;
 import wpam.mobile_client.protocol.*;
+import wpam.mobile_client.sensor_tag.PlotInterface;
 import wpam.mobile_client.sensor_tag.SensorsInterface;
 
 import java.io.*;
@@ -14,6 +15,7 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 	{
 		private MainActivityInterface mainActivityInterface;
 		private SensorsInterface sensorsInterface;
+		private PlotInterface plotInterface;
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
@@ -37,6 +39,11 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 		public void setSensorsTagInterface(SensorsInterface sensorsInterface)
 		{
 			this.sensorsInterface = sensorsInterface;
+		}
+
+		public void setPlotInterface(PlotInterface plotInterface)
+		{
+			this.plotInterface = plotInterface;
 		}
 
 		@Override
@@ -117,6 +124,15 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 				client.setUserInHome(false);
 			}
 			System.out.println(response.getName() + " " + response.getGuardStatus().toString());
+		}
+
+		@Override
+		public void visit(PlotResponse data) {
+			String currentDateandTime = sdf.format(new Date());
+			client.addToQueue("--" + currentDateandTime +"-- Received:: " +
+					data.getName() + ".");
+
+			plotInterface.plotData(data.getValues(), data.getTimestamps());
 		}
 
 		@Override

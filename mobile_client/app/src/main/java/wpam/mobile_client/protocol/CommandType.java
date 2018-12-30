@@ -19,7 +19,8 @@ import java.util.*;
 		STOP_STREAM(70),
 		MOTOR_STATUS_COMMAND(71),
 		GUARD_STATUS_COMMAND(72),
-		SENSOR_TAG_SAMPLES(73);
+		SENSOR_TAG_SAMPLES(73),
+		PLOT(74);
 
 		private int Value;
 		private static java.util.HashMap<Integer, CommandType> mappings;
