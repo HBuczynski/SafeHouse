@@ -1,6 +1,7 @@
 package wpam.mobile_client;
 
 import android.content.Intent;
+import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 import wpam.mobile_client.client.ClientThread;
+import wpam.mobile_client.protocol.BlindsUPCommand;
+import wpam.mobile_client.protocol.SensorTagSamplesCommand;
 import wpam.mobile_client.sensor_tag.ParameterType;
 import wpam.mobile_client.sensor_tag.SensorDataType;
 import wpam.mobile_client.sensor_tag.SensorTagType;
@@ -52,6 +55,16 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
         addPreferencesFromResource(R.xml.temperature_preferences);
 
         clientThread = ClientThread.getInstance();
+        clientThread.setSensorsTagInterface(this);
+
+        SensorTagSamplesCommand command = new SensorTagSamplesCommand();
+        try {
+            Message msg = new Message();
+            msg.obj = command;
+            clientThread.sendHandler.sendMessage(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         temp_I = (CheckBoxPreference) findPreference("temp_I");
         temp_I.setSummary(0 + tempUnits);

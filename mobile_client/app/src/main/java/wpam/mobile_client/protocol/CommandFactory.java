@@ -116,6 +116,12 @@ public class CommandFactory implements Closeable
 					command = this.builder.create(commandInBytes);
 					break;
 				}
+				case PLOT:
+				{
+					this.builder = new PlotBuilder();
+					command = this.builder.create(commandInBytes);
+					break;
+				}
 				default:
 				{
 					throw new IllegalArgumentException("Score is not valid!");

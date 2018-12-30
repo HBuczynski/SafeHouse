@@ -38,6 +38,8 @@ public class Plot extends AppCompatActivity implements PlotInterface {
 
         if(parameterType != null && sensorDataType != null && sensorTagType != null ) {
             clientThread = ClientThread.getInstance();
+            clientThread.setPlotInterface(this);
+
             graph = (GraphView) findViewById(R.id.graph);
 
             drawPlot();
@@ -91,7 +93,7 @@ public class Plot extends AppCompatActivity implements PlotInterface {
         }
     }
 
-    public void plotData() {
+    public void plotData(ArrayList<Integer> values, ArrayList<Integer> timestamps) {
 
     }
 
