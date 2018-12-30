@@ -17,7 +17,6 @@ public class ResponseFactory implements Closeable
 
 		public Response createCommand(ArrayList<Integer> commandInBytes)
 		{
-
 			ResponseType type = ResponseType.forValue(commandInBytes.get(RESPONSE_DATA_TYPE_POSITION));
 			Response response;
 			switch (type)
@@ -54,6 +53,12 @@ public class ResponseFactory implements Closeable
 				case SENSOR_TAG:
 				{
 					this.builder = new SensorTagSamplesResbuilder();
+					response = builder.create(commandInBytes);
+					break;
+				}
+				case PLOT:
+				{
+					this.builder = new PlotResponseBuilder();
 					response = builder.create(commandInBytes);
 					break;
 				}

@@ -8,7 +8,8 @@ public enum ResponseType
 		ERROR(25),
 		AUTHENTICATE(30),
 		GUARD_STATUS(35),
-		SENSOR_TAG(40);
+		SENSOR_TAG(40),
+		PLOT(45);
 
 		private int value;
 		private static java.util.HashMap<Integer, ResponseType> mappings;
