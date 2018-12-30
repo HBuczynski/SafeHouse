@@ -106,6 +106,7 @@ void SensorTagManager::connectDevicesAndGetTemp()
 
         /* Activate the temperature measurements */
         try {
+            std::cout << "Invoking temperautre measurement" << std::endl;
             std::vector<unsigned char> config_on {0x01};
             temp_config->write_value(config_on);
         } catch (std::exception &e) {
@@ -113,6 +114,7 @@ void SensorTagManager::connectDevicesAndGetTemp()
         }
         /* Read temperature data and display it */
         try {
+            std::cout << "Read temperautre measurement" << std::endl;
             std::vector<unsigned char> response = temp_value->read_value();
             unsigned char *data;
             unsigned int size = response.size();
@@ -124,14 +126,10 @@ void SensorTagManager::connectDevicesAndGetTemp()
                     std::cout << std::hex << static_cast<int>(data[i]) << ", ";
                 std::cout << "] ";
 
-                uint16_t ambient_temp, object_temp;
-                object_temp = data[0] | (data[1] << 8);
-                ambient_temp = data[2] | (data[3] << 8);
-                std::cout << "Ambient temp: " << celsius_temp(ambient_temp) << "C ";
-                std::cout << "Object temp: " << celsius_temp(object_temp) << "C ";
+                ambientTemp = data[2] | (data[3] << 8);
+                std::cout << "Ambient temp: " << celsius_temp(ambientTemp) << "C ";
                 std::cout << std::endl;
             }
-            std::this_thread::sleep_for(std::chrono::seconds(1));
 
         } catch (std::exception &e) {
             std::cout << "Error: " << e.what() << std::endl;
@@ -140,6 +138,7 @@ void SensorTagManager::connectDevicesAndGetTemp()
 
         /* Disconnect from the device */
         try {
+            std::cout << "Disconect sensor tag" << std::endl;
             sensorTags[i]->disconnect();
         } catch (std::exception &e) {
             std::cout << "Error: " << e.what() << std::endl;

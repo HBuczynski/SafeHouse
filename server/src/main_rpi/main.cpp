@@ -5,7 +5,6 @@
 #include <packet/SendStreamTCP.h>
 
 #include <main_rpi/communication_manager_rpi/CommunicationManagerRpi.h>
-#include <peripherals/SensorTagManager.h>
 
 using namespace std;
 using namespace utility;
@@ -26,22 +25,11 @@ int main(int argc , char *argv[])
 
     logger.initLogger(struc);
 
-//    CommunicationManagerRpi manager(9000,4);
-//    manager.initialize();
-
-    SensorTagManager tagManager;
-    if(tagManager.initBluetooth())
-    {
-        tagManager.scanSensorTags();
-    } else
-    {
-        std::cout << "Bluetooth initialization failed!" << std::endl;
-        return 0;
-    }
+    CommunicationManagerRpi manager(9000,4);
+    manager.initialize();
 
     while(1)
     {
-        tagManager.connectDevicesAndGetTemp();
     }
 
     return 0;
