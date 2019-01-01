@@ -70,10 +70,42 @@ bool SensorTagManager::scanSensorTags()
     ret = bleManager->stop_discovery();
     std::cout << "Stopped = " << (ret ? "true" : "false") << std::endl;
     std::cout << "Found " << sensorTags.size() << " sensor tags." << std::endl;
+    measurementsCharacteristics.resize(3*sensorTags.size());
+    measurementValues.resize(3*sensorTags.size());
     return true;
 }
 
-void SensorTagManager::connectDevicesAndGetTemp()
+std::vector<uint16_t> SensorTagManager::getMeasurements()
+{
+    /* Read measurements data and display it */
+    for(int i = 0; i < measurementValues.size(); ++i)
+    {
+        try {
+            std::cout << "Read measurement:" << i << std::endl;
+            std::vector<unsigned char> response = measurementsCharacteristics[i]->read_value();
+            unsigned char *data;
+            unsigned int size = response.size();
+            if (size > 0) {
+                data = response.data();
+
+                std::cout << "Raw data=[";
+                for (unsigned i = 0; i < response.size(); i++)
+                    std::cout << std::hex << static_cast<int>(data[i]) << ", ";
+                std::cout << "] ";
+
+                measurementValues[i] = data[2] | (data[3] << 8);
+                std::cout << "Measurement: " << celsius_temp(measurementValues[i]) << "C ";
+                std::cout << std::endl;
+            }
+        } catch (std::exception &e) {
+            std::cout << "Error: " << e.what() << std::endl;
+            break;
+        }
+    }
+    return measurementValues;
+}
+
+void SensorTagManager::connectSensorTags()
 {
     if(bleManager == nullptr)
     {
@@ -96,49 +128,34 @@ void SensorTagManager::connectDevicesAndGetTemp()
         temperature_service = sensorTags[i]->find(&service_uuid);
 
         auto value_uuid = std::string("f000aa01-0451-4000-b000-000000000000");
-        auto temp_value = temperature_service->find(&value_uuid);
+        measurementsCharacteristics[i] = temperature_service->find(&value_uuid);
 
         auto config_uuid = std::string("f000aa02-0451-4000-b000-000000000000");
-        auto temp_config = temperature_service->find(&config_uuid);
+        auto config = temperature_service->find(&config_uuid);
 
-        auto period_uuid = std::string("f000aa03-0451-4000-b000-000000000000");
-        auto temp_period = temperature_service->find(&period_uuid);
+//        auto period_uuid = std::string("f000aa03-0451-4000-b000-000000000000");
+//        auto temp_period = temperature_service->find(&period_uuid);
 
         /* Activate the temperature measurements */
         try {
             std::cout << "Invoking temperautre measurement" << std::endl;
             std::vector<unsigned char> config_on {0x01};
-            temp_config->write_value(config_on);
-        } catch (std::exception &e) {
-            std::cout << "Error: " << e.what() << std::endl;
-        }
-        /* Read temperature data and display it */
-        try {
-            std::cout << "Read temperautre measurement" << std::endl;
-            std::vector<unsigned char> response = temp_value->read_value();
-            unsigned char *data;
-            unsigned int size = response.size();
-            if (size > 0) {
-                data = response.data();
-
-                std::cout << "Raw data=[";
-                for (unsigned i = 0; i < response.size(); i++)
-                    std::cout << std::hex << static_cast<int>(data[i]) << ", ";
-                std::cout << "] ";
-
-                ambientTemp = data[2] | (data[3] << 8);
-                std::cout << "Ambient temp: " << celsius_temp(ambientTemp) << "C ";
-                std::cout << std::endl;
-            }
+            config->write_value(config_on);
 
         } catch (std::exception &e) {
             std::cout << "Error: " << e.what() << std::endl;
-            break;
         }
 
+    }
+}
+
+void SensorTagManager::disconnectSensorTags()
+{
+    for(int i = 0; i < sensorTags.size(); ++i)
+    {
         /* Disconnect from the device */
         try {
-            std::cout << "Disconect sensor tag" << std::endl;
+            std::cout << "Disconnect sensor tag" << std::endl;
             sensorTags[i]->disconnect();
         } catch (std::exception &e) {
             std::cout << "Error: " << e.what() << std::endl;

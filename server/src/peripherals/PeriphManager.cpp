@@ -31,6 +31,7 @@ PeriphManager::PeriphManager()
 PeriphManager::~PeriphManager()
 {
     gpioTerminate();
+    tagManager.disconnectSensorTags();
 }
 
 PeriphManager &PeriphManager::getInstance()
@@ -58,6 +59,7 @@ void PeriphManager::initialize()
     readConfig("../../config.json");
     if(tagManager.initBluetooth()){
         tagManager.scanSensorTags();
+        tagManager.connectSensorTags();
     }
     else{
 
@@ -247,8 +249,8 @@ void PeriphManager::runAutomaticBlinds()
 void PeriphManager::runSensorTagsSamples()
 {
     //TODO: add data from sensors:
-    tagManager.connectDevicesAndGetTemp();
-    vector<uint16_t> data = {tagManager.ambientTemp, 7864, 6543, 1212, 1313, 5463, 908, 9, 3245}; // mock data
+
+    vector<uint16_t> data = tagManager.getMeasurements();
     shared_ptr<Response> response = make_shared<SensorTagSamplesResponse>(data);
 
     broadcast(response);}
