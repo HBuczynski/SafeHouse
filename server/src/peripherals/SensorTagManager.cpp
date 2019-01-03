@@ -95,7 +95,7 @@ std::vector<uint16_t> SensorTagManager::getMeasurements()
                 std::cout << "] ";
                 if(response.size() == 6)
                 {
-                    measurementValues[i] = (uint16_t)((data[3] | (data[4] << 8) | (data[5] << 16)/100);
+                    measurementValues[i] = (uint16_t)((data[3] | (data[4] << 8) | (data[5] << 16)/100));
 
                 }
                 else
