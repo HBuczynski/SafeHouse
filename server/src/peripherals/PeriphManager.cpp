@@ -251,6 +251,7 @@ void PeriphManager::runSensorTagsSamples()
     //TODO: add data from sensors:
 
     vector<uint16_t> data(9);
+    tagManager.checkServicesSensorTags();
     vector<uint16_t> temp = tagManager.getMeasurements();
     for(int i = 0; i < temp.size(); ++i)
     {

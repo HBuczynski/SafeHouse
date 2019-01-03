@@ -113,32 +113,33 @@ std::vector<uint16_t> SensorTagManager::getMeasurements()
     return measurementValues;
 }
 
-void SensorTagManager::connectSensorTags()
-{
-    if(bleManager == nullptr)
-    {
+void SensorTagManager::connectSensorTags() {
+    if (bleManager == nullptr) {
         std::cout << "BluetoothManager not initialized!" << std::endl;
         return;
     }
-    if(sensorTags.size() == 0)
-    {
+    if (sensorTags.size() == 0) {
         std::cout << "No devices detected!" << std::endl;
         return;
     }
 
     /* Connect to the device and get the list of services exposed by it */
-    for(int i = 0; i < sensorTags.size(); ++i)
-    {
-        std::unique_ptr<BluetoothGattService> temperature_service;
-        try
-        {
+    for (int i = 0; i < sensorTags.size(); ++i) {
+        try {
             sensorTags[i]->connect();
         }
-        catch(std::exception& e)
-        {
+        catch (std::exception &e) {
             std::cout << "Exception thrown: " << e.what() << std::endl;
             break;
         }
+    }
+}
+
+void SensorTagManager::checkServicesSensorTags()
+{
+    for (int i = 0; i < sensorTags.size(); ++i)
+    {
+        std::unique_ptr <BluetoothGattService> temperature_service;
         std::string service_uuid_temp(TEMPERATURE_UUID);
         std::cout << "Waiting for service " << service_uuid_temp << " to be discovered" << std::endl;
         temperature_service = sensorTags[i]->find(&service_uuid_temp);

@@ -43,6 +43,7 @@ public:
     void connectSensorTags(void);
     std::vector<uint16_t> getMeasurements(void);
     void disconnectSensorTags(void);
+    void checkServicesSensorTags(void);
 
 private:
 
