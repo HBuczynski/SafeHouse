@@ -58,7 +58,7 @@ void PeriphManager::initialize()
 {
     readConfig("../../config.json");
     if(tagManager.initBluetooth()){
-        tagManager.scanSensorTags();
+        tagManager.scanSensorTagsManually();
         tagManager.connectSensorTags();
     }
     else{

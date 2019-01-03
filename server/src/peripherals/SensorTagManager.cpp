@@ -62,7 +62,7 @@ bool SensorTagManager::scanSensorTags()
                 return item->get_name().find("SensorTag") == std::string::npos;
             }), sensorTags.end());
 
-    for(int i = 0; i < sensorTags.size(); ++i)
+    for(unsigned int i = 0; i < sensorTags.size(); ++i)
     {
         std::cout << i << " " << sensorTags[i]->get_object_path() << std::endl;
     }
@@ -76,10 +76,52 @@ bool SensorTagManager::scanSensorTags()
     return true;
 }
 
+bool SensorTagManager::scanSensorTagsManually()
+{
+    bool ret = false;
+    if(bleManager == nullptr)
+    {
+        std::cout << "BluetoothManager not initialized!" << std::endl;
+        return false;
+    }
+    std::cout << "Started = " << (ret ? "true" : "false") << std::endl;
+    sensorTags.clear();
+
+    std::string device_mac(SENSOR_TAG_1);
+    auto sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(500));
+    if(sensorTag != nullptr)
+    {
+        std::cout << "Device found" << std::endl;
+        sensorTags.push_back(std::move(sensorTag));
+    }
+
+    device_mac = SENSOR_TAG_2;
+    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(500));
+    if(sensorTag != nullptr)
+    {
+        std::cout << "Device found" << std::endl;
+        sensorTags.push_back(std::move(sensorTag));
+    }
+
+    device_mac = SENSOR_TAG_3;
+    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(500));
+    if(sensorTag != nullptr)
+    {
+        std::cout << "Device found" << std::endl;
+        sensorTags.push_back(std::move(sensorTag));
+    }
+
+    std::cout << "Stopped = " << (ret ? "true" : "false") << std::endl;
+    std::cout << "Found " << sensorTags.size() << " sensor tags." << std::endl;
+    measurementsCharacteristics.resize(3*sensorTags.size());
+    measurementValues.resize(3*sensorTags.size());
+    return true;
+}
+
 std::vector<uint16_t> SensorTagManager::getMeasurements()
 {
     /* Read measurements data and display it */
-    for(int i = 0; i < measurementValues.size(); ++i)
+    for(unsigned int i = 0; i < measurementValues.size(); ++i)
     {
         try {
             std::cout << "Read measurement:" << i << std::endl;
@@ -124,7 +166,7 @@ void SensorTagManager::connectSensorTags() {
     }
 
     /* Connect to the device and get the list of services exposed by it */
-    for (int i = 0; i < sensorTags.size(); ++i) {
+    for (unsigned int i = 0; i < sensorTags.size(); ++i) {
         try {
             sensorTags[i]->connect();
         }
@@ -137,7 +179,7 @@ void SensorTagManager::connectSensorTags() {
 
 void SensorTagManager::checkServicesSensorTags()
 {
-    for (int i = 0; i < sensorTags.size(); ++i)
+    for (unsigned int i = 0; i < sensorTags.size(); ++i)
     {
         std::unique_ptr <BluetoothGattService> temperature_service;
         std::string service_uuid_temp(TEMPERATURE_UUID);
@@ -207,7 +249,7 @@ void SensorTagManager::checkServicesSensorTags()
 
 void SensorTagManager::disconnectSensorTags()
 {
-    for(int i = 0; i < sensorTags.size(); ++i)
+    for(unsigned int i = 0; i < sensorTags.size(); ++i)
     {
         /* Disconnect from the device */
         try {

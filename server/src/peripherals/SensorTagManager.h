@@ -21,14 +21,11 @@
 #define OPTICAL_MEAS_UUID "f000aa41-0451-4000-b000-000000000000"
 #define OPTICAL_CONFIG "f000aa42-0451-4000-b000-000000000000"
 
+#define SENSOR_TAG_1 "B0:B4:48:B8:3D:85"
+#define SENSOR_TAG_2 "B0:B4:48:B7:F5:80"
+#define SENSOR_TAG_3 "C4:BE:84:70:D2:87"
+
 using namespace tinyb;
-
-static float celsius_temp(uint16_t raw_temp)
-{
-    const float SCALE_LSB = 0.03125;
-    return ((float)(raw_temp >> 2)) * SCALE_LSB;
-}
-
 
 class SensorTagManager {
 
@@ -44,6 +41,7 @@ public:
     std::vector<uint16_t> getMeasurements(void);
     void disconnectSensorTags(void);
     void checkServicesSensorTags(void);
+    bool scanSensorTagsManually(void);
 
 private:
 
