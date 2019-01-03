@@ -174,14 +174,14 @@ void SensorTagManager::connectSensorTags()
         }
 
         std::unique_ptr<BluetoothGattService> barom_service;
-        std::string service_uuid_barom(BAROMETRIC_UUID);
+        std::string service_uuid_barom(OPTICAL_UUID);
         std::cout << "Waiting for service " << service_uuid_barom << " to be discovered" << std::endl;
         barom_service = sensorTags[i]->find(&service_uuid_barom);
 
-        value_uuid = std::string(BAROMETRIC_MEAS_UUID);
+        value_uuid = std::string(OPTICAL_MEAS_UUID);
         measurementsCharacteristics[3*i+2] = barom_service->find(&value_uuid);
 
-        config_uuid = std::string(BAROMETRIC_CONFIG);
+        config_uuid = std::string(OPTICAL_CONFIG);
         config = barom_service->find(&config_uuid);
 
         /* Activate the temperature measurements */
