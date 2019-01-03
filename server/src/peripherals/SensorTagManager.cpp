@@ -93,8 +93,14 @@ std::vector<uint16_t> SensorTagManager::getMeasurements()
                 for (unsigned i = 0; i < response.size(); i++)
                     std::cout << std::hex << static_cast<int>(data[i]) << ", ";
                 std::cout << "] ";
-
-                measurementValues[i] = data[2] | (data[3] << 8);
+                if(response.size() == 6)
+                {
+                    measurementValues[i] = data[3] | (data[4] << 8) | (data[5] << 16);
+                }
+                else
+                {
+                    measurementValues[i] = data[2] | (data[3] << 8);
+                }
                 std::cout << "Measurement: " << measurementValues[i];
                 std::cout << std::endl;
             }
@@ -173,16 +179,16 @@ void SensorTagManager::connectSensorTags()
             std::cout << "Error: " << e.what() << std::endl;
         }
 
-        std::unique_ptr<BluetoothGattService> barom_service;
-        std::string service_uuid_barom(OPTICAL_UUID);
-        std::cout << "Waiting for service " << service_uuid_barom << " to be discovered" << std::endl;
-        barom_service = sensorTags[i]->find(&service_uuid_barom);
+        std::unique_ptr<BluetoothGattService> optic_service;
+        std::string service_uuid_optic(OPTICAL_UUID);
+        std::cout << "Waiting for service " << service_uuid_optic << " to be discovered" << std::endl;
+        optic_service = sensorTags[i]->find(&service_uuid_barom);
 
         value_uuid = std::string(OPTICAL_MEAS_UUID);
-        measurementsCharacteristics[3*i+2] = barom_service->find(&value_uuid);
+        measurementsCharacteristics[3*i+2] = optic_service->find(&value_uuid);
 
         config_uuid = std::string(OPTICAL_CONFIG);
-        config = barom_service->find(&config_uuid);
+        config = optic_service->find(&config_uuid);
 
         /* Activate the temperature measurements */
         try {
