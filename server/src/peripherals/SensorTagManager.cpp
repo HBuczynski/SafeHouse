@@ -71,8 +71,8 @@ bool SensorTagManager::scanSensorTags()
     std::this_thread::sleep_for(std::chrono::seconds(2));
     std::cout << "Stopped = " << (ret ? "true" : "false") << std::endl;
     std::cout << "Found " << sensorTags.size() << " sensor tags." << std::endl;
-    measurementsCharacteristics.resize(2*sensorTags.size());
-    measurementValues.resize(2*sensorTags.size());
+    measurementsCharacteristics.resize(3*sensorTags.size());
+    measurementValues.resize(3*sensorTags.size());
     return true;
 }
 
@@ -137,7 +137,7 @@ void SensorTagManager::connectSensorTags()
         temperature_service = sensorTags[i]->find(&service_uuid_temp);
 
         auto value_uuid = std::string(TEMPERATURE_MEAS_UUID);
-        measurementsCharacteristics[2*i] = temperature_service->find(&value_uuid);
+        measurementsCharacteristics[3*i] = temperature_service->find(&value_uuid);
 
         auto config_uuid = std::string(TEMPERATURE_CONFIG);
         auto config = temperature_service->find(&config_uuid);
@@ -158,10 +158,31 @@ void SensorTagManager::connectSensorTags()
         humid_service = sensorTags[i]->find(&service_uuid_humid);
 
         value_uuid = std::string(HUMIDITY_MEAS_UUID);
-        measurementsCharacteristics[2*i+1] = humid_service->find(&value_uuid);
+        measurementsCharacteristics[3*i+1] = humid_service->find(&value_uuid);
 
         config_uuid = std::string(HUMIDITY_CONFIG);
         config = humid_service->find(&config_uuid);
+
+        /* Activate the temperature measurements */
+        try {
+            std::cout << "Invoking temperautre measurement" << std::endl;
+            std::vector<unsigned char> config_on {0x01};
+            config->write_value(config_on);
+
+        } catch (std::exception &e) {
+            std::cout << "Error: " << e.what() << std::endl;
+        }
+
+        std::unique_ptr<BluetoothGattService> barom_service;
+        std::string service_uuid_barom(BAROMETRIC_UUID);
+        std::cout << "Waiting for service " << service_uuid_barom << " to be discovered" << std::endl;
+        barom_service = sensorTags[i]->find(&service_uuid_barom);
+
+        value_uuid = std::string(BAROMETRIC_MEAS_UUID);
+        measurementsCharacteristics[3*i+2] = barom_service->find(&value_uuid);
+
+        config_uuid = std::string(BAROMETRIC_CONFIG);
+        config = barom_service->find(&config_uuid);
 
         /* Activate the temperature measurements */
         try {
