@@ -6,6 +6,8 @@
 
 #include <main_rpi/communication_manager_rpi/CommunicationManagerRpi.h>
 
+#include <SensorTagManager.h>
+
 using namespace std;
 using namespace utility;
 using namespace communication;
