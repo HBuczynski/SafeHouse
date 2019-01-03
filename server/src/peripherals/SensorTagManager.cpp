@@ -71,15 +71,15 @@ bool SensorTagManager::scanSensorTags()
     std::this_thread::sleep_for(std::chrono::seconds(2));
     std::cout << "Stopped = " << (ret ? "true" : "false") << std::endl;
     std::cout << "Found " << sensorTags.size() << " sensor tags." << std::endl;
-    measurementsCharacteristics.resize(sensorTags.size());
-    measurementValues.resize(sensorTags.size());
+    measurementsCharacteristics.resize(2*sensorTags.size());
+    measurementValues.resize(2*sensorTags.size());
     return true;
 }
 
 std::vector<uint16_t> SensorTagManager::getMeasurements()
 {
     /* Read measurements data and display it */
-    for(int i = 0; i < measurementValues.size(); i+=2)
+    for(int i = 0; i < measurementValues.size(); ++i)
     {
         try {
             std::cout << "Read measurement:" << i << std::endl;
@@ -95,7 +95,7 @@ std::vector<uint16_t> SensorTagManager::getMeasurements()
                 std::cout << "] ";
 
                 measurementValues[i] = data[2] | (data[3] << 8);
-                std::cout << "Measurement: " << celsius_temp(measurementValues[i]) << "C ";
+                std::cout << "Measurement: " << measurementValues[i];
                 std::cout << std::endl;
             }
         } catch (std::exception &e) {
@@ -132,12 +132,12 @@ void SensorTagManager::connectSensorTags()
             std::cout << "Exception thrown: " << e.what() << std::endl;
             break;
         }
-        std::string service_uuid(TEMPERATURE_UID);
-        std::cout << "Waiting for service " << service_uuid << " to be discovered" << std::endl;
-        temperature_service = sensorTags[i]->find(&service_uuid);
+        std::string service_uuid_temp(TEMPERATURE_UUID);
+        std::cout << "Waiting for service " << service_uuid_temp << " to be discovered" << std::endl;
+        temperature_service = sensorTags[i]->find(&service_uuid_temp);
 
-        auto value_uuid = std::string(TEMPERATURE_MEAS_UID);
-        measurementsCharacteristics[i] = temperature_service->find(&value_uuid);
+        auto value_uuid = std::string(TEMPERATURE_MEAS_UUID);
+        measurementsCharacteristics[2*i] = temperature_service->find(&value_uuid);
 
         auto config_uuid = std::string(TEMPERATURE_CONFIG);
         auto config = temperature_service->find(&config_uuid);
@@ -151,26 +151,27 @@ void SensorTagManager::connectSensorTags()
         } catch (std::exception &e) {
             std::cout << "Error: " << e.what() << std::endl;
         }
-//        std::unique_ptr<BluetoothGattService> humid_service;
-//        std::string service_uuid(HUMID_UID);
-//        std::cout << "Waiting for service " << service_uuid << " to be discovered" << std::endl;
-//        humid_service = sensorTags[i]->find(&service_uuid);
-//
-//        auto value_uuid = std::string(HUMID_MEAS_UID);
-//        measurementsCharacteristics[i+1] = humid_service->find(&value_uuid);
-//
-//        auto config_uuid = std::string(HUMID_CONFIG);
-//        auto config = humid_service->find(&config_uuid);
-//
-//        /* Activate the temperature measurements */
-//        try {
-//            std::cout << "Invoking temperautre measurement" << std::endl;
-//            std::vector<unsigned char> config_on {0x01};
-//            config->write_value(config_on);
-//
-//        } catch (std::exception &e) {
-//            std::cout << "Error: " << e.what() << std::endl;
-//        }
+
+        std::unique_ptr<BluetoothGattService> humid_service;
+        std::string service_uuid_humid(HUMIDITY_UUID);
+        std::cout << "Waiting for service " << service_uuid_humid << " to be discovered" << std::endl;
+        humid_service = sensorTags[i]->find(&service_uuid_humid);
+
+        value_uuid = std::string(HUMIDITY_MEAS_UUID);
+        measurementsCharacteristics[2*i+1] = humid_service->find(&value_uuid);
+
+        config_uuid = std::string(HUMIDITY_CONFIG);
+        config = humid_service->find(&config_uuid);
+
+        /* Activate the temperature measurements */
+        try {
+            std::cout << "Invoking temperautre measurement" << std::endl;
+            std::vector<unsigned char> config_on {0x01};
+            config->write_value(config_on);
+
+        } catch (std::exception &e) {
+            std::cout << "Error: " << e.what() << std::endl;
+        }
 
     }
 }

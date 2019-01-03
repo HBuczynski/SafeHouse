@@ -252,7 +252,10 @@ void PeriphManager::runSensorTagsSamples()
 
     vector<uint16_t> data(9);
     vector<uint16_t> temp = tagManager.getMeasurements();
-    data[0] = temp[0];
+    for(int i = 0; i < temp.size(); ++i)
+    {
+        data[i] = temp[i];
+    }
     shared_ptr<Response> response = make_shared<SensorTagSamplesResponse>(data);
 
     broadcast(response);}
