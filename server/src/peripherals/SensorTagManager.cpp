@@ -95,7 +95,8 @@ std::vector<uint16_t> SensorTagManager::getMeasurements()
                 std::cout << "] ";
                 if(response.size() == 6)
                 {
-                    measurementValues[i] = data[3] | (data[4] << 8) | (data[5] << 16);
+                    measurementValues[i] = (uint16_t)((data[3] | (data[4] << 8) | (data[5] << 16)/100);
+
                 }
                 else
                 {
@@ -182,7 +183,7 @@ void SensorTagManager::connectSensorTags()
         std::unique_ptr<BluetoothGattService> optic_service;
         std::string service_uuid_optic(OPTICAL_UUID);
         std::cout << "Waiting for service " << service_uuid_optic << " to be discovered" << std::endl;
-        optic_service = sensorTags[i]->find(&service_uuid_barom);
+        optic_service = sensorTags[i]->find(&service_uuid_optic);
 
         value_uuid = std::string(OPTICAL_MEAS_UUID);
         measurementsCharacteristics[3*i+2] = optic_service->find(&value_uuid);
