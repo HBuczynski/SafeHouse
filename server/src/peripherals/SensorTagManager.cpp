@@ -88,30 +88,28 @@ bool SensorTagManager::scanSensorTagsManually()
     sensorTags.clear();
 
     std::string device_mac(SENSOR_TAG_1);
-    auto sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(500));
+    auto sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(2000));
     if(sensorTag != nullptr)
     {
-        std::cout << "Device found" << std::endl;
+        std::cout << "Device "<< SENSOR_TAG_1 <<" found" << std::endl;
         sensorTags.push_back(std::move(sensorTag));
     }
 
     device_mac = SENSOR_TAG_2;
-    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(500));
+    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(2000));
     if(sensorTag != nullptr)
     {
-        std::cout << "Device found" << std::endl;
+        std::cout << "Device "<< SENSOR_TAG_2 <<" found" << std::endl;
         sensorTags.push_back(std::move(sensorTag));
     }
 
     device_mac = SENSOR_TAG_3;
-    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(500));
+    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(2000));
     if(sensorTag != nullptr)
     {
-        std::cout << "Device found" << std::endl;
+        std::cout << "Device "<< SENSOR_TAG_3 <<" found" << std::endl;
         sensorTags.push_back(std::move(sensorTag));
     }
-
-    std::cout << "Stopped = " << (ret ? "true" : "false") << std::endl;
     std::cout << "Found " << sensorTags.size() << " sensor tags." << std::endl;
     measurementsCharacteristics.resize(3*sensorTags.size());
     measurementValues.resize(3*sensorTags.size());
