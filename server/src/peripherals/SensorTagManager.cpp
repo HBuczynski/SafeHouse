@@ -144,7 +144,7 @@ void SensorTagManager::connectSensorTags()
 
         /* Activate the temperature measurements */
         try {
-            std::cout << "Invoking temperautre measurement" << std::endl;
+            std::cout << "Invoking temperature measurement" << std::endl;
             std::vector<unsigned char> config_on {0x01};
             config->write_value(config_on);
 
@@ -165,7 +165,7 @@ void SensorTagManager::connectSensorTags()
 
         /* Activate the temperature measurements */
         try {
-            std::cout << "Invoking temperautre measurement" << std::endl;
+            std::cout << "Invoking humidity measurement" << std::endl;
             std::vector<unsigned char> config_on {0x01};
             config->write_value(config_on);
 
