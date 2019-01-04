@@ -1,11 +1,15 @@
 package wpam.mobile_client;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
 
@@ -13,9 +17,11 @@ import wpam.mobile_client.client.ClientThread;
 import wpam.mobile_client.protocol.BlindsUPCommand;
 import wpam.mobile_client.protocol.SensorTagSamplesCommand;
 import wpam.mobile_client.sensor_tag.ParameterType;
+import wpam.mobile_client.sensor_tag.ParametersConverter;
 import wpam.mobile_client.sensor_tag.SensorDataType;
 import wpam.mobile_client.sensor_tag.SensorTagType;
 import wpam.mobile_client.sensor_tag.SensorsInterface;
+import wpam.mobile_client.utility.Utility;
 
 public class TemperatureActivity extends PreferenceActivity implements SensorsInterface {
 
@@ -57,14 +63,7 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
         clientThread = ClientThread.getInstance();
         clientThread.setSensorsTagInterface(this);
 
-        SensorTagSamplesCommand command = new SensorTagSamplesCommand();
-        try {
-            Message msg = new Message();
-            msg.obj = command;
-            clientThread.sendHandler.sendMessage(msg);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter("SensorTagSamplesResponse"));
 
         temp_I = (CheckBoxPreference) findPreference("temp_I");
         temp_I.setSummary(0 + tempUnits);
@@ -72,7 +71,7 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
         temp_II.setSummary(0 + tempUnits);
         temp_III = (CheckBoxPreference) findPreference("temp_III");
         temp_III.setSummary(0 + tempUnits);
-        globalTemp = (CheckBoxPreference) findPreference("tempCheck");
+        //globalTemp = (CheckBoxPreference) findPreference("tempCheck");
 
         humidity_I = (CheckBoxPreference) findPreference("humidity_I");
         humidity_I.setSummary(0 + humidityUnits);
@@ -80,7 +79,7 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
         humidity_II.setSummary(0 + humidityUnits);
         humidity_III = (CheckBoxPreference) findPreference("humidity_III");
         humidity_III.setSummary(0 + humidityUnits);
-        globalHumidity = (CheckBoxPreference) findPreference("humidityCheck");
+        //globalHumidity = (CheckBoxPreference) findPreference("humidityCheck");
 
         luminacia_I = (CheckBoxPreference) findPreference("luminacia_I");
         luminacia_I.setSummary(0 + luminaciaUnits);
@@ -88,11 +87,11 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
         luminacia_II.setSummary(0 + luminaciaUnits);
         luminacia_III = (CheckBoxPreference) findPreference("luminacia_III");
         luminacia_III.setSummary(0 + luminaciaUnits);
-        globalLuminacia = (CheckBoxPreference) findPreference("luminaciaCheck");
+        //globalLuminacia = (CheckBoxPreference) findPreference("luminaciaCheck");
 
-        plot_I = (Preference) findPreference("plot_I");
-        plot_II = (Preference) findPreference("plot_II");
-        plot_III = (Preference) findPreference("plot_III");
+//        plot_I = (Preference) findPreference("plot_I");
+//        plot_II = (Preference) findPreference("plot_II");
+//        plot_III = (Preference) findPreference("plot_III");
 
         globalPlot = (Preference) findPreference("summary_plot");
 
@@ -101,48 +100,73 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
         setCheckboxListenersII();
         setCheckboxListenersIII();
         setCheckboxListenersGlobal();
-
         resetCheckBoxes();
+
+        SensorTagSamplesCommand command = new SensorTagSamplesCommand();
+        try {
+            Message msg = new Message();
+            msg.obj = command;
+            clientThread.sendHandler.sendMessage(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ArrayList<Integer> data = intent.getIntegerArrayListExtra("data");
+            singleSamples(data);
+        }
+    };
 
     private void setPlotListeners() {
 
-        plot_I.setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
-             @Override
-             public boolean onPreferenceClick(Preference preference) {
-             Intent intent = new Intent(getApplicationContext(), Plot.class);
-             intent.putExtras(plotArguments());
-             startActivity(intent);
-             return true;
-             }
-         });
-
-        plot_II.setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-            Intent intent = new Intent(getApplicationContext(), Plot.class);
-            intent.putExtras(plotArguments());
-            startActivity(intent);
-            return true;
-            }
-        });
-
-        plot_III.setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-            Intent intent = new Intent(getApplicationContext(), Plot.class);
-            intent.putExtras(plotArguments());
-            startActivity(intent);
-            return true;
-            }
-        });
+//        plot_I.setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
+//             @Override
+//             public boolean onPreferenceClick(Preference preference) {
+//             Intent intent = new Intent(getApplicationContext(), Plot.class);
+//             intent.putExtras(plotArguments());
+//             startActivity(intent);
+//             return true;
+//             }
+//         });
+//
+//        plot_II.setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
+//            @Override
+//            public boolean onPreferenceClick(Preference preference) {
+//            Intent intent = new Intent(getApplicationContext(), Plot.class);
+//            intent.putExtras(plotArguments());
+//            startActivity(intent);
+//            return true;
+//            }
+//        });
+//
+//        plot_III.setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
+//            @Override
+//            public boolean onPreferenceClick(Preference preference) {
+//            Intent intent = new Intent(getApplicationContext(), Plot.class);
+//            intent.putExtras(plotArguments());
+//            startActivity(intent);
+//            return true;
+//            }
+//        });
 
         globalPlot.setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-            Intent intent = new Intent(getApplicationContext(), Plot.class);
-            intent.putExtras(plotArguments());
-            startActivity(intent);
+//            Intent intent = new Intent(getApplicationContext(), Plot.class);
+//            intent.putExtras(plotArguments());
+//            startActivity(intent);
+            SensorTagSamplesCommand command = new SensorTagSamplesCommand();
+            try {
+                Message msg = new Message();
+                msg.obj = command;
+                clientThread.sendHandler.sendMessage(msg);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             return true;
             }
         });
@@ -371,82 +395,82 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
     }
 
     private void setCheckboxListenersGlobal() {
-        globalTemp.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                CheckBoxPreference checkBoxPreference = (CheckBoxPreference)preference;
-                if(checkBoxPreference.isChecked()) {
-                    globalHumidity.setEnabled(false);
-                    globalLuminacia.setEnabled(false);
-
-                    sensorTagType = SensorTagType.ALL;
-                    currentParameter = ParameterType.TEMPERATURE;
-                    dataType = SensorDataType.PLOT;
-                } else {
-                    globalHumidity.setEnabled(true);
-                    globalLuminacia.setEnabled(true);
-
-                    sensorTagType = null;
-                    currentParameter = null;
-                    dataType = null;
-                }
-                return true;
-            }
-        });
-
-        globalHumidity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                CheckBoxPreference checkBoxPreference = (CheckBoxPreference)preference;
-                if(checkBoxPreference.isChecked()) {
-                    globalTemp.setEnabled(false);
-                    globalLuminacia.setEnabled(false);
-
-                    sensorTagType = SensorTagType.ALL;
-                    currentParameter = ParameterType.HUMIDITY;
-                    dataType = SensorDataType.PLOT;
-                } else {
-                    globalTemp.setEnabled(true);
-                    globalLuminacia.setEnabled(true);
-
-                    sensorTagType = null;
-                    currentParameter = null;
-                    dataType = null;
-                }
-                return true;
-            }
-        });
-
-        globalLuminacia.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                CheckBoxPreference checkBoxPreference = (CheckBoxPreference)preference;
-                if(checkBoxPreference.isChecked()) {
-                    globalTemp.setEnabled(false);
-                    globalHumidity.setEnabled(false);
-
-                    sensorTagType = SensorTagType.ALL;
-                    currentParameter = ParameterType.LUMINACIA;
-                    dataType = SensorDataType.PLOT;
-                } else {
-                    globalTemp.setEnabled(true);
-                    globalHumidity.setEnabled(true);
-
-                    sensorTagType = null;
-                    currentParameter = null;
-                    dataType = null;
-                }
-                return true;
-            }
-        });
+//        globalTemp.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//            @Override
+//            public boolean onPreferenceClick(Preference preference) {
+//                CheckBoxPreference checkBoxPreference = (CheckBoxPreference)preference;
+//                if(checkBoxPreference.isChecked()) {
+//                    globalHumidity.setEnabled(false);
+//                    globalLuminacia.setEnabled(false);
+//
+//                    sensorTagType = SensorTagType.ALL;
+//                    currentParameter = ParameterType.TEMPERATURE;
+//                    dataType = SensorDataType.PLOT;
+//                } else {
+//                    globalHumidity.setEnabled(true);
+//                    globalLuminacia.setEnabled(true);
+//
+//                    sensorTagType = null;
+//                    currentParameter = null;
+//                    dataType = null;
+//                }
+//                return true;
+//            }
+//        });
+//
+//        globalHumidity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//            @Override
+//            public boolean onPreferenceClick(Preference preference) {
+//                CheckBoxPreference checkBoxPreference = (CheckBoxPreference)preference;
+//                if(checkBoxPreference.isChecked()) {
+//                    globalTemp.setEnabled(false);
+//                    globalLuminacia.setEnabled(false);
+//
+//                    sensorTagType = SensorTagType.ALL;
+//                    currentParameter = ParameterType.HUMIDITY;
+//                    dataType = SensorDataType.PLOT;
+//                } else {
+//                    globalTemp.setEnabled(true);
+//                    globalLuminacia.setEnabled(true);
+//
+//                    sensorTagType = null;
+//                    currentParameter = null;
+//                    dataType = null;
+//                }
+//                return true;
+//            }
+//        });
+//
+//        globalLuminacia.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//            @Override
+//            public boolean onPreferenceClick(Preference preference) {
+//                CheckBoxPreference checkBoxPreference = (CheckBoxPreference)preference;
+//                if(checkBoxPreference.isChecked()) {
+//                    globalTemp.setEnabled(false);
+//                    globalHumidity.setEnabled(false);
+//
+//                    sensorTagType = SensorTagType.ALL;
+//                    currentParameter = ParameterType.LUMINACIA;
+//                    dataType = SensorDataType.PLOT;
+//                } else {
+//                    globalTemp.setEnabled(true);
+//                    globalHumidity.setEnabled(true);
+//
+//                    sensorTagType = null;
+//                    currentParameter = null;
+//                    dataType = null;
+//                }
+//                return true;
+//            }
+//        });
     }
 
     @Override
     public void singleSamples(ArrayList<Integer> data) {
         if(data.size() == 9) {
-            temp_I.setSummary(data.get(0) + tempUnits);
-            humidity_I.setSummary(data.get(1) + humidityUnits);
-            luminacia_I.setSummary(data.get(2) + luminaciaUnits);
+            temp_I.setSummary(ParametersConverter.getTemperatureCelcius(data.get(0)) + tempUnits);
+            humidity_I.setSummary(ParametersConverter.getHumidity(data.get(1)) + humidityUnits);
+            luminacia_I.setSummary(ParametersConverter.getOptical(data.get(2)) + luminaciaUnits);
 
             temp_II.setSummary(data.get(3) + tempUnits);
             humidity_II.setSummary(data.get(4) + humidityUnits);
@@ -462,16 +486,16 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
         temp_I.setChecked(false);
         temp_II.setChecked(false);
         temp_III.setChecked(false);
-        globalTemp.setChecked(false);
+        //globalTemp.setChecked(false);
 
         humidity_I.setChecked(false);
         humidity_II.setChecked(false);
         humidity_III.setChecked(false);
-        globalHumidity.setChecked(false);
+        //globalHumidity.setChecked(false);
 
         luminacia_I.setChecked(false);
         luminacia_II.setChecked(false);
         luminacia_III.setChecked(false);
-        globalLuminacia.setChecked(false);
+        //globalLuminacia.setChecked(false);
     }
 }

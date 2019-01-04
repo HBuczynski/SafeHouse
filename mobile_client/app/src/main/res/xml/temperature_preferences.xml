@@ -19,11 +19,11 @@
             android:title="Luminancia"
             android:defaultValue="false"
             android:checked="false"/>
-        <Preference
-            android:layout="@layout/plot_button"
-            android:key="plot_I"
-            android:background="?android:selectableItemBackground"
-            android:title="History Plot" />
+        <!--<Preference-->
+            <!--android:layout="@layout/plot_button"-->
+            <!--android:key="plot_I"-->
+            <!--android:background="?android:selectableItemBackground"-->
+            <!--android:title="History Plot" />-->
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -45,10 +45,10 @@
             android:title="Luminancia"
             android:defaultValue="false"
             android:checked="false"/>
-        <Preference
-            android:layout="@layout/plot_button"
-            android:key="plot_II"
-            android:title="History Plot" />
+        <!--<Preference-->
+            <!--android:layout="@layout/plot_button"-->
+            <!--android:key="plot_II"-->
+            <!--android:title="History Plot" />-->
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -70,38 +70,38 @@
             android:title="Luminancia"
             android:defaultValue="false"
             android:checked="false"/>
-        <Preference
-            android:layout="@layout/plot_button"
-            android:key="plot_III"
-            android:title="History Plot" />
+        <!--<Preference-->
+            <!--android:layout="@layout/plot_button"-->
+            <!--android:key="plot_III"-->
+            <!--android:title="History Plot" />-->
     </PreferenceCategory>
 
     <PreferenceCategory
         android:layout="@layout/preference_category"
-        android:title="    General Information"
+        android:title="    Connection"
         android:key="sensor_tag_III">
-        <CheckBoxPreference
-            android:key="tempCheck"
-            android:title="Temperature"
-            android:defaultValue="false"
-            android:checked="false"/>
+        <!--<CheckBoxPreference-->
+            <!--android:key="tempCheck"-->
+            <!--android:title="Temperature"-->
+            <!--android:defaultValue="false"-->
+            <!--android:checked="false"/>-->
 
-        <CheckBoxPreference
-            android:key="humidityCheck"
-            android:title="Humidity"
-            android:defaultValue="false"
-            android:checked="false"/>
+        <!--<CheckBoxPreference-->
+            <!--android:key="humidityCheck"-->
+            <!--android:title="Humidity"-->
+            <!--android:defaultValue="false"-->
+            <!--android:checked="false"/>-->
 
-        <CheckBoxPreference
-            android:key="luminaciaCheck"
-            android:title="Luminacia"
-            android:defaultValue="false"
-            android:checked="false"/>
+        <!--<CheckBoxPreference-->
+            <!--android:key="luminaciaCheck"-->
+            <!--android:title="Luminacia"-->
+            <!--android:defaultValue="false"-->
+            <!--android:checked="false"/>-->
 
         <Preference
             android:layout="@layout/general_plot"
             android:key="summary_plot"
-            android:title="Summary Plot" />
+            android:title="Get New Data" />
     </PreferenceCategory>
 
 </PreferenceScreen>
