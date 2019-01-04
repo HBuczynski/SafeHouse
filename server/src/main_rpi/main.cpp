@@ -6,6 +6,8 @@
 
 #include <main_rpi/communication_manager_rpi/CommunicationManagerRpi.h>
 
+#include <SensorTagManager.h>
+
 using namespace std;
 using namespace utility;
 using namespace communication;
@@ -30,7 +32,6 @@ int main(int argc , char *argv[])
 
     while(1)
     {
-
     }
 
     return 0;

@@ -197,6 +197,15 @@ void CommandHandlerVisitor::visit(StopStreamCommand& command)
     stopStream();
 }
 
+void CommandHandlerVisitor::visit(PlotCommand& command)
+{
+    if(logger_.isInformationEnable())
+    {
+        const string message = string("CommandHandlerVisitor :: PlotCommand was received.");
+        logger_.writeLog(LogType::INFORMATION_LOG, message);
+    }
+}
+
 void CommandHandlerVisitor::visit(SensorTagSamplesCommand& command)
 {
     if(logger_.isInformationEnable())

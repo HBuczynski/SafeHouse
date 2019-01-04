@@ -72,7 +72,7 @@ vector<uint8_t> SendStreamTCP::receivePacket()
 
 void SendStreamTCP::sendData(vector<uint8_t> message)
 {
-    if(write( sock_, reinterpret_cast<char*>(message.data()), sizeof(message) ) <= 0)
+    if(write( sock_, reinterpret_cast<char*>(message.data()), sizeof(uint8_t)*message.size() ) <= 0)
     {
         throw logic_error("Cannot send packet.");
     }
