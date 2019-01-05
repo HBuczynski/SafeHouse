@@ -120,6 +120,8 @@ std::vector<uint16_t> SensorTagManager::getMeasurements()
     /* Read measurements data and display it */
     for(unsigned int i = 0; i < measurementValues.size(); ++i)
     {
+        if(sensorTags[i%3]->get_connected())
+            continue;
         try {
             std::cout << "Read measurement:" << i << std::endl;
             std::vector<unsigned char> response = measurementsCharacteristics[i]->read_value();
@@ -235,7 +237,7 @@ void SensorTagManager::checkServicesSensorTags()
 
         /* Activate the temperature measurements */
         try {
-            std::cout << "Invoking temperautre measurement" << std::endl;
+            std::cout << "Invoking pressure measurement" << std::endl;
             std::vector<unsigned char> config_on {0x01};
             config->write_value(config_on);
 
