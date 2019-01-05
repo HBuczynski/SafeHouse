@@ -120,7 +120,7 @@ std::vector<uint16_t> SensorTagManager::getMeasurements()
     /* Read measurements data and display it */
     for(unsigned int i = 0; i < measurementValues.size(); ++i)
     {
-        if(sensorTags[i%3]->get_connected())
+        if(!sensorTags[i%3]->get_connected())
             continue;
         try {
             std::cout << "Read measurement:" << i << std::endl;
@@ -148,7 +148,7 @@ std::vector<uint16_t> SensorTagManager::getMeasurements()
             }
         } catch (std::exception &e) {
             std::cout << "Error: " << e.what() << std::endl;
-            break;
+            continue;
         }
     }
     return measurementValues;
