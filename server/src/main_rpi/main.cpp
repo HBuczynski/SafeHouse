@@ -34,5 +34,25 @@ int main(int argc , char *argv[])
     {
     }
 
+//    SensorTagManager tagManager;
+//    if(tagManager.initBluetooth()){
+//        tagManager.scanSensorTagsManually();
+//        tagManager.connectSensorTags();
+//    }
+//    else{
+//        return 0;
+//    }
+//
+//    vector<uint16_t> data(9);
+//    tagManager.checkServicesSensorTags();
+//    vector<uint16_t> temp = tagManager.getMeasurements();
+//    for(unsigned int i = 0; i < temp.size(); ++i)
+//    {
+//        data[i] = temp[i];
+//        std::cout << "Data " << i << ": " << data[i] << std::endl;
+//    }
+//
+//    tagManager.disconnectSensorTags();
+
     return 0;
 }
