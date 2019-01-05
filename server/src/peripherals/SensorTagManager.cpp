@@ -179,7 +179,7 @@ void SensorTagManager::checkServicesSensorTags()
     for (unsigned int i = 0; i < sensorTags.size(); ++i)
     {
         if(!sensorTags[i]->get_connected())
-            break;
+            continue;
         std::unique_ptr <BluetoothGattService> temperature_service;
         std::string service_uuid_temp(TEMPERATURE_UUID);
         std::cout << "Waiting for service " << service_uuid_temp << " to be discovered" << std::endl;
