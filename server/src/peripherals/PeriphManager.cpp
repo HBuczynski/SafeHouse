@@ -253,7 +253,7 @@ void PeriphManager::runSensorTagsSamples()
     vector<uint16_t> data(9);
     tagManager.checkServicesSensorTags();
     vector<uint16_t> temp = tagManager.getMeasurements();
-    for(int i = 0; i < temp.size(); ++i)
+    for(unsigned int i = 0; i < temp.size(); ++i)
     {
         data[i] = temp[i];
     }

@@ -14,7 +14,6 @@ bool SensorTagManager::initBluetooth()
     }
     std::cout << "Bluetooth initialization successful." << std::endl;
     return true;
-
 }
 
 void SensorTagManager::scanDevicesTest()
@@ -88,7 +87,7 @@ bool SensorTagManager::scanSensorTagsManually()
     sensorTags.clear();
 
     std::string device_mac(SENSOR_TAG_1);
-    auto sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(2000));
+    auto sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(100));
     if(sensorTag != nullptr)
     {
         std::cout << "Device "<< SENSOR_TAG_1 <<" found" << std::endl;
@@ -96,7 +95,7 @@ bool SensorTagManager::scanSensorTagsManually()
     }
 
     device_mac = SENSOR_TAG_2;
-    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(2000));
+    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(100));
     if(sensorTag != nullptr)
     {
         std::cout << "Device "<< SENSOR_TAG_2 <<" found" << std::endl;
@@ -104,7 +103,7 @@ bool SensorTagManager::scanSensorTagsManually()
     }
 
     device_mac = SENSOR_TAG_3;
-    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(2000));
+    sensorTag = bleManager->find<BluetoothDevice>(nullptr, &device_mac, nullptr, std::chrono::milliseconds(100));
     if(sensorTag != nullptr)
     {
         std::cout << "Device "<< SENSOR_TAG_3 <<" found" << std::endl;
@@ -182,13 +181,13 @@ void SensorTagManager::checkServicesSensorTags()
         std::unique_ptr <BluetoothGattService> temperature_service;
         std::string service_uuid_temp(TEMPERATURE_UUID);
         std::cout << "Waiting for service " << service_uuid_temp << " to be discovered" << std::endl;
-        temperature_service = sensorTags[i]->find(&service_uuid_temp);
+        temperature_service = sensorTags[i]->find(&service_uuid_temp, std::chrono::milliseconds(100));
 
         auto value_uuid = std::string(TEMPERATURE_MEAS_UUID);
-        measurementsCharacteristics[3*i] = temperature_service->find(&value_uuid);
+        measurementsCharacteristics[3*i] = temperature_service->find(&value_uuid, std::chrono::milliseconds(100));
 
         auto config_uuid = std::string(TEMPERATURE_CONFIG);
-        auto config = temperature_service->find(&config_uuid);
+        auto config = temperature_service->find(&config_uuid, std::chrono::milliseconds(100));
 
         /* Activate the temperature measurements */
         try {
@@ -206,10 +205,10 @@ void SensorTagManager::checkServicesSensorTags()
         humid_service = sensorTags[i]->find(&service_uuid_humid);
 
         value_uuid = std::string(HUMIDITY_MEAS_UUID);
-        measurementsCharacteristics[3*i+1] = humid_service->find(&value_uuid);
+        measurementsCharacteristics[3*i+1] = humid_service->find(&value_uuid, std::chrono::milliseconds(100));
 
         config_uuid = std::string(HUMIDITY_CONFIG);
-        config = humid_service->find(&config_uuid);
+        config = humid_service->find(&config_uuid, std::chrono::milliseconds(100));
 
         /* Activate the temperature measurements */
         try {
@@ -224,13 +223,13 @@ void SensorTagManager::checkServicesSensorTags()
         std::unique_ptr<BluetoothGattService> optic_service;
         std::string service_uuid_optic(OPTICAL_UUID);
         std::cout << "Waiting for service " << service_uuid_optic << " to be discovered" << std::endl;
-        optic_service = sensorTags[i]->find(&service_uuid_optic);
+        optic_service = sensorTags[i]->find(&service_uuid_optic, std::chrono::milliseconds(100));
 
         value_uuid = std::string(OPTICAL_MEAS_UUID);
-        measurementsCharacteristics[3*i+2] = optic_service->find(&value_uuid);
+        measurementsCharacteristics[3*i+2] = optic_service->find(&value_uuid, std::chrono::milliseconds(100));
 
         config_uuid = std::string(OPTICAL_CONFIG);
-        config = optic_service->find(&config_uuid);
+        config = optic_service->find(&config_uuid, std::chrono::milliseconds(100));
 
         /* Activate the temperature measurements */
         try {
