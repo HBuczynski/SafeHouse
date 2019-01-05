@@ -1,6 +1,10 @@
 package wpam.mobile_client.client;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
+
 import wpam.mobile_client.MainActivityInterface;
 import wpam.mobile_client.protocol.*;
 import wpam.mobile_client.sensor_tag.PlotInterface;
@@ -14,7 +18,7 @@ import java.util.Date;
 public final class ResponseHandlerVisitor extends ResponseVisitor implements Closeable
 	{
 		private MainActivityInterface mainActivityInterface;
-		private SensorsInterface sensorsInterface;
+		private Context context;
 		private PlotInterface plotInterface;
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
@@ -36,9 +40,9 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 			this.mainActivityInterface = mainActivityInterface;
 		}
 
-		public void setSensorsTagInterface(SensorsInterface sensorsInterface)
+		public void setSensorsTagInterface(Context context)
 		{
-			this.sensorsInterface = sensorsInterface;
+			this.context = context;
 		}
 
 		public void setPlotInterface(PlotInterface plotInterface)
@@ -142,7 +146,13 @@ public final class ResponseHandlerVisitor extends ResponseVisitor implements Clo
 			client.addToQueue("--" + currentDateandTime +"-- Received:: " +
 					response.getName() + ".");
 
-			sensorsInterface.singleSamples(response.getValues());
+			Intent incomingMsg = new Intent("SensorTagSamplesResponse");
+			incomingMsg.putIntegerArrayListExtra("data", response.getValues());
+
+			LocalBroadcastManager.getInstance(this.context).sendBroadcast(incomingMsg);
+
+
+			//sensorsInterface.singleSamples(response.getValues());
 		}
 
 		public String getBlindsStatus()

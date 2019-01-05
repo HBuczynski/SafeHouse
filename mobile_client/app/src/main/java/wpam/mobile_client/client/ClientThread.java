@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -79,7 +80,7 @@ public class ClientThread implements Runnable
 		ClientThread.port = Integer.valueOf(port);
 	}
 
-	public void setSensorsTagInterface(SensorsInterface sensorsInterface)
+	public void setSensorsTagInterface(Context sensorsInterface)
 	{
 		responseHandler.setSensorsTagInterface(sensorsInterface);
 	}

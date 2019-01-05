@@ -162,12 +162,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             {
                 Intent intent = new Intent(getApplicationContext(), TemperatureActivity.class);
                 startActivity(intent);
-
-                Bundle bundle = new Bundle();
-
-
-
-                thiefImage.setVisibility(View.INVISIBLE);
             }
         });
 
