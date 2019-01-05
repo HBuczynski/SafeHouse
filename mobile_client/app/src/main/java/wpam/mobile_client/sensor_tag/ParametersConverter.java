@@ -12,7 +12,7 @@ public class ParametersConverter {
         return ((float)value / 65536.0f)*100.0f;
     }
 
-    public static float getOptical(int value) {
+    public static float getPressure(int value) {
         return value/35.354f;
     }
 }

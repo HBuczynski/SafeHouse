@@ -14,14 +14,12 @@ import android.support.v4.content.LocalBroadcastManager;
 import java.util.ArrayList;
 
 import wpam.mobile_client.client.ClientThread;
-import wpam.mobile_client.protocol.BlindsUPCommand;
 import wpam.mobile_client.protocol.SensorTagSamplesCommand;
 import wpam.mobile_client.sensor_tag.ParameterType;
 import wpam.mobile_client.sensor_tag.ParametersConverter;
 import wpam.mobile_client.sensor_tag.SensorDataType;
 import wpam.mobile_client.sensor_tag.SensorTagType;
 import wpam.mobile_client.sensor_tag.SensorsInterface;
-import wpam.mobile_client.utility.Utility;
 
 public class TemperatureActivity extends PreferenceActivity implements SensorsInterface {
 
@@ -40,7 +38,7 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
     CheckBoxPreference luminacia_I;
     CheckBoxPreference luminacia_II;
     CheckBoxPreference luminacia_III;
-    final String luminaciaUnits = " lx";
+    final String luminaciaUnits = " hPa";
 
     Preference plot_I;
     Preference plot_II;
@@ -470,15 +468,15 @@ public class TemperatureActivity extends PreferenceActivity implements SensorsIn
         if(data.size() == 9) {
             temp_I.setSummary(ParametersConverter.getTemperatureCelcius(data.get(0)) + tempUnits);
             humidity_I.setSummary(ParametersConverter.getHumidity(data.get(1)) + humidityUnits);
-            luminacia_I.setSummary(ParametersConverter.getOptical(data.get(2)) + luminaciaUnits);
+            luminacia_I.setSummary(ParametersConverter.getPressure(data.get(2)) + luminaciaUnits);
 
-            temp_II.setSummary(data.get(3) + tempUnits);
-            humidity_II.setSummary(data.get(4) + humidityUnits);
-            luminacia_II.setSummary(data.get(5) + luminaciaUnits);
+            temp_II.setSummary(ParametersConverter.getTemperatureCelcius(data.get(3)) + tempUnits);
+            humidity_II.setSummary(ParametersConverter.getHumidity(data.get(4)) + humidityUnits);
+            luminacia_II.setSummary(ParametersConverter.getPressure(data.get(5)) + luminaciaUnits);
 
-            temp_III.setSummary(data.get(6) + tempUnits);
-            humidity_III.setSummary(data.get(7) + humidityUnits);
-            luminacia_III.setSummary(data.get(8) + luminaciaUnits);
+            temp_III.setSummary(ParametersConverter.getTemperatureCelcius(data.get(6)) + tempUnits);
+            humidity_III.setSummary(ParametersConverter.getHumidity(data.get(7)) + humidityUnits);
+            luminacia_III.setSummary(ParametersConverter.getPressure(data.get(8)) + luminaciaUnits);
         }
     }
 

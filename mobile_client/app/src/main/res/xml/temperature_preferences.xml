@@ -16,7 +16,7 @@
             android:checked="false"/>
         <CheckBoxPreference
             android:key="luminacia_I"
-            android:title="Luminancia"
+            android:title="Pressure"
             android:defaultValue="false"
             android:checked="false"/>
         <!--<Preference-->
@@ -42,7 +42,7 @@
             android:checked="false"/>
         <CheckBoxPreference
             android:key="luminacia_II"
-            android:title="Luminancia"
+            android:title="Pressure"
             android:defaultValue="false"
             android:checked="false"/>
         <!--<Preference-->
@@ -67,7 +67,7 @@
             android:checked="false"/>
         <CheckBoxPreference
             android:key="luminacia_III"
-            android:title="Luminancia"
+            android:title="Pressure"
             android:defaultValue="false"
             android:checked="false"/>
         <!--<Preference-->
